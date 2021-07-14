@@ -31,6 +31,8 @@ public class SplashActivity extends AppCompatActivity {
         bau_img=findViewById(R.id.bau_img);
         animation=AnimationUtils.loadAnimation(this,R.anim.anim_to_img);
         bau_img.setAnimation(animation);
+        getWindow().setExitTransition(null);
+        getWindow().setEnterTransition(null);
 
         new Handler().postDelayed(new Runnable() {
             @Override
