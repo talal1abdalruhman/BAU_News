@@ -12,6 +12,9 @@
     <string name="sing_up">sing up</string>
     <string name="already_have_an_account">already have an account?</string>
     <string name="sing_in">sing in</string>
+    <string name="title">Title</string>
+    <string name="now">Now</string>
+    <string name="description">Greyhound divisively hello coldly wonderfully marginally far upon</string>
     <string-array name="colleges_names">
         <item>Medicine</item>
         <item>Engineering</item>

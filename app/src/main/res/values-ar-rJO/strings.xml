@@ -13,6 +13,9 @@
     <string name="sing_up">تسجيل</string>
     <string name="already_have_an_account">أملك حساب</string>
     <string name="sing_in">تسجيل دخول</string>
+    <string name="title">العنوان</string>
+    <string name="now">الآن</string>
+    <string name="description">وصف الخبر</string>
     <string-array name="colleges_names">
         <item>الطب</item>
         <item>الهندسة</item>
