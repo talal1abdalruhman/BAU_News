@@ -2,7 +2,9 @@ package com.example.baunews;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -19,7 +21,6 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         txt_title=findViewById(R.id.txt_title);
         animation= AnimationUtils.loadAnimation(this,R.anim.anim_to_txt);
@@ -28,5 +29,14 @@ public class SplashActivity extends AppCompatActivity {
         bau_img=findViewById(R.id.bau_img);
         animation=AnimationUtils.loadAnimation(this,R.anim.anim_to_img);
         bau_img.setAnimation(animation);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent=new Intent(SplashActivity.this,LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        },2000);
     }
 }
