@@ -19,12 +19,12 @@
     <string name="title">العنوان</string>
     <string name="now">الآن</string>
     <string name="description">وصف الخبر</string>
-    <string name="password_matching">Password isn\'t match</string>
-    <string name="select_collage_error">You should select your collage</string>
-    <string name="verify_dialog_msg">Your account isn\'t verified yet !</string>
-    <string name="send_verification_link">Send Verification Link</string>
-    <string name="incorrect_password">Incorrect Password</string>
-    <string name="email_address_not_register">Email Address Not Registered</string>
+    <string name="password_matching">كلمة المرور غير مطابقة</string>
+    <string name="select_collage_error">يجب اختيار الكلية</string>
+    <string name="verify_dialog_msg">يبدو بأن حسابك غير موثق!</string>
+    <string name="send_verification_link">ارسار رابط التوثيق</string>
+    <string name="incorrect_password">كلمة المرور غير صحيحة</string>
+    <string name="email_address_not_register">البريد الإلكتروني غير مسجل</string>
     <string-array name="colleges_names">
         <item>الطب</item>
         <item>الهندسة</item>
