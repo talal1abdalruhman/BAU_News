@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "29293296615",
+    "project_id": "bau-news",
+    "storage_bucket": "bau-news.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:29293296615:android:eec4e14ed2bc63c52d5b42",
+        "android_client_info": {
+          "package_name": "com.example.baunews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "29293296615-oqgo6l2lr3hhd3ojcj204f7alnhgd37a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbsZYhI41EVkG8RCkv9rACb036t-cAZ4w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "29293296615-oqgo6l2lr3hhd3ojcj204f7alnhgd37a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

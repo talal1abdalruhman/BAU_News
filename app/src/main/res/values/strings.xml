@@ -12,9 +12,18 @@
     <string name="sing_up">sing up</string>
     <string name="already_have_an_account">already have an account?</string>
     <string name="sing_in">sing in</string>
+    <string name="field_cannot_be_empty">Field can\'t be empty</string>
+    <string name="invalid_email_address">Invalid email address</string>
+    <string name="password_is_too_weak">Password is too weak</string>
     <string name="title">Title</string>
     <string name="now">Now</string>
     <string name="description">Greyhound divisively hello coldly wonderfully marginally far upon</string>
+    <string name="password_matching">Password isn\'t match</string>
+    <string name="select_collage_error">You should select your collage</string>
+    <string name="verify_dialog_msg">Your account isn\'t verified yet !</string>
+    <string name="send_verification_link">Send Verification Link</string>
+    <string name="incorrect_password">Incorrect Password</string>
+    <string name="email_address_not_register">Email Address Not Registered</string>
     <string-array name="colleges_names">
         <item>Medicine</item>
         <item>Engineering</item>
