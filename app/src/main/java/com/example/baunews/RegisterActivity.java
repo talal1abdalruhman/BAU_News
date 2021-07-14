@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -42,6 +44,8 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_register);
+        getWindow().setExitTransition(null);
+        getWindow().setEnterTransition(null);
 
         validation = new Validation(this.getResources());
         mAuth = FirebaseAuth.getInstance();
@@ -52,8 +56,16 @@ public class RegisterActivity extends AppCompatActivity {
         binding.signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Pair[] pairs = new Pair[5];
+                pairs[0] = Pair.create(binding.img, "logo");
+                pairs[1] = Pair.create(binding.email, "email");
+                pairs[2] = Pair.create(binding.password, "password");
+                pairs[3] = Pair.create(binding.linearLayout, "underText");
+                pairs[4] = Pair.create(binding.register, "button");
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, pairs);
+
                 Intent intents = new Intent(RegisterActivity.this,LoginActivity.class);
-                startActivity(intents);
+                startActivity(intents, options.toBundle());
             }
         });
 

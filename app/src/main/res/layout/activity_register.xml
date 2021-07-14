@@ -22,7 +22,8 @@
             android:src="@drawable/bau"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:transitionName="logo"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/email"
@@ -41,7 +42,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img"
             app:startIconDrawable="@drawable/ic_email"
-            app:startIconTint="@color/white">
+            app:startIconTint="@color/white"
+            android:transitionName="email">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -70,7 +72,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email"
             app:startIconDrawable="@drawable/ic_lock"
-            app:startIconTint="@color/white">
+            app:startIconTint="@color/white"
+            android:transitionName="password">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -154,17 +157,22 @@
             android:onClick="RegisterUser"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dropdown" />
+            app:layout_constraintTop_toBottomOf="@+id/dropdown"
+            android:transitionName="button"/>
 
         <LinearLayout
+            android:id="@+id/linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="8dp"
             android:gravity="center"
             android:orientation="horizontal"
+            android:transitionName="underText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login">
+            app:layout_constraintTop_toBottomOf="@+id/register">
 
             <TextView
                 android:layout_width="wrap_content"

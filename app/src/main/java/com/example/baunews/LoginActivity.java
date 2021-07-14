@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -54,8 +56,16 @@ public class LoginActivity extends AppCompatActivity {
         binding.signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Pair[] pairs = new Pair[5];
+                pairs[0] = Pair.create(binding.img, "logo");
+                pairs[1] = Pair.create(binding.email, "email");
+                pairs[2] = Pair.create(binding.password, "password");
+                pairs[3] = Pair.create(binding.linearLayout, "underText");
+                pairs[4] = Pair.create(binding.login, "button");
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this, pairs);
+
                 Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
-                startActivity(intent);
+                startActivity(intent, options.toBundle());
             }
         });
 
