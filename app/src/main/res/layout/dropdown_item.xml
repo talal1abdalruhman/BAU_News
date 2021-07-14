@@ -1,0 +1,10 @@
+ <TextView
+     android:id="@+id/textView"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:text="@string/college"
+     android:padding="@dimen/_14sdp"
+     android:textColor="@color/black"
+     android:textStyle="bold"
+     android:textSize="@dimen/_16ssp"
+     xmlns:android="http://schemas.android.com/apk/res/android" />

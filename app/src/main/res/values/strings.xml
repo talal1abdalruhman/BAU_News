@@ -3,8 +3,25 @@
     <string name="todo">TODO</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
     <string name="forget_password">forget password ?</string>
     <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="college">College</string>
     <string name="don_t_have_an_account">Don’t have an account?</string>
     <string name="sing_up">sing up</string>
+    <string name="already_have_an_account">already have an account?</string>
+    <string name="sing_in">sing in</string>
+    <string-array name="colleges_names">
+        <item>Medicine</item>
+        <item>Engineering</item>
+        <item>Information and Communication Technology</item>
+        <item>Science</item>
+        <item>Agricultural Technology</item>
+        <item>Business</item>
+        <item>Salt College</item>
+        <item>Al-Salt Technical College</item>
+        <item>Artificial Intelligence</item>
+        <item>Law</item>
+    </string-array>
 </resources>

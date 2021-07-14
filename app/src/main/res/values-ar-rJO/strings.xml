@@ -4,8 +4,25 @@
     <string name="todo">TODO</string>
     <string name="email">الايميل</string>
     <string name="password">كلمة المرور</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
     <string name="forget_password">نسيت كلمةالمرور؟</string>
     <string name="login">دخول</string>
+    <string name="register">تسجيل</string>
+    <string name="college">الكلية</string>
     <string name="don_t_have_an_account">لا أملك حساب؟</string>
     <string name="sing_up">تسجيل</string>
+    <string name="already_have_an_account">أملك حساب</string>
+    <string name="sing_in">تسجيل دخول</string>
+    <string-array name="colleges_names">
+        <item>الطب</item>
+        <item>الهندسة</item>
+        <item>الاتصالات وتكنولوجيا المعلومات</item>
+        <item>العلوم</item>
+        <item>الزراعة التكنلوجية</item>
+        <item>الأعمال</item>
+        <item>السلط للعلوم الإنسانية</item>
+        <item>السلط التقنية</item>
+        <item>الذكاء الاصطناعي</item>
+        <item>الحقوق</item>
+    </string-array>
 </resources>
