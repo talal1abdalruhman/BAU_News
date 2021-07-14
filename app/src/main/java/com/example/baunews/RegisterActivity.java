@@ -1,29 +1,36 @@
 package com.example.baunews;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class RegisterActivity extends AppCompatActivity {
+import com.example.baunews.databinding.ActivityRegisterBinding;
 
-    TextView login;
+public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        ActivityRegisterBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_register);
 
-        //note : connect string array to dropdown when use bining view.
-         login = findViewById(R.id.sign_in);
-         login.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
-                 startActivity(intent);
-             }
-         });
+        //intent Activity
+        binding.signIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //add dropdown
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.colleges_names, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(R.layout.dropdown_item);
+        binding.autoComplete.setAdapter(adapter);
     }
 }
