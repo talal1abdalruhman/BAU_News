@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">BAU News</string>
+    <string name="todo">TODO</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forget_password">forget password ?</string>
+    <string name="login">Login</string>
+    <string name="don_t_have_an_account">Don’t have an account?</string>
+    <string name="sing_up">sing up</string>
 </resources>

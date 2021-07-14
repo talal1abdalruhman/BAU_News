@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">أخبار البلقاء</string>
+    <string name="todo">TODO</string>
+    <string name="email">الايميل</string>
+    <string name="password">كلمة المرور</string>
+    <string name="forget_password">نسيت كلمةالمرور؟</string>
+    <string name="login">دخول</string>
+    <string name="don_t_have_an_account">لا أملك حساب؟</string>
+    <string name="sing_up">تسجيل</string>
+</resources>
