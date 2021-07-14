@@ -1,6 +1,8 @@
 package com.example.baunews;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,12 +31,15 @@ public class SplashActivity extends AppCompatActivity {
         bau_img=findViewById(R.id.bau_img);
         animation=AnimationUtils.loadAnimation(this,R.anim.anim_to_img);
         bau_img.setAnimation(animation);
+        getWindow().setExitTransition(null);
+        getWindow().setEnterTransition(null);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 Intent intent=new Intent(SplashActivity.this,LoginActivity.class);
-                startActivity(intent);
+                ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(SplashActivity.this, bau_img, ViewCompat.getTransitionName(bau_img));
+                startActivity(intent, optionsCompat.toBundle());
                 finish();
             }
         },2000);
