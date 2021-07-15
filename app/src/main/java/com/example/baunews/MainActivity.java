@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.ColorSpace;
 import android.os.Bundle;
@@ -29,5 +30,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         binding.nav.setItemIconTintList(null);
+        binding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this,CreateNewsActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }

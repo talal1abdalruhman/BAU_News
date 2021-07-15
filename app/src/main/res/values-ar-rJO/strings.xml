@@ -30,6 +30,11 @@
     <string name="log_out">تسجيل الخروج</string>
     <string name="reset_password">إعادة تعيين كلمة المرور</string>
     <string name="news">الأخبار</string>
+    <string name="add_others">إضافة المزيد</string>
+    <string name="add_image">إضافة صورة</string>
+    <string name="add_url">إضافة رابط</string>
+    <string name="add_pdf">إضافة ملف pdf</string>
+    <string name="type_description_here">اكتب وصف الخبر</string>
     <string-array name="colleges_names">
         <item>الطب</item>
         <item>الهندسة</item>
