@@ -24,7 +24,11 @@
     <string name="send_verification_link">Send Verification Link</string>
     <string name="incorrect_password">Incorrect Password</string>
     <string name="email_address_not_register">Email Address Not Registered</string>
-    <string name="reset_password">Reset Password</string>
+    <string name="general">General</string>
+    <string name="settings">settings</string>
+    <string name="log_out">Logout</string>
+    <string name="reset_password">reset_password</string>
+    <string name="news">News</string>
     <string-array name="colleges_names">
         <item>Medicine</item>
         <item>Engineering</item>

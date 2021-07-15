@@ -29,7 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.installations.FirebaseInstallations;
 import com.google.firebase.installations.InstallationTokenResult;
-import com.google.firebase.storage.StorageReference;
+
 
 public class RegisterActivity extends AppCompatActivity {
     private static final String AUTH_COMPLETE = "AUTH_COMPLETE";

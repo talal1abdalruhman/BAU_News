@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/news">
+        <menu>
+            <item android:id="@+id/college_news" android:title="@string/college" android:icon="@drawable/ic_college"/>
+            <item android:id="@+id/Generral_ews" android:title="@string/general" android:icon="@drawable/bau"/>
+        </menu>
+    </item>
+
+    <group android:checkableBehavior="single">
+        <item  android:id="@+id/settings" android:title="@string/settings" android:icon="@drawable/ic_settings"/>
+        <item  android:id="@+id/logout" android:title="@string/log_out" android:icon="@drawable/ic_logout"/>
+    </group>
+
+</menu>
