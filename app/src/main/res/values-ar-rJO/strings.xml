@@ -25,6 +25,7 @@
     <string name="send_verification_link">ارسار رابط التوثيق</string>
     <string name="incorrect_password">كلمة المرور غير صحيحة</string>
     <string name="email_address_not_register">البريد الإلكتروني غير مسجل</string>
+    <string name="reset_password">Reset Password</string>
     <string-array name="colleges_names">
         <item>الطب</item>
         <item>الهندسة</item>

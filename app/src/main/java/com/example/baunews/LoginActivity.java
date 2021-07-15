@@ -69,6 +69,20 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        binding.forgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Pair[] pairs = new Pair[3];
+                pairs[0] = Pair.create(binding.img, "logo");
+                pairs[1] = Pair.create(binding.email, "email");
+                pairs[2] = Pair.create(binding.login, "button");
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this, pairs);
+
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                startActivity(intent, options.toBundle());
+            }
+        });
+
     }
 
     public void LoginUser(View view) {

@@ -136,4 +136,17 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
     }
+
+    public void GoBackToLogin(View view) {
+        Pair[] pairs = new Pair[5];
+        pairs[0] = Pair.create(binding.img, "logo");
+        pairs[1] = Pair.create(binding.email, "email");
+        pairs[2] = Pair.create(binding.password, "password");
+        pairs[3] = Pair.create(binding.linearLayout, "underText");
+        pairs[4] = Pair.create(binding.register, "button");
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, pairs);
+
+        Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+        startActivity(intent, options.toBundle());
+    }
 }

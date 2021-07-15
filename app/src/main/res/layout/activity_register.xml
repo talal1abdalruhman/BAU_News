@@ -14,16 +14,27 @@
         tools:context=".RegisterActivity">
 
         <ImageView
-            android:contentDescription="@string/todo"
+            android:id="@+id/back_btn"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="GoBackToLogin"/>
+
+        <ImageView
             android:id="@+id/img"
             android:layout_width="@dimen/_120sdp"
             android:layout_height="@dimen/_120sdp"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/todo"
             android:src="@drawable/bau"
+            android:transitionName="logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:transitionName="logo"/>
+            app:layout_constraintTop_toBottomOf="@+id/back_btn" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/email"
