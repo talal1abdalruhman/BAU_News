@@ -1,20 +1,30 @@
 package com.example.baunews;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.example.baunews.databinding.ActivityCreateNewsBinding;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class CreateNewsActivity extends AppCompatActivity {
+
+    ActivityCreateNewsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_news);
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_create_news);
         AddOthers();
+        binding.txtDateAndTime.setText(new SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm a", Locale.getDefault()).format(new Date()));
     }
 
     private void AddOthers() {

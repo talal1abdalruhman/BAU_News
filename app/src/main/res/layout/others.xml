@@ -7,7 +7,9 @@
     android:background="@drawable/background"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:behavior_peekHeight="@dimen/_40sdp"
+    app:behavior_peekHeight="@dimen/_30sdp"
+    android:layout_marginStart="@dimen/_3sdp"
+    android:layout_marginEnd="@dimen/_3sdp"
     app:layout_behavior="@string/bottom_sheet_behavior">
 
     <TextView

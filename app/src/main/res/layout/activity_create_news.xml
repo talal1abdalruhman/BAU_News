@@ -1,129 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/main_background"
-    tools:context=".CreateNewsActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
 
-    <ScrollView
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="50dp"
-        android:clipToPadding="false"
-        android:paddingBottom="20dp">
+        android:background="#f8f8ff"
+        tools:context=".CreateNewsActivity">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:animateLayoutChanges="true">
-            
-            <ImageView
-                android:contentDescription="@string/todo"
-                android:id="@+id/btnBack"
-                android:layout_margin="@dimen/_10sdp"
-                android:src="@drawable/ic_back"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                app:tint="@color/white" />
-            <ImageView
-                android:contentDescription="@string/todo"
-                android:id="@+id/btnSave"
-                android:layout_margin="@dimen/_10sdp"
-                app:layout_constraintBottom_toBottomOf="@id/btnBack"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/btnBack"
-                android:src="@drawable/ic_done"
-                android:background="@drawable/background_done_button"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                app:tint="@color/white" />
+            android:layout_height="match_parent"
+            android:layout_marginBottom="50dp"
+            android:clipToPadding="false"
+            android:paddingBottom="20dp">
 
-            <EditText
-                android:autofillHints="null"
-                android:id="@+id/txtTitle"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_margin="@dimen/_10sdp"
-                android:background="@null"
-                android:fontFamily="@font/bold"
-                android:hint="@string/title"
-                android:inputType="text"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textSize="@dimen/_15ssp"
-                app:layout_constraintTop_toBottomOf="@id/btnBack"/>
-
-            <TextView
-                android:id="@+id/txtDateAndTime"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/regular"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_12ssp"
-                app:layout_constraintEnd_toEndOf="@+id/txtTitle"
-                app:layout_constraintStart_toStartOf="@+id/txtTitle"
-                app:layout_constraintTop_toBottomOf="@+id/txtTitle"/>
-            <ImageView
-                android:id="@+id/imageNews"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/app_name"
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/txtTitle"/>
+                android:animateLayoutChanges="true">
 
-            <LinearLayout
-                android:id="@+id/layoutWebURL"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/imageNews"
-                tools:ignore="UseCompoundDrawables">
+                <RelativeLayout
+                    android:background="@drawable/main_background"
+                    android:id="@+id/relative"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp">
+
+                    <ImageView
+                        android:id="@+id/btnBack"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:contentDescription="@string/todo"
+                        android:src="@drawable/ic_back"
+                        app:tint="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/btnSave"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/background_done_button"
+                        android:contentDescription="@string/todo"
+                        android:src="@drawable/ic_done"
+                        app:tint="@color/white" />
+
+                </RelativeLayout>
+
+                <EditText
+                    android:autofillHints="null"
+                    android:id="@+id/txtTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:background="@null"
+                    android:fontFamily="@font/bold"
+                    android:hint="@string/title"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/blackColor"
+                    android:textSize="@dimen/_15ssp"
+                    app:layout_constraintTop_toBottomOf="@id/relative" />
 
                 <TextView
-                    android:id="@+id/textWebURL"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:id="@+id/txtDateAndTime"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:autoLink="web"
+                    android:fontFamily="@font/regular"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintEnd_toEndOf="@+id/txtTitle"
+                    app:layout_constraintStart_toStartOf="@+id/txtTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
+
+                <ImageView
+                    android:id="@+id/imageNews"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/app_name"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@id/txtTitle" />
+
+                <EditText
+                    android:id="@+id/txtDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:background="@null"
                     android:textStyle="normal"
+                    android:gravity="top"
+                    android:hint="@string/type_description_here"
+                    android:importantForAutofill="no"
                     android:includeFontPadding="false"
-                    android:textSize="18sp"/>
-            </LinearLayout>
+                    android:inputType="textMultiLine"
+                    android:minHeight="150dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/blackColor"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtDateAndTime" />
 
-            <EditText
-                android:id="@+id/txtDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
-                android:background="@null"
-                android:textStyle="normal"
-                android:gravity="top"
-                android:hint="@string/type_description_here"
-                android:importantForAutofill="no"
-                android:includeFontPadding="false"
-                android:inputType="textMultiLine"
-                android:minHeight="150dp"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layoutWebURL"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
 
-    </ScrollView>
+        <include layout="@layout/others" />
 
-    <include
-        layout="@layout/others"/>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

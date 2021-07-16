@@ -21,7 +21,7 @@
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="@dimen/_40sdp"
                 android:background="@drawable/main_background"
                 android:gravity="center"
                 android:orientation="horizontal"
@@ -31,7 +31,7 @@
                 <ImageView
                     android:layout_marginStart="@dimen/_8sdp"
                     android:id="@+id/menu"
-                    android:layout_width="@dimen/_20sdp"
+                    android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_20sdp"
                     android:src="@drawable/ic_menu"
                     app:tint="@color/white"
@@ -43,7 +43,7 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:text="@string/app_name"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_12ssp"
+                    android:textSize="@dimen/_15ssp"
                     android:fontFamily="@font/bold" />
 
             </LinearLayout>
@@ -52,6 +52,8 @@
                 android:id="@+id/floatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="@dimen/_5sdp"
+                app:fabCustomSize="@dimen/_40sdp"
                 android:contentDescription="@string/todo"
                 android:layout_marginBottom="@dimen/_60sdp"
                 android:layout_marginEnd="@dimen/_30sdp"
@@ -59,17 +61,17 @@
                 app:backgroundTint="@color/mainColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/ic_add" />
+                app:srcCompat="@drawable/ic_add"
+                android:tint="@color/white"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         <com.google.android.material.navigation.NavigationView
             app:menu="@menu/main_menu"
             app:headerLayout="@layout/header"
             android:background="@drawable/main_background"
             android:id="@+id/nav"
-            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_marginTop="@dimen/_40sdp"
             android:layout_gravity="start"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
