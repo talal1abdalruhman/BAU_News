@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -25,6 +26,13 @@ public class CreateNewsActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_create_news);
         AddOthers();
         binding.txtDateAndTime.setText(new SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm a", Locale.getDefault()).format(new Date()));
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CreateNewsActivity.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void AddOthers() {

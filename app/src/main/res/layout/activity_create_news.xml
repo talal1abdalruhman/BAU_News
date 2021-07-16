@@ -45,6 +45,7 @@
                         android:layout_marginStart="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:contentDescription="@string/todo"
+                        android:clickable="true"
                         android:src="@drawable/ic_back"
                         app:tint="@color/white" />
 
