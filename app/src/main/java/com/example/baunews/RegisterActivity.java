@@ -79,7 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         //add dropdown
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.colleges_names, android.R.layout.simple_spinner_item);
+                R.array.colleges_names, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(R.layout.dropdown_item);
         binding.autoComplete.setAdapter(adapter);
     }

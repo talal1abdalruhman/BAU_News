@@ -135,7 +135,7 @@
                 android:fontFamily="@font/bold"
                 android:text="@string/sing_up"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_13ssp" />
+                android:textSize="@dimen/_11ssp" />
         </LinearLayout>
 
 

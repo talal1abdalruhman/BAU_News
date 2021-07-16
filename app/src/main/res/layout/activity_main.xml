@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/drawer"
-        android:background="#f8f8ff"
+        android:background="#FEF8A5"
         tools:context=".MainActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,17 +52,16 @@
                 android:id="@+id/floatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
                 app:fabCustomSize="@dimen/_40sdp"
                 android:contentDescription="@string/todo"
-                android:layout_marginBottom="@dimen/_60sdp"
+                android:layout_marginBottom="@dimen/_40sdp"
                 android:layout_marginEnd="@dimen/_30sdp"
                 android:clickable="true"
                 app:backgroundTint="@color/mainColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/ic_add"
-                android:tint="@color/white"/>
+                app:tint="@android:color/white"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -73,7 +72,7 @@
             android:id="@+id/nav"
             android:layout_marginTop="@dimen/_40sdp"
             android:layout_gravity="start"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_220sdp"
             android:layout_height="match_parent" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
