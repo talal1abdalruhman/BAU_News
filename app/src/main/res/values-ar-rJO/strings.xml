@@ -49,4 +49,6 @@
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">صفحة فارغة</string>
+    <string name="navigation_drawer_open">فتح</string>
+    <string name="navigation_drawer_close">اغلاق</string>
 </resources>
