@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.baunews.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
@@ -23,18 +24,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main);
 
-        setSupportActionBar(binding.toolbar);
-        binding.nav.setNavigationItemSelectedListener(this);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, binding.drawerLayout, binding.toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        binding.drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-        if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container,new GeneralFragment()).commit();
-            binding.nav.setCheckedItem(R.id.general);
-        }
-
         binding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,6 +32,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        setSupportActionBar(binding.toolbar);
+        binding.nav.setNavigationItemSelectedListener(this);
+        binding.nav.bringToFront();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, binding.drawerLayout, binding.toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        binding.drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        if(savedInstanceState == null){
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container,new CollegeFragment()).commit();
+            binding.nav.setCheckedItem(R.id.college);
+        }
     }
 
     @Override
@@ -57,14 +58,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.general){
-            Log.d("General","Clicked");
+            Toast.makeText(this,"General",Toast.LENGTH_SHORT).show();
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container,new GeneralFragment()).commit();
+            binding.nav.setCheckedItem(R.id.general);
         }
         if(item.getItemId() == R.id.college){
-            Log.d("College","Clicked");
+            Toast.makeText(this,"College",Toast.LENGTH_SHORT).show();
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container,new CollegeFragment()).commit();
+            binding.nav.setCheckedItem(R.id.college);
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START);
         return true;

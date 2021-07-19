@@ -40,6 +40,7 @@
             app:headerLayout="@layout/header"
             android:background="@drawable/main_background"
             android:id="@+id/nav"
+            android:clickable="true"
             android:layout_marginTop="@dimen/_62sdp"
             android:layout_gravity="start"
             android:layout_width="@dimen/_220sdp"
