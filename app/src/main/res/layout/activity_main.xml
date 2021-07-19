@@ -41,6 +41,8 @@
             android:background="@drawable/main_background"
             android:id="@+id/nav"
             android:clickable="true"
+            app:itemTextColor="@color/light_blue"
+            app:itemIconTint="@color/light_blue"
             android:layout_marginTop="@dimen/_62sdp"
             android:layout_gravity="start"
             android:layout_width="@dimen/_220sdp"
