@@ -10,6 +10,7 @@
     <color name="light_blue">#cadbd6</color>
     <color name="blackColor">#80000000</color>
     <color name="mainColor">#00C637</color>
+    <color name="fragmentMain">#FEF8A5</color>
     <color name="assentsColor">#333333</color>
 
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#fff</color>
