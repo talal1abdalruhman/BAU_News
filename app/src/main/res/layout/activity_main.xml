@@ -8,49 +8,46 @@
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
-        android:background="@color/fragmentMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        tools:context="com.example.maintrail.MainActivity">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/mainColor"
-                android:elevation="4dp"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
-            <FrameLayout
-                android:id="@+id/fragment_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-
-        <com.google.android.material.navigation.NavigationView
-            app:menu="@menu/main_menu"
-            app:headerLayout="@layout/header"
-            android:background="@drawable/main_background"
-            android:id="@+id/nav"
-            android:clickable="true"
-            app:itemTextColor="@color/light_blue"
-            app:itemIconTint="@color/light_blue"
-            android:layout_marginTop="@dimen/_62sdp"
-            android:layout_gravity="start"
-            android:layout_width="@dimen/_220sdp"
-            android:layout_height="match_parent" />
+        tools:context=".MainActivity"
+        android:id="@+id/drawer_layout"
+        android:background="@color/fragmentMain">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:background="@color/mainColor"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/menu"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:src="@drawable/ic_menu"
+                    android:contentDescription="@string/app_name"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_11sdp"
+                    android:text="@string/app_name"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_18ssp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/floatingActionButton"
@@ -66,6 +63,25 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/ic_add"
                 app:tint="@android:color/white" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <fragment
+            android:id="@+id/fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/my_nav"/>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:layout_marginTop="?actionBarSize"
+            app:headerLayout="@layout/header"
+            android:background="@drawable/background"
+            app:menu="@menu/main_menu" />
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

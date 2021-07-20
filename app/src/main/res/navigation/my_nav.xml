@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/general_news">
+
+    <fragment
+        android:id="@+id/general_news"
+        android:name="com.example.baunews.GeneralFragment"
+        android:label="General"
+        tools:layout="@layout/fragment_general" />
+    <fragment
+        android:id="@+id/college_news"
+        android:name="com.example.baunews.CollegeFragment"
+        android:label="College"
+        tools:layout="@layout/fragment_college" />
+</navigation>

@@ -8,7 +8,7 @@
                 android:title="@string/college"
                 android:icon="@drawable/ic_college" />
             <item
-                android:id="@+id/General_news"
+                android:id="@+id/general_news"
                 android:title="@string/general"
                 android:icon="@drawable/bau"/>
         </menu>
