@@ -2,9 +2,8 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:elevation="@dimen/_10sdp"
-    android:padding="@dimen/_5sdp"
-    android:layout_margin="@dimen/_10sdp"
-    app:cardCornerRadius="@dimen/_15sdp"
+    android:padding="@dimen/_2sdp"
+    app:cardCornerRadius="@dimen/_10sdp"
     app:cardBackgroundColor="@color/mainColor"
     android:clickable="true"
     android:layout_width="match_parent"
@@ -53,8 +52,9 @@
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/_3sdp"
             android:src="@drawable/bau"
-            android:layout_width="@dimen/_300sdp"
-            android:layout_height="@dimen/_300sdp"/>
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_150sdp"
+            android:scaleType="centerCrop"/>
         <View
             android:background="@color/white"
             android:layout_width="match_parent"

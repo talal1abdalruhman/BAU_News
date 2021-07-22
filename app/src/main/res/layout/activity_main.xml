@@ -8,57 +8,51 @@
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/fragmentMain"
         tools:context=".MainActivity"
-        android:id="@+id/drawer_layout"
-        android:background="@color/fragmentMain">
+        tools:openDrawer="start">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.google.android.material.circularreveal.CircularRevealLinearLayout
-                android:id="@+id/toolbar"
+            <LinearLayout
+                android:id="@+id/toolbar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
+                android:layout_height="?attr/actionBarSize"
                 android:background="@color/mainColor"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingStart="@dimen/_10sdp"
-                android:paddingEnd="@dimen/_10sdp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/menu"
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_25sdp"
-                    android:src="@drawable/ic_menu"
-                    android:contentDescription="@string/app_name"
-                    app:tint="@color/white" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/title"
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_11sdp"
-                    android:text="@string/app_name"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_18ssp"
-                    android:textStyle="bold" />
-
-            </com.google.android.material.circularreveal.CircularRevealLinearLayout>
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/mainColor"
+                    android:elevation="50dp"
+                    android:theme="?attr/actionBarTheme"
+                    app:navigationIcon="@drawable/ic_menu"
+                    app:theme="@style/ToolbarColoredBackArrow"
+                    app:title=" "
+                    app:titleTextColor="@color/white"
+                    tools:ignore="MissingConstraints" />
+            </LinearLayout>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/floatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:fabCustomSize="@dimen/_40sdp"
-                android:contentDescription="@string/todo"
-                android:layout_marginBottom="@dimen/_40sdp"
-                android:layout_marginEnd="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
                 android:clickable="true"
-                app:backgroundTint="@color/mainColor"
+                android:contentDescription="@string/todo"
+                app:backgroundTint="@color/deep_green"
+                app:fabCustomSize="@dimen/_40sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/ic_add"
@@ -66,12 +60,12 @@
 
             <fragment
                 android:id="@+id/fragment"
+                android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintTop_toBottomOf="@id/toolbar"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:name="androidx.navigation.fragment.NavHostFragment"
                 app:defaultNavHost="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar_layout"
                 app:navGraph="@navigation/my_nav" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -81,9 +75,12 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:layout_marginTop="?actionBarSize"
-            app:headerLayout="@layout/header"
+            android:layout_marginTop="?attr/actionBarSize"
             android:background="@drawable/background"
+            app:headerLayout="@layout/header"
+            app:itemBackground="@drawable/item_select_theme"
+            app:itemIconTint="@color/white"
+            app:itemTextColor="@color/white"
             app:menu="@menu/main_menu" />
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

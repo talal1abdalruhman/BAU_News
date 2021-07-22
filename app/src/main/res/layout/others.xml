@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutAddOthers"
     android:orientation="vertical"
-    android:background="@drawable/background"
+    android:background="@drawable/background_others"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:behavior_peekHeight="@dimen/_33sdp"

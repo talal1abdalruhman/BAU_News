@@ -114,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Log.d(AUTH_COMPLETE, "user data added");
-                                        // TODO: return user to loginScreen, Add progressBar and Disaple register button
+                                        // TODO: return user to loginScreen, Add progressBar and Disable register button
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override

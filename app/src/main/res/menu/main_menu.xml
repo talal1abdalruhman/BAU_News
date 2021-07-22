@@ -4,25 +4,29 @@
     <item android:title="@string/news">
         <menu android:checkableBehavior="single">
             <item
-                android:id="@+id/college_news"
-                android:title="@string/college"
-                android:icon="@drawable/ic_college" />
-            <item
                 android:id="@+id/general_news"
-                android:title="@string/general"
-                android:icon="@drawable/bau"/>
+                android:checkable="true"
+                android:icon="@drawable/bau"
+                android:title="@string/general" />
+            <item
+                android:id="@+id/college_news"
+                android:checkable="true"
+                android:icon="@drawable/ic_college"
+                android:title="@string/college" />
+
         </menu>
     </item>
 
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/settings"
-            android:title="@string/settings"
-            android:icon="@drawable/ic_settings" />
+            android:checkable="true"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/settings" />
         <item
             android:id="@+id/logout"
-            android:title="@string/log_out"
-            android:icon="@drawable/ic_logout"/>
+            android:icon="@drawable/ic_logout"
+            android:title="@string/log_out" />
     </group>
 
 </menu>

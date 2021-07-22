@@ -9,10 +9,18 @@
         android:id="@+id/general_news"
         android:name="com.example.baunews.GeneralFragment"
         android:label="General"
-        tools:layout="@layout/fragment_general" />
+        tools:layout="@layout/fragment_general" >
+        <action
+            android:id="@+id/action_general_news_to_college_news"
+            app:destination="@id/college_news" />
+    </fragment>
     <fragment
         android:id="@+id/college_news"
         android:name="com.example.baunews.CollegeFragment"
         android:label="College"
-        tools:layout="@layout/fragment_college" />
+        tools:layout="@layout/fragment_college" >
+        <action
+            android:id="@+id/action_college_news_to_general_news"
+            app:destination="@id/general_news" />
+    </fragment>
 </navigation>

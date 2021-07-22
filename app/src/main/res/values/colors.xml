@@ -12,6 +12,7 @@
     <color name="mainColor">#00C637</color>
     <color name="fragmentMain">#FEF8A5</color>
     <color name="assentsColor">#333333</color>
+    <color name="deep_green">#02a951</color>
 
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#fff</color>
 
