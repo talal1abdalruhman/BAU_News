@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <com.google.android.material.circularreveal.CircularRevealLinearLayout
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
@@ -29,7 +29,7 @@
                 android:paddingEnd="@dimen/_10sdp"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/menu"
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
@@ -37,7 +37,7 @@
                     android:contentDescription="@string/app_name"
                     app:tint="@color/white" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                     android:textSize="@dimen/_18ssp"
                     android:textStyle="bold" />
 
-            </LinearLayout>
+            </com.google.android.material.circularreveal.CircularRevealLinearLayout>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/floatingActionButton"

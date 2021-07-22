@@ -53,8 +53,8 @@
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/_3sdp"
             android:src="@drawable/bau"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_width="@dimen/_300sdp"
+            android:layout_height="@dimen/_300sdp"/>
         <View
             android:background="@color/white"
             android:layout_width="match_parent"
