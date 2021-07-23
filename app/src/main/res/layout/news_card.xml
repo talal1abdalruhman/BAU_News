@@ -1,74 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_10sdp"
+    android:clickable="true"
     android:elevation="@dimen/_10sdp"
     android:padding="@dimen/_5sdp"
-    android:layout_margin="@dimen/_10sdp"
-    app:cardCornerRadius="@dimen/_15sdp"
     app:cardBackgroundColor="@color/mainColor"
-    android:clickable="true"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    app:cardCornerRadius="@dimen/_15sdp">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_margin="@dimen/_3sdp"
-            android:orientation="horizontal"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/_3sdp"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/news_title"
-                android:textColor="@color/white"
-                android:fontFamily="@font/bold"
-                android:textSize="@dimen/_15ssp"
-                android:text="@string/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:fontFamily="@font/bold"
+                android:text="@string/title"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_15ssp" />
+
             <TextView
                 android:id="@+id/news_date"
-                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_weight="3"
                 android:fontFamily="@font/medium"
                 android:text="@string/now"
-                android:layout_weight="3"
-                android:textSize="@dimen/_10ssp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10ssp" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <View
-            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"/>
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/white" />
 
         <ImageView
             android:id="@+id/news_img"
-            android:contentDescription="@string/todo"
+            android:layout_width="@dimen/_300sdp"
+            android:layout_height="@dimen/_300sdp"
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/_3sdp"
-            android:src="@drawable/bau"
-            android:layout_width="@dimen/_300sdp"
-            android:layout_height="@dimen/_300sdp"/>
+            android:contentDescription="@string/todo"
+            android:src="@drawable/bau" />
+
         <View
-            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"/>
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/white" />
 
         <TextView
             android:id="@+id/news_description"
-            android:layout_margin="@dimen/_3sdp"
-            android:textColor="@color/white"
-            android:fontFamily="@font/regular"
-            android:textSize="@dimen/_10ssp"
-            android:text="@string/description"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"/>
+            android:layout_height="@dimen/_30sdp"
+            android:layout_gravity="start"
+            android:layout_margin="@dimen/_3sdp"
+            android:fontFamily="@font/regular"
+            android:text="@string/description"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp" />
 
     </LinearLayout>
 

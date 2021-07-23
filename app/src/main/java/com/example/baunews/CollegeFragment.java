@@ -52,10 +52,10 @@ public class CollegeFragment extends Fragment {
         int[] appscovers = new int[]{
                 R.drawable.bau
         };
-        cardsModel a = new cardsModel("News College 1","20/7/2021",appscovers[0],"College");
+        cardsModel a = new cardsModel("الخبر الأول","23/7/2021",appscovers[0],"الكلية");
         cardsLists.add(a);
 
-        a = new cardsModel("News College 4","20/7/2021",appscovers[0],"College");
+        a = new cardsModel("الخبر الثاني","23/7/2021",appscovers[0],"الكلية");
         cardsLists.add(a);
 
         adapter.notifyDataSetChanged();
