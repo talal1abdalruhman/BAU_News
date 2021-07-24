@@ -16,6 +16,7 @@ import android.view.View;
 
 import com.example.baunews.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,14 +57,21 @@ public class MainActivity extends AppCompatActivity {
         binding.navigationView.setCheckedItem(R.id.general_news);
     }
 
-    public void ItemSelectListener(){
+    public void ItemSelectListener() {
         binding.navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                navController.popBackStack();
-                navController.navigate(item.getItemId());
-                item.setChecked(true);
-                binding.drawerLayout.closeDrawers();
+                if (item.getItemId() == R.id.logout) {
+                    FirebaseAuth.getInstance().signOut();
+                    binding.drawerLayout.closeDrawers();
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    finish();
+                } else {
+                    navController.popBackStack();
+                    navController.navigate(item.getItemId());
+                    item.setChecked(true);
+                    binding.drawerLayout.closeDrawers();
+                }
                 return true;
             }
         });
