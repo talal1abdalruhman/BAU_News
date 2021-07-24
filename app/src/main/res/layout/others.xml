@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:fontFamily="@font/regular"
-            android:text="@string/add_pdf"
+            android:text="@string/add_file"
             android:textColor="@color/white"
             android:textSize="@dimen/_13ssp" />
     </LinearLayout>
