@@ -25,6 +25,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/mainColor"
                 android:orientation="vertical"
+                android:elevation="@dimen/_50sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -78,6 +79,7 @@
             android:layout_marginTop="?attr/actionBarSize"
             android:background="@drawable/background"
             app:headerLayout="@layout/header"
+            android:elevation="@dimen/_50sdp"
             app:itemBackground="@drawable/item_select_theme"
             app:itemIconTint="@color/white"
             app:itemTextColor="@color/white"
