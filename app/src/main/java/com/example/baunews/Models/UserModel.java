@@ -1,20 +1,22 @@
-package com.example.baunews.HelperClasses;
+package com.example.baunews.Models;
 
-public class User {
+import com.example.baunews.HelperClasses.Token;
+
+public class UserModel {
     String email, password, collage, collageId;
     Token device_token;
 
-    public User() {
+    public UserModel() {
     }
 
-    public User(String email, String password, String collage, String collageId) {
+    public UserModel(String email, String password, String collage, String collageId) {
         this.email = email;
         this.password = password;
         this.collage = collage;
         this.collageId = collageId;
     }
 
-    public User(String email, String password, String collage, String collageId, Token device_token) {
+    public UserModel(String email, String password, String collage, String collageId, Token device_token) {
         this.email = email;
         this.password = password;
         this.collage = collage;

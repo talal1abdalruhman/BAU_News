@@ -12,10 +12,8 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
-import com.example.baunews.HelperClasses.Token;
-import com.example.baunews.HelperClasses.User;
+import com.example.baunews.Models.UserModel;
 import com.example.baunews.HelperClasses.Validation;
 import com.example.baunews.databinding.ActivityRegisterBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,8 +25,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.installations.FirebaseInstallations;
-import com.google.firebase.installations.InstallationTokenResult;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -106,20 +102,20 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
-                                Log.d(AUTH_COMPLETE, "user verified");
+                                Log.d(AUTH_COMPLETE, "userModel verified");
 
-                                User user = new User(email, password, collageName, collageId);
+                                UserModel userModel = new UserModel(email, password, collageName, collageId);
                                 Log.d(AUTH_COMPLETE, collageId+" "+collageName);
-                                mDatabaseReference.child(currUser.getUid()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                mDatabaseReference.child(currUser.getUid()).setValue(userModel).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Log.d(AUTH_COMPLETE, "user data added");
-                                        // TODO: return user to loginScreen, Add progressBar and Disable register button
+                                        Log.d(AUTH_COMPLETE, "userModel data added");
+                                        // TODO: return userModel to loginScreen, Add progressBar and Disable register button
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Log.d(AUTH_COMPLETE, "user data NOT added");
+                                        Log.d(AUTH_COMPLETE, "userModel data NOT added");
                                     }
                                 });
 

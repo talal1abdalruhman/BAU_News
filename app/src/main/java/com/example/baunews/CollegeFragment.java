@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.example.baunews.HelperClasses.NewsAdapter;
+import com.example.baunews.Models.NewsModel;
 import com.example.baunews.databinding.FragmentCollegeBinding;
 
 import java.util.ArrayList;
@@ -25,8 +27,8 @@ import java.util.List;
  */
 public class CollegeFragment extends Fragment {
 
-    private List<cardsModel> cardsLists;
-    private cardsAdapter adapter;
+    private ArrayList<NewsModel> cardsLists;
+    private NewsAdapter adapter;
     private FragmentCollegeBinding binding;
 
     @Override
@@ -36,7 +38,7 @@ public class CollegeFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_college, container, false);
         View view = binding.getRoot();
         cardsLists = new ArrayList<>();
-        adapter = new cardsAdapter(getContext(),cardsLists);
+        adapter = new NewsAdapter(getContext(),cardsLists);
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(),1);
         binding.recyclerView.setLayoutManager(layoutManager);
@@ -45,21 +47,21 @@ public class CollegeFragment extends Fragment {
         binding.recyclerView.setItemAnimator(new DefaultItemAnimator());
         binding.recyclerView.setAdapter(adapter);
 
-        insertDataIntoCards();
+        //insertDataIntoCards();
         return view;
     }
-    private void insertDataIntoCards() {
-        int[] appscovers = new int[]{
-                R.drawable.bau
-        };
-        cardsModel a = new cardsModel("الخبر الأول","23/7/2021",appscovers[0],"الكلية");
-        cardsLists.add(a);
-
-        a = new cardsModel("الخبر الثاني","23/7/2021",appscovers[0],"الكلية");
-        cardsLists.add(a);
-
-        adapter.notifyDataSetChanged();
-    }
+//    private void insertDataIntoCards() {
+//        int[] appscovers = new int[]{
+//                R.drawable.bau
+//        };
+//        NewsModel a = new NewsModel("الخبر الأول","23/7/2021",appscovers[0],"الكلية");
+//        cardsLists.add(a);
+//
+//        a = new NewsModel("الخبر الثاني","23/7/2021",appscovers[0],"الكلية");
+//        cardsLists.add(a);
+//
+//        adapter.notifyDataSetChanged();
+//    }
 
     private int dpToPx(int dp) {
 
