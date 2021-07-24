@@ -38,7 +38,7 @@
                 android:id="@+id/news_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
+                android:layout_alignRight="@id/news_img"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_20sdp"
                 android:background="#F1EAEA"
@@ -59,11 +59,12 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/news_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_16sdp"
             android:layout_marginRight="@dimen/_20sdp"
             android:layout_marginBottom="@dimen/_16sdp"
+            android:gravity="right"
             android:layout_weight="1"
             android:fontFamily="@font/bold"
             android:text="@string/title"
