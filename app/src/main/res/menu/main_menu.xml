@@ -19,7 +19,7 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/settings"
+            android:id="@+id/settings_news"
             android:checkable="true"
             android:icon="@drawable/ic_settings"
             android:title="@string/settings" />
