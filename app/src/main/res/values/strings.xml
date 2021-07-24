@@ -53,4 +53,16 @@
     <string name="enter_url">Enter Url</string>
     <string name="cancel">Cancel</string>
     <string name="add">Add</string>
+    <string name="language">Language</string>
+    <string name="darkmode">Dark Mode</string>
+    <string-array name="languages">
+        <item>Default</item>
+        <item>English</item>
+        <item>Arabic</item>
+    </string-array>
+    <string-array name="themes">
+        <item>Default</item>
+        <item>On</item>
+        <item>Off</item>
+    </string-array>
 </resources>
