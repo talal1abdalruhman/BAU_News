@@ -75,8 +75,8 @@
         <TextView
             android:visibility="invisible"
             android:id="@+id/news_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_gravity="start"
             android:layout_margin="@dimen/_3sdp"
             android:fontFamily="@font/regular"
