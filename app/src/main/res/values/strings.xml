@@ -32,7 +32,7 @@
     <string name="add_others">Add Others</string>
     <string name="add_image">add image</string>
     <string name="add_url">add URL</string>
-    <string name="add_pdf">add PDF</string>
+    <string name="add_file">add File</string>
     <string name="type_description_here">type description here</string>
     <string-array name="colleges_names">
         <item>Medicine</item>
@@ -50,4 +50,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="navigation_drawer_open">open</string>
     <string name="navigation_drawer_close">close</string>
+    <string name="enter_url">Enter Url</string>
+    <string name="cancel">Cancel</string>
+    <string name="add">Add</string>
 </resources>

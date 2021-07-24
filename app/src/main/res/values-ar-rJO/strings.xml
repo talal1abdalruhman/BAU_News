@@ -33,7 +33,7 @@
     <string name="add_others">إضافة المزيد</string>
     <string name="add_image">إضافة صورة</string>
     <string name="add_url">إضافة رابط</string>
-    <string name="add_pdf">إضافة ملف pdf</string>
+    <string name="add_file">إضافة ملف</string>
     <string name="type_description_here">اكتب وصف الخبر</string>
     <string-array name="colleges_names">
         <item>الطب</item>
@@ -51,4 +51,7 @@
     <string name="hello_blank_fragment">صفحة فارغة</string>
     <string name="navigation_drawer_open">فتح</string>
     <string name="navigation_drawer_close">اغلاق</string>
+    <string name="enter_url">ادخل الرابط</string>
+    <string name="cancel">إلغاء</string>
+    <string name="add">إضافة</string>
 </resources>
