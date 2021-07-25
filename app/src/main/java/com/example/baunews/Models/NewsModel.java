@@ -8,13 +8,14 @@ public class NewsModel {
     private String image;
     private String pdf;
     private String url;
+    private String category;
 
 
     public NewsModel() {
 
     }
 
-    public NewsModel(String id, String title, String date, String description, String image, String pdf, String url) {
+    public NewsModel(String id, String title, String date, String description, String image, String pdf, String url, String category) {
         this.id = id;
         this.title = title;
         this.date = date;
@@ -22,6 +23,15 @@ public class NewsModel {
         this.image = image;
         this.pdf = pdf;
         this.url = url;
+        this.category = category;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getId() {

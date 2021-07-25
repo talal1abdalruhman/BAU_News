@@ -78,6 +78,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder>{
                 Toast.makeText(context,"You clicked: "+ newsModel.getTitle(),Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(v.getContext(), ShowNewsActivity.class);
                 intent.putExtra("news_id", newsModel.getId());
+                intent.putExtra("category", newsModel.getCategory());
                 v.getContext().startActivity(intent);
             }
         });

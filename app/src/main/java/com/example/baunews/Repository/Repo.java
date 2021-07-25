@@ -1,12 +1,16 @@
 package com.example.baunews.Repository;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.baunews.CreateNewsActivity;
 import com.example.baunews.Models.NewsModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -18,8 +22,10 @@ public class Repo {
     private static final String TAG = "Tracing Data";
     static Repo instance;
     private ArrayList<NewsModel> newsModels;
+    private ArrayList<NewsModel> newsModels2;
     static Context mContext;
     MutableLiveData<ArrayList<NewsModel>> newsModel;
+    MutableLiveData<ArrayList<NewsModel>> newsModel2;
 
     public static Repo getInstance() {
         if (instance == null) {
@@ -40,7 +46,7 @@ public class Repo {
     private void RetrieveAllData() {
         Log.d(TAG, "before RetrieveAllData: " + newsModels.size());
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        database.getReference("news").orderByChild("date").addValueEventListener(new ValueEventListener() {
+        database.getReference("news").child("general").orderByChild("date").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -58,5 +64,52 @@ public class Repo {
 
             }
         });
+    }
+
+    public MutableLiveData<ArrayList<NewsModel>> getData2() {
+        newsModels2 = new ArrayList<>();
+        newsModel2 = new MutableLiveData<>();
+        RetrieveAllData2();
+        newsModel2.setValue(newsModels2);
+
+        return newsModel2;
+    }
+
+    private void RetrieveAllData2() {
+        FirebaseUser currUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        database.getReference("users").child(currUser.getUid()).child("collageId")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            String collageId = snapshot.getValue(String.class);
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            database.getReference("news").child(collageId).orderByChild("date").addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if (snapshot.exists()) {
+                                        newsModels2.clear();
+                                        for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                                            newsModels2.add(0, postSnapshot.getValue(NewsModel.class));
+                                        }
+                                        newsModel2.setValue(newsModels2);
+                                        Log.d(TAG, "after RetrieveAllData: " + newsModels2.size());
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 }

@@ -104,7 +104,7 @@ public class RegisterActivity extends AppCompatActivity {
                             if(task.isSuccessful()){
                                 Log.d(AUTH_COMPLETE, "userModel verified");
 
-                                UserModel userModel = new UserModel(email, password, collageName, collageId);
+                                UserModel userModel = new UserModel(email, password, collageName, collageId, "N");
                                 Log.d(AUTH_COMPLETE, collageId+" "+collageName);
                                 mDatabaseReference.child(currUser.getUid()).setValue(userModel).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override

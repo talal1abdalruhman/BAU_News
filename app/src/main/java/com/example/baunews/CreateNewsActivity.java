@@ -56,11 +56,20 @@ public class CreateNewsActivity extends AppCompatActivity {
 
     private static final int IMAGE_REQUEST_CODE = 100;
     private static final int FILE_REQUEST_CODE = 101;
+    private String category, collageId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_news);
+
+        category = getIntent().getStringExtra("news_category");
+        if (category.equals("general")) {
+            Log.d("ADMIN", "general");
+        } else if (category.equals("collage")) {
+            collageId = getIntent().getStringExtra("collage_id");
+            Log.d("ADMIN", "collage id = " + collageId);
+        }
 
 
         AddOthers();
@@ -232,7 +241,11 @@ public class CreateNewsActivity extends AppCompatActivity {
 
     public void UploadNewsData() {
         String currentTime = getCurrentTime();
-        mRef = database.getReference("news");
+        if (category.equals("general")) {
+            mRef = database.getReference("news").child("general");
+        } else {
+            mRef = database.getReference("news").child(collageId);
+        }
         DatabaseReference newsRef = mRef.push();
         String newsId = newsRef.getKey();
         mStorageRef = FirebaseStorage.getInstance().getReference();
@@ -244,7 +257,10 @@ public class CreateNewsActivity extends AppCompatActivity {
             String title = binding.txtTitle.getText().toString().trim();
             String desc = binding.txtDescription.getText().toString().trim();
             String link = (!binding.textWebURL.getText().equals(null)) ? binding.textWebURL.getText().toString().trim() : "null";
-            NewsModel newsModel = new NewsModel(newsId, title, currentTime, desc, "null", "null", link);
+            NewsModel newsModel = new NewsModel(
+                    newsId, title, currentTime,
+                    desc, "null", "null",
+                    link, (category.equals("general")? category : collageId));
             mRef.child(newsId).setValue(newsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
@@ -274,7 +290,10 @@ public class CreateNewsActivity extends AppCompatActivity {
                                 String title = binding.txtTitle.getText().toString().trim();
                                 String desc = binding.txtDescription.getText().toString().trim();
                                 String link = (!binding.textWebURL.getText().equals(null)) ? binding.textWebURL.getText().toString().trim() : "null";
-                                NewsModel newsModel = new NewsModel(newsId, title, currentTime, desc, imageLink, "null", link);
+                                NewsModel newsModel = new NewsModel(
+                                        newsId, title, currentTime,
+                                        desc, imageLink, "null",
+                                        link, (category.equals("general")? category : collageId));
                                 mRef.child(newsId).setValue(newsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
@@ -297,8 +316,8 @@ public class CreateNewsActivity extends AppCompatActivity {
             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                    double progress = (100.0* snapshot.getBytesTransferred())/snapshot.getTotalByteCount();
-                    progressDialog.setMessage((int)progress + "% of data uploaded.");
+                    double progress = (100.0 * snapshot.getBytesTransferred()) / snapshot.getTotalByteCount();
+                    progressDialog.setMessage((int) progress + "% of data uploaded.");
                 }
             });
 
@@ -319,7 +338,10 @@ public class CreateNewsActivity extends AppCompatActivity {
                                 String title = binding.txtTitle.getText().toString().trim();
                                 String desc = binding.txtDescription.getText().toString().trim();
                                 String link = (!binding.textWebURL.getText().equals(null)) ? binding.textWebURL.getText().toString().trim() : "null";
-                                NewsModel newsModel = new NewsModel(newsId, title, currentTime, desc, "null", pdfLink, link);
+                                NewsModel newsModel = new NewsModel(
+                                        newsId, title, currentTime,
+                                        desc, "null", pdfLink,
+                                        link, (category.equals("general")? category : collageId));
                                 mRef.child(newsId).setValue(newsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
@@ -342,8 +364,8 @@ public class CreateNewsActivity extends AppCompatActivity {
             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                    double progress = (100.0* snapshot.getBytesTransferred())/snapshot.getTotalByteCount();
-                    progressDialog.setMessage((int)progress + "% of data uploaded.");
+                    double progress = (100.0 * snapshot.getBytesTransferred()) / snapshot.getTotalByteCount();
+                    progressDialog.setMessage((int) progress + "% of data uploaded.");
                 }
             });
         } else {
@@ -373,7 +395,10 @@ public class CreateNewsActivity extends AppCompatActivity {
                                                     String title = binding.txtTitle.getText().toString().trim();
                                                     String desc = binding.txtDescription.getText().toString().trim();
                                                     String link = (!binding.textWebURL.getText().equals(null)) ? binding.textWebURL.getText().toString().trim() : "null";
-                                                    NewsModel newsModel = new NewsModel(newsId, title, currentTime, desc, imageLink, pdfLink, link);
+                                                    NewsModel newsModel = new NewsModel(
+                                                            newsId, title, currentTime,
+                                                            desc, imageLink, pdfLink,
+                                                            link, (category.equals("general")? category : collageId));
                                                     mRef.child(newsId).setValue(newsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override
                                                         public void onComplete(@NonNull Task<Void> task) {
@@ -405,8 +430,8 @@ public class CreateNewsActivity extends AppCompatActivity {
             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                    double progress = (100.0* snapshot.getBytesTransferred())/snapshot.getTotalByteCount();
-                    progressDialog.setMessage((int)progress + "% of data uploaded.");
+                    double progress = (100.0 * snapshot.getBytesTransferred()) / snapshot.getTotalByteCount();
+                    progressDialog.setMessage((int) progress + "% of data uploaded.");
                 }
             });
         }

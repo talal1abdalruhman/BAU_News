@@ -3,25 +3,35 @@ package com.example.baunews.Models;
 import com.example.baunews.HelperClasses.Token;
 
 public class UserModel {
-    String email, password, collage, collageId;
+    String email, password, collage, collageId, admin;
     Token device_token;
 
     public UserModel() {
     }
 
-    public UserModel(String email, String password, String collage, String collageId) {
+    public UserModel(String email, String password, String collage, String collageId, String admin) {
         this.email = email;
         this.password = password;
         this.collage = collage;
         this.collageId = collageId;
+        this.admin = admin;
     }
 
-    public UserModel(String email, String password, String collage, String collageId, Token device_token) {
+    public UserModel(String email, String password, String collage, String collageId, Token device_token, String admin) {
         this.email = email;
         this.password = password;
         this.collage = collage;
         this.collageId = collageId;
         this.device_token = device_token;
+        this.admin = admin;
+    }
+
+    public String getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(String admin) {
+        this.admin = admin;
     }
 
     public String getEmail() {

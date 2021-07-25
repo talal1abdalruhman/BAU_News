@@ -27,14 +27,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        binding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, CreateNewsActivity.class);
-                startActivity(intent);
-            }
-        });
-
         SetupTheNav();
         ItemSelectListener();
     }
