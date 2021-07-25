@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.example.baunews.Models.NewsModel;
@@ -39,12 +40,12 @@ public class ShowNewsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     NewsModel newsModel = snapshot.getValue(NewsModel.class);
-                    binding.title.setText(newsModel.getTitle());
-                    binding.date.setText(newsModel.getDate());
-                    binding.description.setText(newsModel.getDescription());
+                    binding.txtTitle.setText(newsModel.getTitle());
+                    binding.txtDateAndTime.setText(newsModel.getDate());
+                    binding.txtDescription.setText(newsModel.getDescription());
                     Glide.with(ShowNewsActivity.this)
                             .load(newsModel.getImage())
-                            .into(binding.image);
+                            .into(binding.imageNews);
                 }
             }
 
@@ -55,4 +56,23 @@ public class ShowNewsActivity extends AppCompatActivity {
         });
     }
 
+    public void UpdateNews(View view) {
+        binding.relative.setVisibility(View.VISIBLE);
+        binding.includeOthers.setVisibility(View.VISIBLE);
+        binding.removeImage.setVisibility(View.VISIBLE);
+        binding.removePdf.setVisibility(View.VISIBLE);
+        binding.removeWebURL.setVisibility(View.VISIBLE);
+        binding.txtTitle.setEnabled(true);
+        binding.txtDescription.setEnabled(true);
+    }
+
+    public void CancelEdit(View view) {
+        binding.relative.setVisibility(View.GONE);
+        binding.includeOthers.setVisibility(View.GONE);
+        binding.removeImage.setVisibility(View.GONE);
+        binding.removePdf.setVisibility(View.GONE);
+        binding.removeWebURL.setVisibility(View.GONE);
+        binding.txtTitle.setEnabled(false);
+        binding.txtDescription.setEnabled(false);
+    }
 }
