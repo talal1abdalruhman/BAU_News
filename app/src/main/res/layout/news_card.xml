@@ -6,7 +6,7 @@
     android:padding="@dimen/_1sdp"
 
     app:cardCornerRadius="@dimen/_10sdp"
-    app:cardBackgroundColor="@color/mainColor"
+    app:cardBackgroundColor="?attr/toolbar_background"
     android:clickable="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">

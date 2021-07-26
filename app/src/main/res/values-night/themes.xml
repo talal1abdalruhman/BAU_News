@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.BAUNews" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.BAUNewsDark" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/assentsColor</item>
-        <item name="colorPrimaryVariant">@color/mainColor</item>
+        <item name="colorPrimaryVariant">#191a1c</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -12,6 +12,10 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="fragment_background">#32363d</item>
+        <item name="toolbar_background">#191a1c</item>
+        <item name="FAB_color">#052b07</item>
+        <item name="text_color">#dcdfe3</item>
     </style>
 
     <style name="ToolbarColoredBackArrow" parent="Theme.MaterialComponents.DayNight.NoActionBar">
