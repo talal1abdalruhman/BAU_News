@@ -1,6 +1,7 @@
 package com.example.baunews;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
@@ -17,21 +18,14 @@ import android.widget.CompoundButton;
 
 import com.example.baunews.databinding.FragmentSettingsBinding;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class SettingsFragment extends Fragment {
     private FragmentSettingsBinding binding;
+    SharedPreferences DarkModePreference;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES){
-            getContext().getTheme().applyStyle(R.style.Theme_BAUNews,true);
-        }
-        else {
-            getContext().getTheme().applyStyle(R.style.Theme_BAUNews,true);
-        }
+
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_settings, container, false);
         View view = binding.getRoot();
 
@@ -41,6 +35,9 @@ public class SettingsFragment extends Fragment {
         adapterLang.setDropDownViewResource(R.layout.dropdown_item);
         binding.langAutoComplete.setAdapter(adapterLang);
 
+        DarkModePreference = getActivity().getSharedPreferences("DARK_MODE_PREFERENCE", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = DarkModePreference.edit();
+
         checkDeviceTheme();
 
         //switch theme
@@ -49,22 +46,18 @@ public class SettingsFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    editor.putBoolean("DARK_MODE", true).commit();
                 }
                 else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    editor.putBoolean("DARK_MODE", false).commit();
                 }
             }
         });
         return view;
     }
     public void checkDeviceTheme(){
-        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
-            case Configuration.UI_MODE_NIGHT_YES:
-                binding.btnSwitch.setChecked(true);
-                break;
-            default:
-                binding.btnSwitch.setChecked(false);
-                break;
-        }
+        Boolean isDark = DarkModePreference.getBoolean("DARK_MODE", false);
+        binding.btnSwitch.setChecked(isDark);
     }
 }

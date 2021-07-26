@@ -1,10 +1,13 @@
 package com.example.baunews;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.ViewCompat;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
@@ -21,11 +24,18 @@ public class SplashActivity extends AppCompatActivity {
     TextView txt_title;
     ImageView bau_img;
     Animation animation;
-
+    SharedPreferences DarkModePreference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        DarkModePreference = getSharedPreferences("DARK_MODE_PREFERENCE", Context.MODE_PRIVATE);
+        if(DarkModePreference.getBoolean("DARK_MODE", false)){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
 
         txt_title = findViewById(R.id.txt_title);
         animation = AnimationUtils.loadAnimation(this, R.anim.anim_to_txt);

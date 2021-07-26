@@ -24,24 +24,11 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     NavController navController;
-    int NightMode;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES){
-            getTheme().applyStyle(R.style.Theme_BAUNews,true);
-        }
-        else {
-            getTheme().applyStyle(R.style.Theme_BAUNews,true);
-        }
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
-        sharedPreferences = getSharedPreferences("SharedPrefs", MODE_PRIVATE);
-        NightMode = sharedPreferences.getInt("NightModeInt", getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK);
-        AppCompatDelegate.setDefaultNightMode(NightMode);
 
         SetupTheNav();
         ItemSelectListener();
@@ -83,16 +70,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
 
-        NightMode = AppCompatDelegate.getDefaultNightMode();
-
-        sharedPreferences = getSharedPreferences("SharedPrefs", MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-
-        editor.putInt("NightModeInt", NightMode);
-        editor.apply();
-    }
 }
