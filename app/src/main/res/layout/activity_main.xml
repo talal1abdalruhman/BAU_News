@@ -11,7 +11,7 @@
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/fragmentMain"
+        android:background="?attr/fragment_background"
         tools:context=".MainActivity"
         tools:openDrawer="start">
 
@@ -23,7 +23,6 @@
                 android:id="@+id/toolbar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/mainColor"
                 android:orientation="vertical"
                 android:elevation="@dimen/_50sdp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +33,7 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:background="@color/mainColor"
+                    android:background="?attr/toolbar_background"
                     android:elevation="50dp"
                     android:theme="?attr/actionBarTheme"
                     app:navigationIcon="@drawable/ic_menu"
@@ -64,10 +63,10 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:layout_marginTop="?attr/actionBarSize"
-            android:background="@drawable/background"
+            android:background="?attr/toolbar_background"
             app:headerLayout="@layout/header"
             android:elevation="@dimen/_50sdp"
-            app:itemBackground="@drawable/item_select_theme"
+            app:itemBackground="?attr/FAB_color"
             app:itemIconTint="@color/white"
             app:itemTextColor="@color/white"
             app:menu="@menu/main_menu" />

@@ -42,7 +42,7 @@
             android:layout_marginBottom="@dimen/_20sdp"
             android:clickable="true"
             android:contentDescription="@string/todo"
-            app:backgroundTint="@color/deep_green"
+            app:backgroundTint="?attr/FAB_color"
             app:fabCustomSize="@dimen/_40sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
