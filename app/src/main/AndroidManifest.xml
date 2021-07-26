@@ -13,9 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BAUNews">
         <activity android:name=".ShowNewsActivity"/>
-        <activity android:name=".CreateNewsActivity">
-
-        </activity>
+        <activity android:name=".CreateNewsActivity"/>
+        <activity android:name=".ForgotPasswordActivity"/>
         <activity android:name=".MainActivity">
 
         </activity>
