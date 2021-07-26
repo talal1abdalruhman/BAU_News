@@ -9,6 +9,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,9 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     NavController navController;
-    /*int NightMode;
+    int NightMode;
     SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;*/
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        /*sharedPreferences = getSharedPreferences("SharedPrefs", MODE_PRIVATE);
-        NightMode = sharedPreferences.getInt("NightModeInt", 1);
-        AppCompatDelegate.setDefaultNightMode(NightMode);*/
+        sharedPreferences = getSharedPreferences("SharedPrefs", MODE_PRIVATE);
+        NightMode = sharedPreferences.getInt("NightModeInt", getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK);
+        AppCompatDelegate.setDefaultNightMode(NightMode);
 
         SetupTheNav();
         ItemSelectListener();
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    /*@Override
+    @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
@@ -93,5 +94,5 @@ public class MainActivity extends AppCompatActivity {
 
         editor.putInt("NightModeInt", NightMode);
         editor.apply();
-    }*/
+    }
 }
