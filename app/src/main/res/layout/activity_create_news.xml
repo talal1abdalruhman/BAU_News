@@ -10,7 +10,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FEF8A5"
+        android:background="?attr/fragment_background"
         tools:context=".CreateNewsActivity">
 
 
@@ -27,7 +27,7 @@
                 android:animateLayoutChanges="true">
 
                 <RelativeLayout
-                    android:background="@drawable/main_background"
+                    android:background="?attr/toolbar_background"
                     android:id="@+id/relative"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -76,8 +76,8 @@
                     android:fontFamily="@font/bold"
                     android:hint="@string/title"
                     android:inputType="text"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/blackColor"
+                    android:textColor="?attr/text_color"
+                    android:textColorHint="?attr/text_color_hint"
                     android:textSize="@dimen/_15ssp"
                     app:layout_constraintTop_toBottomOf="@id/relative" />
 
@@ -87,7 +87,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/regular"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/text_color"
                     android:textSize="@dimen/_12ssp"
                     app:layout_constraintEnd_toEndOf="@+id/txtTitle"
                     app:layout_constraintStart_toStartOf="@+id/txtTitle"
@@ -210,8 +210,8 @@
                     android:includeFontPadding="false"
                     android:inputType="textMultiLine"
                     android:minHeight="150dp"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/blackColor"
+                    android:textColor="?attr/text_color"
+                    android:textColorHint="?attr/text_color_hint"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txtDateAndTime" />

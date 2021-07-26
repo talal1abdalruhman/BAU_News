@@ -1,6 +1,7 @@
 package com.example.baunews;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatDelegate;
@@ -26,10 +27,10 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES){
-            getContext().getTheme().applyStyle(R.style.Theme_BAUNewsDark,true);
+            getContext().getTheme().applyStyle(R.style.Theme_BAUNews,true);
         }
         else {
-            getContext().getTheme().applyStyle(R.style.Theme_BAUNewsLight,true);
+            getContext().getTheme().applyStyle(R.style.Theme_BAUNews,true);
         }
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_settings, container, false);
         View view = binding.getRoot();
@@ -39,6 +40,8 @@ public class SettingsFragment extends Fragment {
                 R.array.languages, android.R.layout.simple_spinner_dropdown_item);
         adapterLang.setDropDownViewResource(R.layout.dropdown_item);
         binding.langAutoComplete.setAdapter(adapterLang);
+
+        checkDeviceTheme();
 
         //switch theme
         binding.btnSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -52,12 +55,16 @@ public class SettingsFragment extends Fragment {
                 }
             }
         });
-        if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES){
-            binding.btnSwitch.setChecked(true);
-        }
-        else {
-            binding.btnSwitch.setChecked(false);
-        }
         return view;
+    }
+    public void checkDeviceTheme(){
+        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                binding.btnSwitch.setChecked(true);
+                break;
+            default:
+                binding.btnSwitch.setChecked(false);
+                break;
+        }
     }
 }
