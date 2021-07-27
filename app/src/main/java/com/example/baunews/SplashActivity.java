@@ -38,9 +38,9 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         langPreference = getSharedPreferences("LANGUAGE_PREFERENCE", Context.MODE_PRIVATE);
-        String appLng = langPreference.getString("language", null);
+        String appLng = langPreference.getString("language", "");
 
-        if (!appLng.equals(null)) {
+        if (!appLng.equals("")) {
             setAppLocale(appLng);
         }
 
