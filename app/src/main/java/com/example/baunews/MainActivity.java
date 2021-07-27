@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
         navController = Navigation.findNavController(this, R.id.fragment);
         binding.navigationView.setCheckedItem(R.id.general_news);
+        binding.toolbar.setTitle(binding.navigationView.getCheckedItem().getTitle());
     }
 
     public void ItemSelectListener() {
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     navController.popBackStack();
                     navController.navigate(item.getItemId());
+                    binding.toolbar.setTitle(item.getTitle());
                     item.setChecked(true);
                     binding.drawerLayout.closeDrawers();
                 }

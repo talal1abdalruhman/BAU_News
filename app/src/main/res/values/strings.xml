@@ -7,7 +7,7 @@
     <string name="forget_password">forget password ?</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
-    <string name="college">College</string>
+    <string name="college">Collage News</string>
     <string name="don_t_have_an_account">Don’t have an account?</string>
     <string name="sing_up">sing up</string>
     <string name="already_have_an_account">already have an account?</string>
@@ -24,7 +24,7 @@
     <string name="send_verification_link">Send Verification Link</string>
     <string name="incorrect_password">Incorrect Password</string>
     <string name="email_address_not_register">Email Address Not Registered</string>
-    <string name="general">General</string>
+    <string name="general">General News</string>
     <string name="settings">Settings</string>
     <string name="log_out">Logout</string>
     <string name="reset_password">reset_password</string>
