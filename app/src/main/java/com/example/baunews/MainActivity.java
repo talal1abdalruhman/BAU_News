@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -35,10 +36,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences screenMode = getSharedPreferences("DARK_MODE_PREFERENCE", Context.MODE_PRIVATE);
+        if (screenMode.getBoolean("DARK_MODE", false)) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
         super.onCreate(savedInstanceState);
+
         SharedPreferences langPref = getSharedPreferences("LANGUAGE_PREFERENCE", Context.MODE_PRIVATE);
         String lang = langPref.getString("language", getResources().getConfiguration().locale.getLanguage());
         setAppLocale(lang);
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
 
@@ -93,5 +103,15 @@ public class MainActivity extends AppCompatActivity {
         configuration.setLayoutDirection(new Locale(language));
         resources.updateConfiguration(configuration, displayMetrics);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.close();
+        } else {
+            finish();
+            super.onBackPressed();
+        }
     }
 }
