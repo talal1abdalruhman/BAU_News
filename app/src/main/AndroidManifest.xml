@@ -12,14 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BAUNews">
+        <activity android:name=".PdfViewerActivity"></activity>
         <activity android:name=".ShowNewsActivity" />
         <activity android:name=".CreateNewsActivity" />
         <activity android:name=".ForgotPasswordActivity" />
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTask">
-
-        </activity>
+            android:launchMode="singleTask"></activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".SplashActivity">

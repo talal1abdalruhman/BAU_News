@@ -62,4 +62,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-livedata:2.3.1'
+
+    //Pdf Viewer
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
 }

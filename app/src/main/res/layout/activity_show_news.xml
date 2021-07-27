@@ -202,6 +202,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:visibility="visible"
+                    android:transitionName="pdf_layout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/layoutWebURL"
@@ -214,6 +215,7 @@
                         android:contentDescription="@string/app_name"
                         android:src="@drawable/pdf"
                         android:visibility="gone"
+                        android:onClick="OpenPdfFile"
                         android:elevation="@dimen/_10sdp"/>
 
 
@@ -244,15 +246,19 @@
                     app:layout_constraintTop_toBottomOf="@+id/layoutPdf">
 
                     <Button
+                        android:id="@+id/updateBtn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="update news"
+                        android:visibility="gone"
                         android:onClick="UpdateNews"/>
 
                     <Button
+                        android:id="@+id/deleteBtn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/colorDelete"
+                        android:visibility="gone"
                         android:text="delete news" />
                 </LinearLayout>
 
