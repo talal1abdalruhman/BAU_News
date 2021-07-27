@@ -1,11 +1,12 @@
- <TextView
-     android:id="@+id/textView"
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content"
-     android:text="@string/college"
-     android:padding="@dimen/_16sdp"
-     android:textColor="@color/black"
-     android:textStyle="bold"
-     android:textSize="@dimen/_22ssp"
-     android:layout_margin="@dimen/_10sdp"
-     xmlns:android="http://schemas.android.com/apk/res/android" />
+<?xml version="1.0" encoding="utf-8"?>
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    style="?android:attr/spinnerDropDownItemStyle"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:ellipsize="marquee"
+    android:textColor="?attr/text_color"
+    android:paddingLeft="@dimen/_5sdp"
+    android:paddingRight="@dimen/_5sdp"
+    android:textSize="@dimen/_14sdp"
+    android:singleLine="true" />

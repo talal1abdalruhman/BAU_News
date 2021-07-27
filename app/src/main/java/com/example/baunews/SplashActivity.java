@@ -8,8 +8,12 @@ import androidx.core.view.ViewCompat;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -19,19 +23,29 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Locale;
+
 public class SplashActivity extends AppCompatActivity {
 
     TextView txt_title;
     ImageView bau_img;
     Animation animation;
-    SharedPreferences DarkModePreference;
+    SharedPreferences DarkModePreference, langPreference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        langPreference = getSharedPreferences("LANGUAGE_PREFERENCE", Context.MODE_PRIVATE);
+        String appLng = langPreference.getString("language", null);
+
+        if (!appLng.equals(null)) {
+            setAppLocale(appLng);
+        }
+
         DarkModePreference = getSharedPreferences("DARK_MODE_PREFERENCE", Context.MODE_PRIVATE);
-        if(DarkModePreference.getBoolean("DARK_MODE", false)){
+        if (DarkModePreference.getBoolean("DARK_MODE", false)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -63,5 +77,14 @@ public class SplashActivity extends AppCompatActivity {
                 }
             }
         }, 2000);
+    }
+
+    public void setAppLocale(String language) {
+        Resources resources = getResources();
+        Configuration configuration = resources.getConfiguration();
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        configuration.locale = new Locale(language);
+        configuration.setLayoutDirection(new Locale(language));
+        resources.updateConfiguration(configuration, displayMetrics);
     }
 }

@@ -253,6 +253,7 @@ public class CreateNewsActivity extends AppCompatActivity {
         if (ImgUri == null && PdfUri == null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Data Upload");
+            progressDialog.setCancelable(false);
             progressDialog.show();
             String title = binding.txtTitle.getText().toString().trim();
             String desc = binding.txtDescription.getText().toString().trim();
@@ -276,6 +277,7 @@ public class CreateNewsActivity extends AppCompatActivity {
         } else if (ImgUri != null && PdfUri == null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Data Upload");
+            progressDialog.setCancelable(false);
             progressDialog.show();
             StorageReference imgRef = mStorageRef.child("news_images").child(currentTime + ".jpg");
             imgRef.putFile(ImgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -324,6 +326,7 @@ public class CreateNewsActivity extends AppCompatActivity {
         } else if (ImgUri == null && PdfUri != null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Data Upload");
+            progressDialog.setCancelable(false);
             progressDialog.show();
             StorageReference pdfRef = mStorageRef.child("news_pdfs").child(currentTime + ".pdf");
             pdfRef.putFile(PdfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -371,6 +374,7 @@ public class CreateNewsActivity extends AppCompatActivity {
         } else {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Data Upload");
+            progressDialog.setCancelable(false);
             progressDialog.show();
             StorageReference imgRef = mStorageRef.child("news_images").child(currentTime + ".jpg");
             imgRef.putFile(ImgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

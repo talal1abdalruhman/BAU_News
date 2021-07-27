@@ -55,9 +55,10 @@
     <string name="cancel">إلغاء</string>
     <string name="add">إضافة</string>
     <string name="language">اللغة</string>
-    <string name="darkmode">الوضع المظلم</string>
+    <string name="darkmode">الوضع الليلي</string>
+    <string name="change_language">تغيير اللغة</string>
+    <string name="loading">جار التحميل..</string>
     <string-array name="languages">
-        <item>إفتراضي</item>
         <item>الانجليزية</item>
         <item>العربية</item>
     </string-array>

@@ -7,10 +7,17 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -18,6 +25,7 @@ import com.example.baunews.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -28,7 +36,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences langPref = getSharedPreferences("LANGUAGE_PREFERENCE", Context.MODE_PRIVATE);
+        String lang = langPref.getString("language", getResources().getConfiguration().locale.getLanguage());
+        setAppLocale(lang);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+
 
         SetupTheNav();
         ItemSelectListener();
@@ -71,4 +83,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void setAppLocale(String language) {
+        Resources resources = getBaseContext().getResources();
+        Configuration configuration = resources.getConfiguration();
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        configuration.locale = new Locale(language);
+        configuration.setLayoutDirection(new Locale(language));
+        resources.updateConfiguration(configuration, displayMetrics);
+
+    }
 }
