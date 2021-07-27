@@ -1,6 +1,7 @@
 package com.example.baunews.HelperClasses;
 
 import android.content.res.Resources;
+import android.widget.EditText;
 
 import com.example.baunews.R;
 import com.google.android.material.textfield.TextInputLayout;
@@ -105,6 +106,19 @@ public class Validation {
         } else {
             password.setError(null);
             password.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    public boolean validateNewsText(EditText et){
+        String txt = et.getText().toString().trim();
+        if(txt.isEmpty()){
+            et.setError(res.getString(R.string.field_cannot_be_empty));
+            et.requestFocus();
+            return false;
+        } else {
+            et.setError(null);
+            et.clearFocus();
             return true;
         }
     }

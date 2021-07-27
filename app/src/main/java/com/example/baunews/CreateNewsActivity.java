@@ -10,9 +10,12 @@ import androidx.databinding.DataBindingUtil;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -24,6 +27,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.baunews.HelperClasses.Validation;
 import com.example.baunews.Models.NewsModel;
 import com.example.baunews.databinding.ActivityCreateNewsBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -79,6 +83,11 @@ public class CreateNewsActivity extends AppCompatActivity {
         binding.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Validation validation = new Validation(getResources());
+                if (!isConnect()
+                        | !validation.validateNewsText(binding.txtTitle)
+                        | !validation.validateNewsText(binding.txtDescription))
+                    return;
                 UploadNewsData();
             }
         });
@@ -261,7 +270,7 @@ public class CreateNewsActivity extends AppCompatActivity {
             NewsModel newsModel = new NewsModel(
                     newsId, title, currentTime,
                     desc, "null", "null",
-                    link, (category.equals("general")? category : collageId));
+                    link, (category.equals("general") ? category : collageId));
             mRef.child(newsId).setValue(newsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
@@ -295,7 +304,7 @@ public class CreateNewsActivity extends AppCompatActivity {
                                 NewsModel newsModel = new NewsModel(
                                         newsId, title, currentTime,
                                         desc, imageLink, "null",
-                                        link, (category.equals("general")? category : collageId));
+                                        link, (category.equals("general") ? category : collageId));
                                 mRef.child(newsId).setValue(newsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
@@ -344,7 +353,7 @@ public class CreateNewsActivity extends AppCompatActivity {
                                 NewsModel newsModel = new NewsModel(
                                         newsId, title, currentTime,
                                         desc, "null", pdfLink,
-                                        link, (category.equals("general")? category : collageId));
+                                        link, (category.equals("general") ? category : collageId));
                                 mRef.child(newsId).setValue(newsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
@@ -402,7 +411,7 @@ public class CreateNewsActivity extends AppCompatActivity {
                                                     NewsModel newsModel = new NewsModel(
                                                             newsId, title, currentTime,
                                                             desc, imageLink, pdfLink,
-                                                            link, (category.equals("general")? category : collageId));
+                                                            link, (category.equals("general") ? category : collageId));
                                                     mRef.child(newsId).setValue(newsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override
                                                         public void onComplete(@NonNull Task<Void> task) {
@@ -446,5 +455,16 @@ public class CreateNewsActivity extends AppCompatActivity {
         dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+3"));
         Date today = Calendar.getInstance().getTime();
         return dateFormat.format(today);
+    }
+
+    public boolean isConnect() {
+        ConnectivityManager conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
+
+        if (netInfo == null || !netInfo.isConnected() || !netInfo.isAvailable()) {
+            Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 }

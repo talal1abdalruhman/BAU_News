@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ShowNewsActivity extends AppCompatActivity {
     ActivityShowNewsBinding binding;
-    String newsKey, newsCategory;
+    String newsKey, newsCategory, PdfUrl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +44,16 @@ public class ShowNewsActivity extends AppCompatActivity {
                     binding.txtDateAndTime.setText(newsModel.getDate());
                     binding.txtDescription.setText(newsModel.getDescription());
                     Glide.with(ShowNewsActivity.this)
-                            .load(newsModel.getImage())
+                            .load((newsModel.getImage().equals("null"))? R.drawable.bau : newsModel.getImage())
                             .into(binding.imageNews);
+                    if(!newsModel.getPdf().equals("null")){
+                        PdfUrl = newsModel.getPdf();
+                        binding.pdfImage.setVisibility(View.VISIBLE);
+                    }
+                    if(!newsModel.getUrl().equals("")){
+                        binding.textWebURL.setVisibility(View.VISIBLE);
+                        binding.textWebURL.setText(newsModel.getUrl());
+                    }
                 }
             }
 

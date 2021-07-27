@@ -70,7 +70,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder>{
         String newsTime = newsModel.getDate();
         holder.date.setText(getDifferenceDateTime(newsTime, currTime));
         Glide.with(context)
-                .load(newsModel.getImage())
+                .load((newsModel.getImage().equals("null"))? R.drawable.bau : newsModel.getImage())
                 .into(holder.image);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -18,6 +18,9 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.transition.Transition;
+import android.transition.TransitionManager;
+import android.transition.TransitionValues;
 import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
@@ -50,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         setAppLocale(lang);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
         SetupTheNav();
         ItemSelectListener();
