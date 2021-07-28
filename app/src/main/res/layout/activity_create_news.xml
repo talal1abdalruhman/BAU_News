@@ -125,7 +125,7 @@
                     app:layout_constraintTop_toTopOf="@+id/imageNews"
                     />
 
-                <LinearLayout
+                <RelativeLayout
                     android:id="@+id/layoutWebURL"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -140,16 +140,17 @@
                     tools:ignore="UseCompoundDrawables">
 
                     <TextView
+                        android:layout_alignParentStart="true"
                         android:id="@+id/textWebURL"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:autoLink="web"
                         android:fontFamily="@font/regular"
                         android:includeFontPadding="false"
                         android:textSize="@dimen/_13ssp"/>
 
                     <ImageView
+                        android:layout_alignParentEnd="true"
                         android:background="@drawable/background_delete_white"
                         android:id="@+id/removeWebURL"
                         android:layout_width="@dimen/_20sdp"
@@ -158,8 +159,8 @@
                         android:src="@drawable/ic_delete"
                         app:tint="@color/colorDelete" />
 
-                </LinearLayout>
-                <LinearLayout
+                </RelativeLayout>
+                <RelativeLayout
                     android:id="@+id/layoutPdf"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -174,6 +175,8 @@
                     tools:ignore="UseCompoundDrawables">
 
                     <ImageView
+                        android:id="@+id/image_pdf"
+                        android:layout_alignParentStart="true"
                         android:contentDescription="@string/app_name"
                         android:src="@drawable/pdf"
                         android:layout_width="@dimen/_20sdp"
@@ -181,16 +184,18 @@
                         />
 
                     <TextView
+                        android:layout_alignStart="@+id/image_pdf"
+                        android:layout_marginStart="@dimen/_20sdp"
                         android:id="@+id/textPdf"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:autoLink="web"
                         android:fontFamily="@font/regular"
                         android:includeFontPadding="false"
                         android:textSize="@dimen/_13ssp"/>
 
                     <ImageView
+                        android:layout_alignParentEnd="true"
                         android:background="@drawable/background_delete_white"
                         android:id="@+id/removePdf"
                         android:layout_width="@dimen/_20sdp"
@@ -199,7 +204,7 @@
                         android:src="@drawable/ic_delete"
                         app:tint="@color/colorDelete" />
 
-                </LinearLayout>
+                </RelativeLayout>
 
                 <EditText
                     android:id="@+id/txtDescription"
