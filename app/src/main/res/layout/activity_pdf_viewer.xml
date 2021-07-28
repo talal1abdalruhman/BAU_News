@@ -13,6 +13,7 @@
         android:transitionName="pdf_layout"
         tools:context=".PdfViewerActivity">
 
+
         <com.github.barteksc.pdfviewer.PDFView
             android:id="@+id/PDFView"
             android:layout_width="match_parent"
