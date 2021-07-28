@@ -7,7 +7,7 @@
     android:background="@drawable/background_others"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:behavior_peekHeight="@dimen/_33sdp"
+    app:behavior_peekHeight="@dimen/_35sdp"
     android:layout_marginStart="@dimen/_3sdp"
     android:layout_marginEnd="@dimen/_3sdp"
     app:layout_behavior="@string/bottom_sheet_behavior">
@@ -20,9 +20,9 @@
         android:gravity="center"
         android:text="@string/add_others"
         android:textColor="@color/white"
-        android:textSize="@dimen/_15ssp"/>
+        android:textSize="@dimen/_13ssp"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/addImage"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_30sdp"
@@ -32,21 +32,26 @@
         tools:ignore="UseCompoundDrawables">
 
         <ImageView
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:contentDescription="@string/app_name"
             android:src="@drawable/ic_image"
             app:tint="@color/white" />
         <TextView
+            android:gravity="end"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:fontFamily="@font/regular"
             android:text="@string/add_image"
             android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp" />
-    </LinearLayout>
-    <LinearLayout
+            android:textSize="@dimen/_12ssp" />
+    </RelativeLayout>
+    <RelativeLayout
         android:id="@+id/addUrl"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_30sdp"
@@ -56,21 +61,26 @@
         tools:ignore="UseCompoundDrawables">
 
         <ImageView
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:contentDescription="@string/app_name"
             android:src="@drawable/ic_link"
             app:tint="@color/white" />
         <TextView
+            android:gravity="end"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:fontFamily="@font/regular"
             android:text="@string/add_url"
             android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp" />
-    </LinearLayout>
-    <LinearLayout
+            android:textSize="@dimen/_12ssp" />
+    </RelativeLayout>
+    <RelativeLayout
         android:id="@+id/addPdf"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_30sdp"
@@ -80,19 +90,24 @@
         tools:ignore="UseCompoundDrawables">
 
         <ImageView
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:contentDescription="@string/app_name"
             android:src="@drawable/ic_pdf"
             app:tint="@color/white" />
         <TextView
+            android:gravity="end"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:fontFamily="@font/regular"
             android:text="@string/add_file"
             android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp" />
-    </LinearLayout>
+            android:textSize="@dimen/_12ssp" />
+    </RelativeLayout>
 
 </LinearLayout>

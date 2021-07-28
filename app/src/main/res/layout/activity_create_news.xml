@@ -48,7 +48,7 @@
                         android:clickable="true"
                         android:src="@drawable/ic_back"
                         app:tint="@color/white"
-                         />
+                        />
 
                     <ImageView
                         android:contentDescription="@string/app_name"
@@ -71,24 +71,28 @@
                     android:id="@+id/txtTitle"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_margin="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
                     android:background="@null"
                     android:fontFamily="@font/bold"
                     android:hint="@string/title"
                     android:inputType="text"
                     android:textColor="?attr/text_color"
                     android:textColorHint="?attr/text_color_hint"
-                    android:textSize="@dimen/_13ssp"
+                    android:textSize="@dimen/_16ssp"
                     app:layout_constraintTop_toBottomOf="@id/relative" />
 
                 <TextView
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:layout_marginBottom="@dimen/_15sdp"
                     android:id="@+id/txtDateAndTime"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/regular"
                     android:textColor="?attr/text_color"
-                    android:textSize="@dimen/_12ssp"
+                    android:textSize="@dimen/_10ssp"
                     app:layout_constraintEnd_toEndOf="@+id/txtTitle"
                     app:layout_constraintStart_toStartOf="@+id/txtTitle"
                     app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
@@ -97,11 +101,13 @@
                     android:id="@+id/imageNews"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/app_name"
                     android:visibility="gone"
-                    app:layout_constraintBottom_toTopOf="@+id/txtDescription"
+                    app:layout_constraintBottom_toTopOf="@+id/layoutWebURL"
                     app:layout_constraintTop_toBottomOf="@id/txtDateAndTime" />
                 <ImageView
                     android:contentDescription="@string/app_name"
@@ -126,7 +132,6 @@
                     android:layout_marginStart="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_15sdp"
                     android:layout_marginEnd="@dimen/_12sdp"
-                    android:layout_marginBottom="@dimen/_15sdp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:visibility="gone"
@@ -161,7 +166,6 @@
                     android:layout_marginStart="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_15sdp"
                     android:layout_marginEnd="@dimen/_12sdp"
-                    android:layout_marginBottom="@dimen/_15sdp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:visibility="gone"
@@ -171,10 +175,10 @@
 
                     <ImageView
                         android:contentDescription="@string/app_name"
-                        android:src="@drawable/ic_file"
+                        android:src="@drawable/pdf"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        app:tint="@color/cardview_dark_background" />
+                        />
 
                     <TextView
                         android:id="@+id/textPdf"
@@ -201,20 +205,23 @@
                     android:id="@+id/txtDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:layout_marginBottom="@dimen/_15sdp"
                     android:background="@null"
-                    android:textStyle="normal"
+                    android:fontFamily="@font/regular"
                     android:gravity="top"
                     android:hint="@string/type_description_here"
                     android:importantForAutofill="no"
                     android:includeFontPadding="false"
                     android:inputType="textMultiLine"
-                    android:minHeight="150dp"
                     android:textColor="?attr/text_color"
                     android:textColorHint="?attr/text_color_hint"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtDateAndTime" />
+                    app:layout_constraintTop_toBottomOf="@+id/layoutPdf" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

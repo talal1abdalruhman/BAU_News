@@ -65,7 +65,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:animateLayoutChanges="true">
 
 
@@ -73,8 +73,9 @@
                     android:id="@+id/txtTitle"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_marginStart="13dp"
-                    android:layout_marginEnd="13dp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
                     android:autofillHints="null"
                     android:background="@null"
                     android:enabled="false"
@@ -83,7 +84,7 @@
                     android:inputType="text"
                     android:textColor="?attr/text_color"
                     android:textColorHint="?attr/text_color_hint"
-                    android:textSize="@dimen/_15ssp"
+                    android:textSize="@dimen/_16ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -93,10 +94,12 @@
                     android:id="@+id/txtDateAndTime"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:layout_marginBottom="@dimen/_15sdp"
                     android:fontFamily="@font/regular"
                     android:textColor="?attr/text_color"
-                    android:textSize="@dimen/_12ssp"
+                    android:textSize="@dimen/_10ssp"
                     app:layout_constraintEnd_toEndOf="@+id/txtTitle"
                     app:layout_constraintStart_toStartOf="@+id/txtTitle"
                     app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
@@ -106,7 +109,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_10sdp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/app_name"
                     android:visibility="visible"
@@ -133,22 +138,20 @@
                     android:id="@+id/txtDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_10sdp"
-                    android:layout_marginStart="13dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="13dp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:layout_marginBottom="@dimen/_15sdp"
                     android:background="@null"
                     android:enabled="false"
                     android:gravity="top"
-                    android:hint="@string/type_description_here"
+                    android:fontFamily="@font/regular"
                     android:importantForAutofill="no"
                     android:includeFontPadding="false"
                     android:inputType="textMultiLine"
-                    android:minHeight="150dp"
                     android:textColor="?attr/text_color"
                     android:textColorHint="?attr/text_color_hint"
-                    android:textSize="20sp"
-                    android:textStyle="normal"
+                    android:textSize="@dimen/_13ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageNews" />
@@ -209,6 +212,7 @@
                     tools:ignore="UseCompoundDrawables">
 
                     <ImageView
+                        android:layout_alignParentStart="true"
                         android:id="@+id/pdf_image"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
@@ -218,20 +222,17 @@
                         android:onClick="OpenPdfFile"
                         android:elevation="@dimen/_10sdp"/>
 
-
-
                     <ImageView
                         android:id="@+id/removePdf"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:background="@drawable/background_delete_white"
                         android:contentDescription="@string/app_name"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:src="@drawable/ic_delete"
                         android:visibility="gone"
                         app:tint="@color/colorDelete" />
-
                 </RelativeLayout>
 
                 <LinearLayout
