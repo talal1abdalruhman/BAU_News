@@ -41,6 +41,8 @@ public class ShowNewsActivity extends AppCompatActivity {
         newsCategory = getIntent().getStringExtra("category");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         database.getReference("news").child(newsCategory).child(newsKey).addValueEventListener(new ValueEventListener() {
+
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
