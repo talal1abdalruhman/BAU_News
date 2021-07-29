@@ -16,7 +16,7 @@
         <RelativeLayout
             android:id="@+id/relative"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_height="?attr/actionBarSize"
             android:background="?attr/toolbar_background"
             android:orientation="horizontal"
             android:visibility="gone"
@@ -57,10 +57,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:layout_marginTop="@dimen/_40sdp"
             android:layout_marginBottom="@dimen/_50sdp"
-            android:paddingTop="@dimen/_20sdp"
-            android:paddingBottom="@dimen/_20sdp">
+            android:layout_marginTop="?attr/actionBarSize">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -73,7 +71,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_marginStart="@dimen/_12sdp"
-                    android:layout_marginTop="@dimen/_15sdp"
                     android:layout_marginEnd="@dimen/_12sdp"
                     android:autofillHints="null"
                     android:background="@null"
@@ -248,38 +245,47 @@
                         app:tint="@color/colorDelete" />
                 </RelativeLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="24dp"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/layoutPdf">
 
-                    <Button
-                        android:id="@+id/updateBtn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="update news"
-                        android:visibility="gone"
-                        android:onClick="UpdateNews"/>
-
-                    <Button
-                        android:id="@+id/deleteBtn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/colorDelete"
-                        android:visibility="gone"
-                        android:text="delete news"
-                        android:onClick="DeleteNews"/>
-                </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutPdf">
+
+            <Button
+                android:id="@+id/updateBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="UpdateNews"
+                android:text="update news"
+                android:layout_margin="@dimen/_5sdp"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/deleteBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorDelete"
+                android:layout_weight="1"
+                android:onClick="DeleteNews"
+                android:text="delete news"
+                android:layout_margin="@dimen/_5sdp"
+                android:visibility="gone" />
+        </LinearLayout>
 
         <include
             layout="@layout/others"/>

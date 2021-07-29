@@ -200,7 +200,6 @@ public class ShowNewsActivity extends AppCompatActivity {
 
     public void CancelEdit(View view) {
         binding.relative.setVisibility(View.GONE);
-//        binding.includeOthers.setVisibility(View.GONE);
         layout.setVisibility(View.GONE);
         binding.removeImage.setVisibility(View.GONE);
         binding.removePdf.setVisibility(View.GONE);
