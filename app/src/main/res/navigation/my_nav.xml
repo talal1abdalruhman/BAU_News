@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_general_news_to_settings_news"
             app:destination="@id/settings_news" />
+        <action
+            android:id="@+id/action_general_news_to_aboutFragment"
+            app:destination="@id/about_news" />
     </fragment>
     <fragment
         android:id="@+id/college_news"
@@ -33,6 +36,15 @@
         tools:layout="@layout/fragment_settings" >
         <action
             android:id="@+id/action_settings_news_to_general_news"
+            app:destination="@id/general_news" />
+    </fragment>
+    <fragment
+        android:id="@+id/about_news"
+        android:name="com.example.baunews.AboutFragment"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" >
+        <action
+            android:id="@+id/action_aboutFragment_to_general_news"
             app:destination="@id/general_news" />
     </fragment>
 </navigation>

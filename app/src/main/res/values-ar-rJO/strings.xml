@@ -58,6 +58,7 @@
     <string name="darkmode">الوضع الليلي</string>
     <string name="change_language">تغيير اللغة</string>
     <string name="loading">جار التحميل..</string>
+    <string name="about_bau">حول الجامعة</string>
     <string-array name="languages">
         <item>الانجليزية</item>
         <item>العربية</item>
