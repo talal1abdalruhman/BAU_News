@@ -13,12 +13,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -41,6 +43,7 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -131,6 +134,7 @@ public class CreateNewsActivity extends AppCompatActivity {
 
     private void AddOthers() {
         final LinearLayout layout = findViewById(R.id.layoutAddOthers);
+        Log.d("OthersId", "AddOthers: "+layout.getId() );
         final BottomSheetBehavior<LinearLayout> bottomSheetBehavior = BottomSheetBehavior.from(layout);
         layout.findViewById(R.id.others).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,7 +177,7 @@ public class CreateNewsActivity extends AppCompatActivity {
                     ActivityCompat.requestPermissions(CreateNewsActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, FILE_REQUEST_CODE);
                 } else {
                     Intent intent = new Intent();
-                    intent.setType("*/*");
+                    intent.setType("application/pdf");
                     intent.setAction(Intent.ACTION_GET_CONTENT);
                     startActivityForResult(Intent.createChooser(intent, "Select file"), FILE_REQUEST_CODE);
                 }
@@ -238,11 +242,29 @@ public class CreateNewsActivity extends AppCompatActivity {
         }
         if (requestCode == FILE_REQUEST_CODE && resultCode == RESULT_OK) {
             PdfUri = null;
+            String pdfFileName = null;
             if (data != null) {
                 PdfUri = data.getData();
+                String uriString = PdfUri.toString();
+                File myFile = new File(uriString);
+
+                if (uriString.startsWith("content://")) {
+                    Cursor cursor = null;
+                    try {
+                        cursor = getContentResolver().query(PdfUri, null, null, null, null);
+                        if (cursor != null && cursor.moveToFirst()) {
+                            pdfFileName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                        }
+                    } finally {
+                        cursor.close();
+                    }
+                } else if (uriString.startsWith("file://")) {
+                    pdfFileName = myFile.getName();
+                }
             }
+
             String ss = PdfUri.getPath();
-            binding.textPdf.setText(ss);
+            binding.textPdf.setText(pdfFileName);
             binding.layoutPdf.setVisibility(View.VISIBLE);
             binding.removePdf.setVisibility(View.VISIBLE);
         }

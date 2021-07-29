@@ -190,6 +190,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:autoLink="web"
+                        android:layout_alignParentBottom="true"
                         android:fontFamily="@font/regular"
                         android:includeFontPadding="false"
                         android:textSize="@dimen/_13ssp"/>
