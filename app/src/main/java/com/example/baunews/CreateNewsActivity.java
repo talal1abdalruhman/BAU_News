@@ -473,7 +473,7 @@ public class CreateNewsActivity extends AppCompatActivity {
     }
 
     public static String getCurrentTime() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.ENGLISH);
         dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+3"));
         Date today = Calendar.getInstance().getTime();
         return dateFormat.format(today);
