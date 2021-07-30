@@ -17,6 +17,8 @@
         </menu>
     </item>
 
+    <item android:title="@string/bau_about" android:id="@+id/about_news" android:icon="@drawable/ic_about"/>
+
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/settings_news"
