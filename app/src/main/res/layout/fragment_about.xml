@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center_vertical|center_horizontal"
-    android:orientation="vertical"
-    tools:context=".AboutFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
+    <data>
 
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:orientation="vertical"
+        tools:context=".AboutFragment">
+
+        <!-- TODO: Update blank fragment layout -->
 
         <RelativeLayout
             android:id="@+id/about_bau"
@@ -18,6 +23,7 @@
             android:layout_marginLeft="@dimen/_14sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
@@ -49,7 +55,7 @@
                 android:id="@+id/about_bau_txt"
                 android:text="@string/about_bau"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
         </ScrollView>
 
@@ -57,7 +63,7 @@
         <View
             android:background="@color/mainColor"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp" />
 
 
         <RelativeLayout
@@ -67,6 +73,7 @@
             android:layout_marginLeft="@dimen/_14sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
@@ -98,13 +105,14 @@
                 android:id="@+id/txt_royal_letter"
                 android:text="@string/royal_letter"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
         </ScrollView>
+
         <View
             android:background="@color/mainColor"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp" />
 
         <RelativeLayout
             android:id="@+id/prepresident_letter"
@@ -113,6 +121,7 @@
             android:layout_marginLeft="@dimen/_14sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
@@ -144,13 +153,14 @@
                 android:id="@+id/txt_prepresident_letter"
                 android:text="@string/presidents_letter"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
         </ScrollView>
+
         <View
             android:background="@color/mainColor"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp" />
 
         <RelativeLayout
             android:id="@+id/vision"
@@ -159,6 +169,7 @@
             android:layout_marginLeft="@dimen/_14sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
@@ -187,15 +198,16 @@
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:visibility="gone"
                 android:id="@+id/txt_vision"
-                android:text="@string/vision"
+                android:text="@string/vision_desc"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
         </ScrollView>
+
         <View
             android:background="@color/mainColor"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp" />
 
         <RelativeLayout
             android:id="@+id/about_colleges"
@@ -204,6 +216,7 @@
             android:layout_marginLeft="@dimen/_14sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
                 android:fontFamily="@font/regular"
                 android:layout_alignParentStart="true"
@@ -373,6 +386,7 @@
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
+
                 <androidx.cardview.widget.CardView
                     android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
@@ -440,6 +454,7 @@
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
+
                 <androidx.cardview.widget.CardView
                     android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
@@ -580,5 +595,5 @@
 
         </ScrollView>
 
-
-</LinearLayout>
+    </LinearLayout>
+</layout>

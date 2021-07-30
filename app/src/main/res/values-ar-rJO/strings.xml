@@ -194,8 +194,8 @@
 الانفتاح على قوى المجتمع عبر اشتراك قوى المجتمع في كل مجالس الجامعة، مثل مجلس الجامعة ومجالس الكليات وغيرها من المجالس، لضمان تمثيل وتجسيد مصالح وغايات المجتمع في كل فعاليات ونشاطات وبرامج الجامعة
     </string>
     <string name="about_bau_university">حول جامعة البلقاء</string>
-    <string name="the_royal_decree_letter">الرسالة السامية</string>
-    <string name="the_prepresident_s_letter">ؤسالة رئيس الجامعة</string>
+    <string name="the_royal_decree_letter">الرسالة الملكية</string>
+    <string name="the_prepresident_s_letter">رسالة رئيس الجامعة</string>
     <string name="vision">الرؤية</string>
     <string name="colleges">الكليات</string>
     <string name="engineering">الهندسة</string>
@@ -204,8 +204,8 @@
     <string name="science">العلوم</string>
     <string name="agricultural">الزراعة</string>
     <string name="business">الاعمال</string>
-    <string name="human_sciences"> \ \ \ \ \السلط التقنية \ \ \ \ \</string>
-    <string name="technical_collage">السلط التقنية</string>
+    <string name="human_sciences">العلوم الإنسانية</string>
+    <string name="technical_collage"> \ \ \ \ \السلط التقنية \ \ \ \ \</string>
     <string name="artifical_intelligence">الذكاء الاصطناعي</string>
     <string name="law_collage">الحقوق</string>
 
