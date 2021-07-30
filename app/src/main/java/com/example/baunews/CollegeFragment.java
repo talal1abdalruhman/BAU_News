@@ -1,5 +1,6 @@
 package com.example.baunews;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.util.Pair;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,10 +91,12 @@ public class CollegeFragment extends Fragment {
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 if (snapshot.exists()) {
                                     String collageId = snapshot.getValue(String.class);
+                                    Pair pair = Pair.create(binding.floatingActionButton, "layout");
+                                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), pair);
                                     Intent intent = new Intent(getContext(), CreateNewsActivity.class);
                                     intent.putExtra("news_category", "collage");
                                     intent.putExtra("collage_id", collageId);
-                                    startActivity(intent);
+                                    startActivity(intent, options.toBundle());
                                 }
                             }
 

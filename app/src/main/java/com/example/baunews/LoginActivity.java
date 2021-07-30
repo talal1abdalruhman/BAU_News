@@ -87,6 +87,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public void LoginUser(View view) {
         if(!isConnect()) return;
+        binding.login.animate().scaleX(0).scaleY(0).setDuration(300);
+        binding.loadingAnim.setVisibility(View.VISIBLE);
         binding.email.setError(null);
         binding.email.setErrorEnabled(false);
         binding.password.setError(null);

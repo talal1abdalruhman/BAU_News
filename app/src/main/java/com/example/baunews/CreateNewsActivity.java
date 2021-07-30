@@ -9,6 +9,8 @@ import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -19,25 +21,38 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.baunews.HelperClasses.Validation;
 import com.example.baunews.Models.NewsModel;
+import com.example.baunews.Models.UserModel;
+import com.example.baunews.NotificationPackage.APIService;
+import com.example.baunews.NotificationPackage.Client;
+import com.example.baunews.NotificationPackage.Data;
+import com.example.baunews.NotificationPackage.MyResponse;
+import com.example.baunews.NotificationPackage.NotificationSender;
 import com.example.baunews.databinding.ActivityCreateNewsBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -45,16 +60,21 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class CreateNewsActivity extends AppCompatActivity {
 
     private static final String TAG = "Upload_Process";
     ActivityCreateNewsBinding binding;
-
+    private APIService apiService;
     Uri ImgUri = null, PdfUri = null;
     private AlertDialog dialogAddURL;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -64,6 +84,7 @@ public class CreateNewsActivity extends AppCompatActivity {
     private static final int IMAGE_REQUEST_CODE = 100;
     private static final int FILE_REQUEST_CODE = 101;
     private String category, collageId;
+    ArrayList<String> usersToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +99,8 @@ public class CreateNewsActivity extends AppCompatActivity {
             Log.d("ADMIN", "collage id = " + collageId);
         }
 
+        getAllUser();
+        apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
         AddOthers();
         binding.txtDateAndTime.setText(new SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm a", Locale.getDefault()).format(new Date()));
@@ -134,7 +157,7 @@ public class CreateNewsActivity extends AppCompatActivity {
 
     private void AddOthers() {
         final LinearLayout layout = findViewById(R.id.layoutAddOthers);
-        Log.d("OthersId", "AddOthers: "+layout.getId() );
+        Log.d("OthersId", "AddOthers: " + layout.getId());
         final BottomSheetBehavior<LinearLayout> bottomSheetBehavior = BottomSheetBehavior.from(layout);
         layout.findViewById(R.id.others).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -299,6 +322,8 @@ public class CreateNewsActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Log.d(TAG, "data uploaded");
                         progressDialog.dismiss();
+                        sendNotificationForAllUsers();
+                        showDoneAnim();
                     } else {
                         Log.d(TAG, "data NOT uploaded");
                         progressDialog.dismiss();
@@ -333,6 +358,8 @@ public class CreateNewsActivity extends AppCompatActivity {
                                         if (task.isSuccessful()) {
                                             Log.d(TAG, "data uploaded");
                                             progressDialog.dismiss();
+                                            sendNotificationForAllUsers();
+                                            showDoneAnim();
                                         } else {
                                             Log.d(TAG, "data NOT uploaded");
                                             progressDialog.dismiss();
@@ -382,6 +409,8 @@ public class CreateNewsActivity extends AppCompatActivity {
                                         if (task.isSuccessful()) {
                                             Log.d(TAG, "data uploaded");
                                             progressDialog.dismiss();
+                                            sendNotificationForAllUsers();
+                                            showDoneAnim();
                                         } else {
                                             Log.d(TAG, "data NOT uploaded");
                                             progressDialog.dismiss();
@@ -440,6 +469,8 @@ public class CreateNewsActivity extends AppCompatActivity {
                                                             if (task.isSuccessful()) {
                                                                 Log.d(TAG, "data uploaded");
                                                                 progressDialog.dismiss();
+                                                                sendNotificationForAllUsers();
+                                                                showDoneAnim();
                                                             } else {
                                                                 Log.d(TAG, "data NOT uploaded");
                                                                 progressDialog.dismiss();
@@ -473,7 +504,7 @@ public class CreateNewsActivity extends AppCompatActivity {
     }
 
     public static String getCurrentTime() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
         dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+3"));
         Date today = Calendar.getInstance().getTime();
         return dateFormat.format(today);
@@ -488,5 +519,121 @@ public class CreateNewsActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    public void sendNotifications(String usertoken, String title, String message) {
+        Data data = new Data(title, message);
+        NotificationSender sender = new NotificationSender(data, usertoken);
+        apiService.sendNotifcation(sender).enqueue(new Callback<MyResponse>() {
+            @Override
+            public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+                if (response.code() == 200) {
+                    if (response.body().success != 1) {
+                        Log.d("notification_tracker", "Field");
+                    } else if (response.body().success == 1) {
+                        Log.d("notification_tracker", "Success");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MyResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void getAllUser() {
+        usersToken = new ArrayList<>();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        if (category.equals("general")) {
+            database.getReference("users").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                            UserModel userModel = userSnapshot.getValue(UserModel.class);
+                            if (!currentUser.getEmail().equals(userModel.getEmail())) {
+                                usersToken.add(userModel.getDevice_token());
+                            }
+                        }
+                        Log.d("GET_USERS", "getAllUser: "+usersToken.size());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        } else {
+            database.getReference("users").orderByChild("collageId").equalTo(collageId)
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                                    UserModel userModel = userSnapshot.getValue(UserModel.class);
+                                    if (!currentUser.getEmail().equals(userModel.getEmail())) {
+                                        usersToken.add(userModel.getDevice_token());
+                                    }
+                                }
+                                Log.d("GET_USERS", "getAllUser: "+usersToken.size());
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+        }
+
+    }
+
+    public void sendNotificationForAllUsers(){
+        for(String userToken : usersToken){
+            sendNotifications(userToken, "BAU News", category);
+        }
+    }
+
+    public void showDoneAnim(){
+        hideKeyboard();
+        binding.rootLayout.animate().scaleX(0).scaleY(0).setDuration(250);
+        binding.doneAnim.setVisibility(View.VISIBLE);
+        binding.doneAnim.playAnimation();
+        binding.doneAnim.addAnimatorListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                }, 150 + binding.doneAnim.getDuration());
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+    }
+
+    public  void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(
+                Activity.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     }
 }

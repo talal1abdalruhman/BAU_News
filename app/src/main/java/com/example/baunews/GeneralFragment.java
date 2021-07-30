@@ -1,5 +1,6 @@
 package com.example.baunews;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.util.Log;
+import android.util.Pair;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,9 +92,11 @@ public class GeneralFragment extends Fragment {
         binding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Pair pair = Pair.create(binding.floatingActionButton, "layout");
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), pair);
                 Intent intent = new Intent(getContext(), CreateNewsActivity.class);
                 intent.putExtra("news_category", "general");
-                startActivity(intent);
+                startActivity(intent, options.toBundle());
             }
         });
 

@@ -22,21 +22,31 @@ import android.transition.Transition;
 import android.transition.TransitionManager;
 import android.transition.TransitionValues;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.baunews.NotificationPackage.APIService;
+import com.example.baunews.NotificationPackage.Client;
+import com.example.baunews.NotificationPackage.Data;
+import com.example.baunews.NotificationPackage.MyResponse;
+import com.example.baunews.NotificationPackage.NotificationSender;
 import com.example.baunews.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Locale;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     NavController navController;
-
+    private APIService apiService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences screenMode = getSharedPreferences("DARK_MODE_PREFERENCE", Context.MODE_PRIVATE);
@@ -57,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         SetupTheNav();
         ItemSelectListener();
+        apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
     }
 
     public void SetupTheNav() {
@@ -116,5 +127,27 @@ public class MainActivity extends AppCompatActivity {
             finish();
             super.onBackPressed();
         }
+    }
+
+    public void sendNotifications(String usertoken, String title, String message) {
+        Data data = new Data(title, message);
+        NotificationSender sender = new NotificationSender(data, usertoken);
+        apiService.sendNotifcation(sender).enqueue(new Callback<MyResponse>() {
+            @Override
+            public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+                if (response.code() == 200) {
+                    if (response.body().success != 1) {
+                        Log.d("notification_tracker", "Field");
+                    }else if(response.body().success == 1) {
+                        Log.d("notification_tracker", "Success");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MyResponse> call, Throwable t) {
+
+            }
+        });
     }
 }

@@ -44,6 +44,7 @@
             android:contentDescription="@string/todo"
             app:backgroundTint="?attr/FAB_color"
             app:fabCustomSize="@dimen/_40sdp"
+            android:transitionName="layout"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_add"

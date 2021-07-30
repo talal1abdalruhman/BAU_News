@@ -4,7 +4,7 @@ import com.example.baunews.HelperClasses.Token;
 
 public class UserModel {
     String email, password, collage, collageId, admin;
-    Token device_token;
+    String device_token;
 
     public UserModel() {
     }
@@ -17,7 +17,7 @@ public class UserModel {
         this.admin = admin;
     }
 
-    public UserModel(String email, String password, String collage, String collageId, Token device_token, String admin) {
+    public UserModel(String email, String password, String collage, String collageId, String device_token, String admin) {
         this.email = email;
         this.password = password;
         this.collage = collage;
@@ -58,11 +58,11 @@ public class UserModel {
         this.collage = collage;
     }
 
-    public Token getDevice_token() {
+    public String getDevice_token() {
         return device_token;
     }
 
-    public void setDevice_token(Token device_token) {
+    public void setDevice_token(String device_token) {
         this.device_token = device_token;
     }
 

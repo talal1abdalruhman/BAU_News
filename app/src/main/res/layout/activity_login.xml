@@ -68,6 +68,8 @@
             app:boxStrokeColor="@color/white"
             app:hintTextColor="@color/white"
             app:boxBackgroundMode="outline"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:transitionName="password">
@@ -99,13 +101,13 @@
             android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="36dp"
             android:fontFamily="@font/medium"
+            android:onClick="LoginUser"
             android:text="@string/login"
             android:textSize="@dimen/_13ssp"
-            android:onClick="LoginUser"
+            android:transitionName="button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/forget_password"
-            android:transitionName="button"/>
+            app:layout_constraintTop_toBottomOf="@+id/forget_password" />
 
         <LinearLayout
             android:id="@+id/linear_layout"
@@ -137,6 +139,19 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/_11ssp" />
         </LinearLayout>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loadingAnim"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_150sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/login"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            android:visibility="gone"
+            app:lottie_rawRes="@raw/loading" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

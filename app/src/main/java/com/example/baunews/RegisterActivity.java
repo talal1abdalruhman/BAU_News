@@ -4,14 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.animation.Animator;
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.example.baunews.Models.UserModel;
 import com.example.baunews.HelperClasses.Validation;
@@ -89,7 +95,10 @@ public class RegisterActivity extends AppCompatActivity {
 
         if(!validation.validateEmail(binding.email) | !validation.validatePassword(binding.password)
                 | !validation.validateConfirmPassword(binding.confirmPassword, password)
-                | !validation.validateCollage(binding.dropdown, collageId)) return;
+                | !validation.validateCollage(binding.dropdown, collageId) | !isConnect()) return;
+
+        binding.register.animate().scaleX(0).scaleY(0).setDuration(300);
+        binding.loadingAnim.setVisibility(View.VISIBLE);
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -111,6 +120,40 @@ public class RegisterActivity extends AppCompatActivity {
                                     public void onSuccess(Void aVoid) {
                                         Log.d(AUTH_COMPLETE, "userModel data added");
                                         // TODO: return userModel to loginScreen, Add progressBar and Disable register button
+                                        binding.loadingAnim.setVisibility(View.GONE);
+                                        binding.formLayout.animate().scaleY(0).scaleX(0).setDuration(300);
+                                        binding.finishedAnim.setVisibility(View.VISIBLE);
+                                        binding.finishedAnim.playAnimation();
+                                        binding.finishedAnim.addAnimatorListener(new Animator.AnimatorListener() {
+                                            @Override
+                                            public void onAnimationStart(Animator animation) {
+
+                                            }
+
+                                            @Override
+                                            public void onAnimationEnd(Animator animation) {
+                                                new Handler().postDelayed(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        //GoBackToLogin(new View(RegisterActivity.this));
+                                                        Pair pair = Pair.create(binding.finishedAnim, "logo");
+                                                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, pair);
+                                                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                                        startActivity(intent, options.toBundle());
+                                                    }
+                                                }, 600 + binding.finishedAnim.getDuration());
+                                            }
+
+                                            @Override
+                                            public void onAnimationCancel(Animator animation) {
+
+                                            }
+
+                                            @Override
+                                            public void onAnimationRepeat(Animator animation) {
+
+                                            }
+                                        });
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
@@ -144,5 +187,16 @@ public class RegisterActivity extends AppCompatActivity {
 
         Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
         startActivity(intent, options.toBundle());
+    }
+
+    public boolean isConnect() {
+        ConnectivityManager conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
+
+        if(netInfo == null || !netInfo.isConnected() || !netInfo.isAvailable()){
+            Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 }
