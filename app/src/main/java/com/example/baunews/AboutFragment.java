@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.os.ConfigurationCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.text.Layout;
@@ -83,12 +85,13 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
 
         String locale = this.getResources().getConfiguration().locale.getDisplayName();
         if(locale.equals("Arabic")){
-            heights= new int[]{927, 3072, 2302, 5334, 2345};
+            heights= new int[]{3161, 7079, 4801, 12644};
         }
-        else heights= new int[]{1699, 3861, 2075, 1323, 3080};
+        else heights= new int[]{4525, 8444, 4412, 3507};
+
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_about, container, false);
         View view=binding.getRoot();
-
 
         intent=new Intent(getActivity(),ShowCollegesActivity.class);
         // Inflate the layout for this fragment
@@ -108,7 +111,6 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
         binding.royalLetter.setOnClickListener(this);
         binding.prepresidentLetter.setOnClickListener(this);
         binding.vision.setOnClickListener(this);
-        binding.aboutColleges.setOnClickListener(this);
         binding.engineering.setOnClickListener(this);
         binding.medicine.setOnClickListener(this);
         binding.it.setOnClickListener(this);
@@ -139,12 +141,14 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
 
 
     final boolean[] isclick = {false,false,false,false,false};
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.about_bau:
                 if(isclick[0]==false){
                     rotateUp(binding.aboutBauArrow);
+                    binding.aboutBau.setBackground(getActivity().getDrawable(R.drawable.item_selected_background));
                     binding.aboutBauTxt.setVisibility(View.VISIBLE);
                     binding.aboutBauTxt.setHeight(heights[0]);
                 }
@@ -158,6 +162,7 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
             case  R.id.royal_letter:
                 if(isclick[1]==false){
                     rotateUp(binding.royalArrow);
+                    binding.royalLetter.setBackground(getActivity().getDrawable(R.drawable.item_selected_background));
                     binding.txtRoyalLetter.setVisibility(View.VISIBLE);
                     binding.txtRoyalLetter.setHeight(heights[1]);
                 }
@@ -171,6 +176,7 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
             case R.id.prepresident_letter:
                 if(isclick[2]==false){
                     rotateUp(binding.prepresidentArrow);
+                    binding.prepresidentLetter.setBackground(getActivity().getDrawable(R.drawable.item_selected_background));
                     binding.txtPrepresidentLetter.setVisibility(View.VISIBLE);
                     binding.txtPrepresidentLetter.setHeight(heights[2]);
                 }
@@ -184,6 +190,7 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
             case R.id.vision:
                 if(isclick[3]==false){
                     rotateUp(binding.visionArrow);
+                    binding.vision.setBackground(getActivity().getDrawable(R.drawable.item_selected_background));
                     binding.txtVision.setVisibility(View.VISIBLE);
                     binding.txtVision.setHeight(heights[3]);
                 }
@@ -193,18 +200,6 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
                     binding.txtVision.setHeight(0);
                 }
                 isclick[3] =!isclick[3];
-                break;
-            case R.id.about_colleges:
-                if(isclick[4]==false){
-                    rotateUp(binding.collegeArrow);
-                    binding.colleges.setVisibility(View.VISIBLE);
-                }
-                else{
-                    rotateDown(binding.collegeArrow);
-                    binding.colleges.setVisibility(View.INVISIBLE);
-                    binding.line.setVisibility(View.VISIBLE);
-                }
-                isclick[4] =!isclick[4];
                 break;
 
                 //--------------------------------------------------------------cards onClick------

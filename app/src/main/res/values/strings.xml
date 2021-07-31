@@ -46,6 +46,79 @@
     <string name="change_language">Changing language</string>
     <string name="loading">Loading..</string>
     <string name="bau_about">About university</string>
+
+    <string name="about_bau">\n<font size="25" color="#02a951">History and Background</font>
+    \n\n
+     Al-Balqa Applied University (BAU) is a state university founded by royal decree on the 22nd of August 1996. Teaching at the university commenced in the academic year 1997/1998. The university offers 11 MA and 52 BA programs in addition to 117 intermediate university programs. BAU comprises of 6 faculties on its main campus in Salt City, and 12 university colleges as satellite campuses across the kingdom. The university also oversees the 51 private and public community colleges in Jordan.
+     BAU’s main focus is on providing quality applied technical education through inspirational teaching and world-class research. Consequently, BAU graduates are able to compete in local, regional and international markets.
+    \n\n
+        <font size="25" color="#02a951">Vision</font>
+    \n\n
+     A scientifically leading and globally competing applied university, distinguished in creativity, innovation, applied scientific research and leadership for the purpose of compounding knowledge economy and society.
+    \n\n
+    <font size="25" color="#02a951">Mission</font>
+    \n\n
+     Providing high quality applied and technical education, and furnishing competitive, incubating and stimulating environment for innovation, creativity, research, development and leadership in order to contribute to attaining sustainable development and knowledge economy.
+    \n\n
+    <font size="25" color="#02a951">Our Core Values</font>
+    \n\n
+    - Academic Freedom
+    \n
+    - Integrity, Justice and the Rule of law
+    \n
+    - Equal Opportunities
+    \n
+    - Community Service
+    \n
+    - Neutrality
+    \n
+    - Cooperation with our stakeholders
+    \n
+    - Teamwork Spirit
+    \n
+    - Dialogue, Pursuit of Excellence and Prompt Responsiveness to Challenges
+    \n\n
+        <font size="25" color="#02a951">Programs and Degrees</font>
+    \n\n
+     The university offers term-study programs according to the Credit Hours System.
+    Upon recognition obtained from the Council of Higher Education in Jordan, Association of Arab Universities, International Association of universities, and international academic commissions, BAU awards the following academic degrees:
+    \n
+    - the Master\'s degree \n
+    - the Bachelor\'s degree \n
+    - Associate Diploma \n
+    - Higher Vocational Diploma\n </string>
+
+    <string name="royal_letter">
+        \n
+    In the name of God, the most merciful, the most compassionate,
+    May the peace and blessing of Allah be upon you,
+    \n\n
+         Jordan\’s higher education institutions, as you all know, constitute a comprehensive educational system tasked with providing Jordanians with quality higher education that is capable of equipping both undergraduate and intermediate university graduates with the necessary academic and professional skills to meet Jordan\’s evolving needs. That being said, our region is witnessing a number of emerging economic and political challenges that are bound to affect both Jordan and the region\’s present and future socioeconomic makeup. These changes bring forth new demands and expectations in terms of Jordan\’s ability to prepare its human resources in the different fields. Consequently, there is an urgent need to reconsider our future educational inputs in a manner that enables our educational system to meet the challenges ahead with confidence, and propel our society into further growth and progress.
+    \n\n
+         In view of this, and the predicted changes to public institutions\’ structure and makeup, it is my hope that an applied university be founded in the Hashemite Kingdom of Jordan to further bolster Jordan\’s higher education philosophy, meet the demands of those upcoming challenges, and pave the way to new educational models in line with our modern Jordanian society.
+    \n\n
+         The proposed university will be a valuable addition to existing higher education institutions and its establishment now responds to the requirements of this current stage.
+    \n\n
+         First: The founding of an applied university with specific focus on intermediate college education will provide direct supervision over the existing community colleges and will ensure that academic, professional and applied standards are applied and maintained. It will also facilitate further education under more favorable financial conditions for accomplished graduates whose socioeconomic backgrounds would have impeded their studies. Furthermore, it will provide those students with high potential with the opportunity to receive quality vocational and applied training and enable them to contribute actively in their societies.
+    \n\n
+         Second: The founding of an applied university provides community colleges with sound leadership that is focused on applied and vocational training. This in turn, will not only reform applied and vocational training and education, but also raise its profile. Furthermore, a sound academic leadership will address and remedy the numerous issues that have plagued and hindered applied and vocational training and education colleges from meeting their goals so far, including administrative and organizational issues.
+    \n\n
+         Third: The founding of an applied university that works to reform community colleges will eliminate the need to close these colleges down, particularly at a time where maintaining the current status quo would incur great academic, economic and administrative hardship, and negatively affect their education outputs.
+    \n\n
+         Fourth: The founding of an applied university realizes the concept of sustainable education and offers flexible and advanced models to connect and streamline its different levels. Furthermore, it democratizes education as guaranteed in the Jordanian constitution, and encourages large student enrollment. It also reduces pressure on other state universities which in turn will improve the quality of education, scientific research and community service.
+    \n\n
+         In view of this, and the rationale and need to respond to the national, regional and international challenges at the political, socio-economic and educational fields, the creation of an applied university in Jordan becomes a necessity that needs to be fully examined by a competent expert committee to ensure that it comes to fruition. Al-Salt city’s pioneering academic role and its rich history make it the ideal location for the establishment of this university. The university will reinforce the city\’s role celebrate its rich heritage, honor the memory of the city\’s pioneering graduates and link its glorious past to what we pray will be its bright and productive future. We have decided that his Highness Prince Ghazi bin Mohammad chair the Board of trustees, and we wish him and its members all success in their task.
+    \n\n\n\n
+
+
+    May the peace and blessing of Allah be upon you,\n
+    Your brother, Al-Hussein,\n
+    Amman 7th of Rabi II 1417 A.H.,\n
+    corresponding to 22nd August 1996.\n
+    </string>
+
+
+
     <string name="engineering_description" translatable="false">Welcome to Faculty of Engineering Welcome to Engineering at BAU. Our school is one of the oldest faculties in BAU where teaching commenced in 1998/1999. Back then, the school offered only 2 bachelor degree programs; Materials Engineering and Surveying and Geomatics. Today, the school is home to a wide range of exceptional programs including Computer Engineering, Electrical Power Engineering, Civil Engineering and many more. As a school of engineering, we have dedicated much of our 6400 m2 to meet the various demands of our programs. Our school boasts top-notch teaching halls, laboratories, workshops, and student open spaces. The school is also home to 350 computers, and over 20 world-class laboratories. All of which are designed around your academic needs. We are certain that your learning journey with us will be a memorable one, and we welcome you again to Engineering at BAU.</string>
     <string name="midicine_descripton">Welcome to the Faculty of medicine in the historical city of Al-Salt. For almost 100 years ago, Al- Salt secondary school was a pilgrimage to those wishing to complete their studies and education in Jordan. Today, this city is the center of Al-Balqa Applied University (BAU) which has 23 faculties distributed all over the country of Jordan and we are grateful to have the opportunity to work on the main campus of BAU.
 Our mission is to prepare highly qualified, professional and compassionate physicians through utilizing flexible and innovative teaching and training frameworks to deliver world-class medical education. We deliver this mission through the synergies among top faculty staff in basic and clinical medicine and train our students in exceptional patient care facilities in Jordan. This combination of teaching, training and community care makes our faculty a nourishing and vibrant environment for students and staff.
@@ -97,89 +170,51 @@ BAU has always been at the forefront in innovative program offerings, The Facult
 The faculty of AI is the first of its kind in Jordan and the region and is home to cutting-edge programs in Artificial Intelligence, Robotics, Data Science, Virtual Reality and Information and Cyber Security. Our programs with give you in-depth knowledge in any of your chosen fields, and will include course work in a number of relevant fields such as computer science, computational modelling, statistics, etc.</string>
     <string name="Law_Collage_description">Welcome to Law College
 The introduction of the Faculty of Law to the BAU family in 2019 comes in response to the continuous demands on Law. In the 21st century, lawyers are needed to negotiate and draft agreements, mediate disputes and craft treaties. . Our program combines legal knowledge with real-world legal skills to prepare our student for their legal careers. If you are looking to learn at the hands of experts, in a strong and vibrant legal research community, then Law at BAU is the place to be.</string>
-    <string name="royal_letter">
-In the name of God, the most merciful, the most compassionate,
-May the peace and blessing of Allah be upon you,
 
-     Jordan’s higher education institutions, as you all know, constitute a comprehensive educational system tasked with providing Jordanians with quality higher education that is capable of equipping both undergraduate and intermediate university graduates with the necessary academic and professional skills to meet Jordan’s evolving needs. That being said, our region is witnessing a number of emerging economic and political challenges that are bound to affect both Jordan and the region’s present and future socioeconomic makeup. These changes bring forth new demands and expectations in terms of Jordan’s ability to prepare its human resources in the different fields. Consequently, there is an urgent need to reconsider our future educational inputs in a manner that enables our educational system to meet the challenges ahead with confidence, and propel our society into further growth and progress.
+    <string name="presidents_letter">\n
+             When the idea of establishing Al-Balqa Applied University first came about, the Hashemite vision that propelled the project foresaw the value of responsive quality higher education in a changing world. Today, BAU, is home to applied, technical and academic flexible learning frameworks where creativity and innovation are embraced, where outstanding transformative research takes place, and where inspirational teaching is delivered.
+\n\n
+     As BAU embraces the challenges of the future, it also celebrates the rich history of its hometown. The location of BAU in Salt honors the city\’s academic heritage as home to Jordan\'s first school, pays tribute to its pioneering graduates, and links the city\'s rich academic and cultural heritage of the twentieth century with its future. Our vision in BAU today is to build on this legacy by ensuring our graduates reach their full protentional and stand out in today\’s competitive markets through inspirational applied teaching and training, and transformative research that serves and develops our modern society.
+\n\n
+     BAU\’s focus on market-responsive applied education and training in technology, communication and science extends beyond Jordan, and our goal is to open the doors for our alumni in regional and international job markets. To provide this quality applied education we envision, BAU continues to enhance its academic, applied and vocational performance and practice standards to those of international institutions and is actively working towards achieving international accreditation, and developing its study plans in line with higher education institutions globally to facilitate student exchange and transfer. Our ultimate goal is that BAU becomes the university of choice in the region for those seeking qualified human resources both in terms of academic knowledge and applied know-how. To that end, BAU is tireless in developing its curricula, conducting transformative research, widening participation in higher education, delivering inspirational teaching, working closely with our partners and stakeholders, maintaining supervision of satellite campuses, providing fairer and equal access to education, promoting a culture of integrity, professionalism, mutual respect, teamwork, community and tolerance.
+\n\n
+     Our belief in our students, staff and city is boundless, and our pursuit of academic excellence and sustainable development for our community will never cease.
+\n
 
-     In view of this, and the predicted changes to public institutions’ structure and makeup, it is my hope that an applied university be founded in the Hashemite Kingdom of Jordan to further bolster Jordan’s higher education philosophy, meet the demands of those upcoming challenges, and pave the way to new educational models in line with our modern Jordanian society.
-
-     The proposed university will be a valuable addition to existing higher education institutions and its establishment now responds to the requirements of this current stage.
-
-     First: The founding of an applied university with specific focus on intermediate college education will provide direct supervision over the existing community colleges and will ensure that academic, professional and applied standards are applied and maintained. It will also facilitate further education under more favorable financial conditions for accomplished graduates whose socioeconomic backgrounds would have impeded their studies. Furthermore, it will provide those students with high potential with the opportunity to receive quality vocational and applied training and enable them to contribute actively in their societies.
-
-     Second: The founding of an applied university provides community colleges with sound leadership that is focused on applied and vocational training. This in turn, will not only reform applied and vocational training and education, but also raise its profile. Furthermore, a sound academic leadership will address and remedy the numerous issues that have plagued and hindered applied and vocational training and education colleges from meeting their goals so far, including administrative and organizational issues.
-
-     Third: The founding of an applied university that works to reform community colleges will eliminate the need to close these colleges down, particularly at a time where maintaining the current status quo would incur great academic, economic and administrative hardship, and negatively affect their education outputs.
-
-     Fourth: The founding of an applied university realizes the concept of sustainable education and offers flexible and advanced models to connect and streamline its different levels. Furthermore, it democratizes education as guaranteed in the Jordanian constitution, and encourages large student enrollment. It also reduces pressure on other state universities which in turn will improve the quality of education, scientific research and community service.
-
-     In view of this, and the rationale and need to respond to the national, regional and international challenges at the political, socio-economic and educational fields, the creation of an applied university in Jordan becomes a necessity that needs to be fully examined by a competent expert committee to ensure that it comes to fruition. Al-Salt city’s pioneering academic role and its rich history make it the ideal location for the establishment of this university. The university will reinforce the city’s role celebrate its rich heritage, honor the memory of the city’s pioneering graduates and link its glorious past to what we pray will be its bright and productive future. We have decided that his Highness Prince Ghazi bin Mohammad chair the Board of trustees, and we wish him and its members all success in their task.
+    </string>
 
 
-
-May the peace and blessing of Allah be upon you,
-Your brother, Al-Hussein,
-Amman 7th of Rabi II 1417 A.H.,
-corresponding to 22nd August 1996.</string>
-    <string name="about_bau">History and Background
-     Al-Balqa Applied University (BAU) is a state university founded by royal decree on the 22nd of August 1996. Teaching at the university commenced in the academic year 1997/1998. The university offers 11 MA and 52 BA programs in addition to 117 intermediate university programs. BAU comprises of 6 faculties on its main campus in Salt City, and 12 university colleges as satellite campuses across the kingdom. The university also oversees the 51 private and public community colleges in Jordan.
-     BAU\'s main focus is on providing quality applied technical education through inspirational teaching and world-class research. Consequently, BAU graduates are able to compete in local, regional and international markets.
-
-Vision
-     A scientifically leading and globally competing applied university, distinguished in creativity, innovation, applied scientific research and leadership for the purpose of compounding knowledge economy and society.
-
-Mission
-     Providing high quality applied and technical education, and furnishing competitive, incubating and stimulating environment for innovation, creativity, research, development and leadership in order to contribute to attaining sustainable development and knowledge economy.
-
-Our Core Values
-Academic Freedom
-Integrity, Justice and the Rule of law
-Equal Opportunities
-Community Service
-Neutrality
-Cooperation with our stakeholders
-Teamwork Spirit
-Dialogue, Pursuit of Excellence and Prompt Responsiveness to Challenges
-Programs and Degrees
-     The university offers term-study programs according to the Credit Hours System.
-Upon recognition obtained from the Council of Higher Education in Jordan, Association of Arab Universities, International Association of universities, and international academic commissions, BAU awards the following academic degrees:
-the Master\'s degree
-the Bachelor\'s degree
-Associate Diploma
-Higher Vocational Diploma</string>
-    <string name="presidents_letter">When the idea of establishing Al-Balqa Applied University first came about, the Hashemite vision that propelled the project foresaw the value of responsive quality higher education in a changing world. Today, BAU, is home to applied, technical and academic flexible learning frameworks where creativity and innovation are embraced, where outstanding transformative research takes place, and where inspirational teaching is delivered.
-
-     As BAU embraces the challenges of the future, it also celebrates the rich history of its hometown. The location of BAU in Salt honors the city’s academic heritage as home to Jordan\'s first school, pays tribute to its pioneering graduates, and links the city\'s rich academic and cultural heritage of the twentieth century with its future. Our vision in BAU today is to build on this legacy by ensuring our graduates reach their full protentional and stand out in today\’s competitive markets through inspirational applied teaching and training, and transformative research that serves and develops our modern society.
-
-     BAU\'s focus on market-responsive applied education and training in technology, communication and science extends beyond Jordan, and our goal is to open the doors for our alumni in regional and international job markets. To provide this quality applied education we envision, BAU continues to enhance its academic, applied and vocational performance and practice standards to those of international institutions and is actively working towards achieving international accreditation, and developing its study plans in line with higher education institutions globally to facilitate student exchange and transfer. Our ultimate goal is that BAU becomes the university of choice in the region for those seeking qualified human resources both in terms of academic knowledge and applied know-how. To that end, BAU is tireless in developing its curricula, conducting transformative research, widening participation in higher education, delivering inspirational teaching, working closely with our partners and stakeholders, maintaining supervision of satellite campuses, providing fairer and equal access to education, promoting a culture of integrity, professionalism, mutual respect, teamwork, community and tolerance.
-
-     Our belief in our students, staff and city is boundless, and our pursuit of academic excellence and sustainable development for our community will never cease.</string>
-
-
-    <string name="vision_desc">History and Background
-
+    <string name="vision_desc">
+        \n
+        <font size="25" color="#02a951">History and Background</font>
+\n\n
 Al-Balqa Applied University (BAU) is a state university founded by royal decree on the 22nd of August 1996. . Teaching at the university commenced in the academic year 1997/1998. The university offers 11 MA and 52 BA programs in addition to 117 intermediate university programs. BAU comprises of 6 faculties on its main campus in Salt City, and 12 university colleges as satellite campuses across the kingdom. The university also oversees the 51 private and public community colleges in Jordan. BAU’s main focus is on providing quality applied technical education through inspirational teaching and world-class research. Consequently BAU graduates are able to compete in local, regional and international markets.
-Vision
-
+\n\n
+        <font size="25" color="#02a951">Vision</font>
+\n\n
 A scientifically leading and globally competing applied university, distinguished in creativity, innovation, applied scientific research and leadership for the purpose of compounding knowledge economy and society.
-Mission
-
+\n\n
+        <font size="25" color="#02a951">Mission</font>
+\n\n
 Providing high quality applied and technical education, and furnishing competitive, incubating and stimulating environment for innovation, creativity, research, development and leadership in order to contribute to attaining sustainable development and knowledge economy.
-Our Core Values
+\n\n
+        <font size="25" color="#02a951">Our Core Values</font>
+\n\n
 
-Academic Freedom
-Integrity, Justice and the Rule of law
-Equal Opportunities
-Community Service
-Neutrality
-Cooperation with our stakeholders
-Teamwork Spirit
-Dialogue, Pursuit of Excellence and Prompt Responsiveness to Challenges
-</string>
+- Academic Freedom \n
+- Integrity, Justice and the Rule of law \n
+- Equal Opportunities \n
+- Community Service \n
+- Neutrality \n
+- Cooperation with our stakeholders \n
+- Teamwork Spirit \n
+- Dialogue, Pursuit of Excellence and Prompt Responsiveness to Challenges \n
+
+
+    </string>
 
     <string name="about_bau_university">About BAU University</string>
+
 
     <string name="the_royal_decree_letter">The Royal Decree Letter</string>
 
@@ -193,7 +228,7 @@ Dialogue, Pursuit of Excellence and Prompt Responsiveness to Challenges
     <string name="agricultural">Agricultural</string>
     <string name="business">Business</string>
     <string name="human_sciences">Human Sciences</string>
-    <string name="technical_collage">Technical Collage</string>
+    <string name="technical_collage">\ \ Technical Collage\ \ </string>
     <string name="artifical_intelligence">Artificial Intelligence</string>
     <string name="law_collage">Law Collage</string>
     <string-array name="colleges_names">
