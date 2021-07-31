@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
 
 import com.example.baunews.databinding.ActivityShowCollegesBinding;
 
@@ -17,6 +18,7 @@ public class ShowCollegesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_show_colleges);
 
+        binding.txt.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD);
 
         Intent intent=getIntent();
         Bundle b=intent.getExtras();

@@ -13,6 +13,7 @@ import androidx.core.os.ConfigurationCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,6 +98,12 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        binding.aboutBauTxt.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD);
+        binding.txtVision.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD);
+        binding.txtPrepresidentLetter.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD);
+        binding.txtRoyalLetter.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD);
+
         binding.aboutBau.setOnClickListener(this);
         binding.royalLetter.setOnClickListener(this);
         binding.prepresidentLetter.setOnClickListener(this);
