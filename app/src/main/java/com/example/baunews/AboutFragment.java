@@ -80,17 +80,19 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
             mParam2 = getArguments().getString(ARG_PARAM2);
 
         }
+
+
+        String locale = getActivity().getResources().getConfiguration().locale.getDisplayName();
+        if(locale.equals("Arabic")||locale.equals("العربية")){
+            heights= new int[]{3161, 7079, 4801, 12644};
+        }
+        else heights= new int[]{4525, 8444, 4412, 3507};
+        Toast.makeText(getActivity(),locale,Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        String locale = this.getResources().getConfiguration().locale.getDisplayName();
-        if(locale.equals("Arabic")){
-            heights= new int[]{3161, 7079, 4801, 12644};
-        }
-        else heights= new int[]{4525, 8444, 4412, 3507};
 
         animation= AnimationUtils.loadAnimation(getActivity(),R.anim.text_anim);
 
