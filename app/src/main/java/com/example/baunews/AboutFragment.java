@@ -19,6 +19,8 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.GridLayout;
 import android.widget.Toast;
 
@@ -34,6 +36,7 @@ import java.util.Locale;
 public class AboutFragment extends Fragment implements View.OnClickListener {
 
 
+    Animation animation;
     int []heights;
     Intent intent;
     private FragmentAboutBinding binding;
@@ -89,6 +92,7 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
         }
         else heights= new int[]{4525, 8444, 4412, 3507};
 
+        animation= AnimationUtils.loadAnimation(getActivity(),R.anim.text_anim);
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_about, container, false);
         View view=binding.getRoot();
@@ -150,11 +154,13 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
                     rotateUp(binding.aboutBauArrow);
                     binding.aboutBau.setBackground(getActivity().getDrawable(R.drawable.item_selected_background));
                     binding.aboutBauTxt.setVisibility(View.VISIBLE);
+                    binding.aboutBauTxt.startAnimation(animation);
                     binding.aboutBauTxt.setHeight(heights[0]);
                 }
                 else{
                     rotateDown(binding.aboutBauArrow);
                     binding.aboutBauTxt.setVisibility(View.INVISIBLE);
+                    binding.aboutBau.setBackground(getActivity().getDrawable(R.drawable.item_background));
                     binding.aboutBauTxt.setHeight(0);
                 }
                 isclick[0] =!isclick[0];
@@ -164,11 +170,13 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
                     rotateUp(binding.royalArrow);
                     binding.royalLetter.setBackground(getActivity().getDrawable(R.drawable.item_selected_background));
                     binding.txtRoyalLetter.setVisibility(View.VISIBLE);
+                    binding.txtRoyalLetter.startAnimation(animation);
                     binding.txtRoyalLetter.setHeight(heights[1]);
                 }
                 else{
                     rotateDown(binding.royalArrow);
                     binding.txtRoyalLetter.setVisibility(View.INVISIBLE);
+                    binding.royalLetter.setBackground(getActivity().getDrawable(R.drawable.item_background));
                     binding.txtRoyalLetter.setHeight(0);
                 }
                 isclick[1] =!isclick[1];
@@ -178,11 +186,13 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
                     rotateUp(binding.prepresidentArrow);
                     binding.prepresidentLetter.setBackground(getActivity().getDrawable(R.drawable.item_selected_background));
                     binding.txtPrepresidentLetter.setVisibility(View.VISIBLE);
+                    binding.txtPrepresidentLetter.startAnimation(animation);
                     binding.txtPrepresidentLetter.setHeight(heights[2]);
                 }
                 else{
                     rotateDown(binding.prepresidentArrow);
                     binding.txtPrepresidentLetter.setVisibility(View.INVISIBLE);
+                    binding.prepresidentLetter.setBackground(getActivity().getDrawable(R.drawable.item_background));
                     binding.txtPrepresidentLetter.setHeight(0);
                 }
                 isclick[2] =!isclick[2];
@@ -192,11 +202,13 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
                     rotateUp(binding.visionArrow);
                     binding.vision.setBackground(getActivity().getDrawable(R.drawable.item_selected_background));
                     binding.txtVision.setVisibility(View.VISIBLE);
+                    binding.txtVision.startAnimation(animation);
                     binding.txtVision.setHeight(heights[3]);
                 }
                 else{
                     rotateDown(binding.visionArrow);
                     binding.txtVision.setVisibility(View.INVISIBLE);
+                    binding.vision.setBackground(getActivity().getDrawable(R.drawable.item_background));
                     binding.txtVision.setHeight(0);
                 }
                 isclick[3] =!isclick[3];
