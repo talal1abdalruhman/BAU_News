@@ -1,6 +1,7 @@
 package com.example.baunews;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Build;
@@ -31,6 +32,7 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
 
 
     int []heights;
+    Intent intent;
     private FragmentAboutBinding binding;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -85,6 +87,9 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
         else heights= new int[]{1699, 3861, 2075, 1323, 3080};
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_about, container, false);
         View view=binding.getRoot();
+
+
+        intent=new Intent(getActivity(),ShowCollegesActivity.class);
         // Inflate the layout for this fragment
         return view;
     }
@@ -97,6 +102,16 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
         binding.prepresidentLetter.setOnClickListener(this);
         binding.vision.setOnClickListener(this);
         binding.aboutColleges.setOnClickListener(this);
+        binding.engineering.setOnClickListener(this);
+        binding.medicine.setOnClickListener(this);
+        binding.it.setOnClickListener(this);
+        binding.science.setOnClickListener(this);
+        binding.agricultural.setOnClickListener(this);
+        binding.business.setOnClickListener(this);
+        binding.humanSciences.setOnClickListener(this);
+        binding.technicalCollage.setOnClickListener(this);
+        binding.artificalIntelligence.setOnClickListener(this);
+        binding.lawCollege.setOnClickListener(this);
     }
 
 
@@ -183,6 +198,38 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
                     binding.line.setVisibility(View.VISIBLE);
                 }
                 isclick[4] =!isclick[4];
+                break;
+
+                //--------------------------------------------------------------cards onClick------
+            case R.id.engineering:intent.putExtra("college",1);
+                startActivity(intent);
+                break;
+            case R.id.medicine:intent.putExtra("college",2);
+                startActivity(intent);
+                break;
+            case R.id.it:intent.putExtra("college",3);
+                startActivity(intent);
+                break;
+            case R.id.science:intent.putExtra("college",4);
+                startActivity(intent);
+                break;
+            case R.id.agricultural:intent.putExtra("college",5);
+                startActivity(intent);
+                break;
+            case R.id.business:intent.putExtra("college",6);
+                startActivity(intent);
+                break;
+            case R.id.human_sciences:intent.putExtra("college",7);
+                startActivity(intent);
+                break;
+            case R.id.technical_collage:intent.putExtra("college",8);
+                startActivity(intent);
+                break;
+            case R.id.artifical_intelligence:intent.putExtra("college",9);
+                startActivity(intent);
+                break;
+            case R.id.law_college:intent.putExtra("college",10);
+                startActivity(intent);
         }
     }
 }
