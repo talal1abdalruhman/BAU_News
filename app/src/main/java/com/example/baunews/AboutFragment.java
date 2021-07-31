@@ -80,7 +80,7 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
 
         String locale = this.getResources().getConfiguration().locale.getDisplayName();
         if(locale.equals("Arabic")){
-            heights= new int[]{5000, 5000, 5000, 8000, 5000};
+            heights= new int[]{927, 3072, 2302, 5334, 2345};
         }
         else heights= new int[]{1699, 3861, 2075, 1323, 3080};
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_about, container, false);
