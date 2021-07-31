@@ -1,17 +1,26 @@
 package com.example.baunews;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.os.ConfigurationCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
+import android.widget.Toast;
 
 import com.example.baunews.databinding.FragmentAboutBinding;
+
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +29,8 @@ import com.example.baunews.databinding.FragmentAboutBinding;
  */
 public class AboutFragment extends Fragment implements View.OnClickListener {
 
+
+    int []heights;
     private FragmentAboutBinding binding;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -66,6 +77,12 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        String locale = this.getResources().getConfiguration().locale.getDisplayName();
+        if(locale.equals("Arabic")){
+            heights= new int[]{5000, 5000, 5000, 8000, 5000};
+        }
+        else heights= new int[]{1699, 3861, 2075, 1323, 3080};
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_about, container, false);
         View view=binding.getRoot();
         // Inflate the layout for this fragment
@@ -97,7 +114,7 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
         v.animate().setDuration(400).rotation(360);
     }
 
-    final int []heights={1699,3861,2075,1323,3080};
+
 
     final boolean[] isclick = {false,false,false,false,false};
     @Override
@@ -158,11 +175,12 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
             case R.id.about_colleges:
                 if(isclick[4]==false){
                     rotateUp(binding.collegeArrow);
-                    binding.scroll.setVisibility(View.VISIBLE);
+                    binding.colleges.setVisibility(View.VISIBLE);
                 }
                 else{
                     rotateDown(binding.collegeArrow);
-                    binding.scroll.setVisibility(View.INVISIBLE);
+                    binding.colleges.setVisibility(View.INVISIBLE);
+                    binding.line.setVisibility(View.VISIBLE);
                 }
                 isclick[4] =!isclick[4];
         }
