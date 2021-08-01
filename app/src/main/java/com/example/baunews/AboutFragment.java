@@ -81,13 +81,11 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
 
         }
 
-
         String locale = getActivity().getResources().getConfiguration().locale.getDisplayName();
         if(locale.equals("Arabic")||locale.equals("العربية")){
             heights= new int[]{3161, 7079, 4801, 12644};
         }
         else heights= new int[]{4525, 8444, 4412, 3507};
-        Toast.makeText(getActivity(),locale,Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -146,7 +144,7 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
 
 
 
-    final boolean[] isclick = {false,false,false,false,false};
+    boolean[] isclick = {false,false,false,false,false};
 
     @Override
     public void onClick(View view) {
@@ -219,6 +217,7 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
                 //--------------------------------------------------------------cards onClick------
             case R.id.engineering:intent.putExtra("college",1);
                 startActivity(intent);
+
                 break;
             case R.id.medicine:intent.putExtra("college",2);
                 startActivity(intent);

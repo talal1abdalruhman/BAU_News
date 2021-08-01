@@ -18,6 +18,7 @@
         <item name="text_color">@color/offWhite</item>
         <item name="text_color_hint">@color/offWhite</item>
         <item name="dialog_bg">#32363d</item>
+        <item name="item_background">@color/black</item>
     </style>
 
     <style name="ToolbarColoredBackArrow" parent="Theme.MaterialComponents.DayNight.NoActionBar">

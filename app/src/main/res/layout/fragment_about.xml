@@ -34,6 +34,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:textSize="@dimen/_16ssp"
+                    android:textColor="?attr/text_color"
                     android:text="@string/about_bau_university"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -76,6 +77,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:textSize="@dimen/_16ssp"
+                    android:textColor="?attr/text_color"
                     android:text="@string/the_royal_decree_letter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -117,6 +119,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:textSize="@dimen/_16ssp"
+                    android:textColor="?attr/text_color"
                     android:text="@string/the_prepresident_s_letter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -160,6 +163,7 @@
                     android:layout_alignParentTop="true"
                     android:textSize="@dimen/_16ssp"
                     android:text="@string/vision"
+                    android:textColor="?attr/text_color"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:ignore="RelativeOverlap" />
@@ -196,6 +200,7 @@
                     android:layout_alignParentTop="true"
                     android:textSize="@dimen/_16ssp"
                     android:text="@string/colleges"
+                    android:textColor="?attr/text_color"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:ignore="RelativeOverlap" />
@@ -237,7 +242,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/engineering"
-                                android:textColor="#6f6f6f"
+                                android:textColor="?attr/text_color"
                                 android:textSize="@dimen/_13ssp" />
                         </LinearLayout>
 
@@ -271,7 +276,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/medicine"
-                                android:textColor="#6f6f6f"
+                                android:textColor="?attr/text_color"
                                 android:textSize="@dimen/_13ssp" />
                         </LinearLayout>
 
@@ -305,7 +310,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/it"
-                                android:textColor="#6f6f6f"
+                                android:textColor="?attr/text_color"
                                 android:textSize="@dimen/_13ssp" />
                         </LinearLayout>
 
@@ -339,7 +344,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/science"
-                                android:textColor="#6f6f6f"
+                                android:textColor="?attr/text_color"
                                 android:textSize="@dimen/_13ssp" />
                         </LinearLayout>
 
@@ -373,7 +378,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/agricultural"
-                                android:textColor="#6f6f6f"
+                                android:textColor="?attr/text_color"
                                 android:textSize="@dimen/_13ssp" />
                         </LinearLayout>
 
@@ -407,7 +412,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/business"
-                                android:textColor="#6f6f6f"
+                                android:textColor="?attr/text_color"
                                 android:textSize="@dimen/_13ssp" />
                         </LinearLayout>
 
@@ -441,7 +446,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/human_sciences"
-                                android:textColor="#6f6f6f"
+                                android:textColor="?attr/text_color"
                                 android:textSize="@dimen/_13ssp" />
                         </LinearLayout>
 
@@ -475,7 +480,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/technical_collage"
-                                android:textColor="#6f6f6f"
+                                android:textColor="?attr/text_color"
                                 android:textSize="@dimen/_13ssp" />
                         </LinearLayout>
 
@@ -509,7 +514,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/artifical_intelligence"
-                                android:textColor="#6f6f6f"
+                                android:textColor="?attr/text_color"
                                 android:textSize="@dimen/_13ssp" />
                         </LinearLayout>
 
@@ -543,7 +548,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/law_collage"
-                                android:textColor="#6f6f6f"
+                                android:textColor="?attr/text_color"
                                 android:textSize="@dimen/_13ssp" />
                         </LinearLayout>
 

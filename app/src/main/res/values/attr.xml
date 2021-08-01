@@ -7,5 +7,6 @@
         <attr name="text_color_hint" format="color"/>
         <attr name="FAB_color" format="color"/>
         <attr name="dialog_bg" format="color"/>
+        <attr name="item_background" format="color"/>
     </declare-styleable>
 </resources>

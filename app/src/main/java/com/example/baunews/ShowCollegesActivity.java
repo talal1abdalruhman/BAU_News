@@ -6,6 +6,9 @@ import androidx.databinding.DataBindingUtil;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Layout;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.example.baunews.databinding.ActivityShowCollegesBinding;
 
@@ -17,11 +20,12 @@ public class ShowCollegesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_show_colleges);
-
         binding.txt.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD);
+
 
         Intent intent=getIntent();
         Bundle b=intent.getExtras();
+
         int x=b.getInt("college");
 
         switch (x){
@@ -75,5 +79,6 @@ public class ShowCollegesActivity extends AppCompatActivity {
                 binding.imageCollege.setImageResource(R.drawable.law_college);
                 binding.txt.setText(R.string.Law_Collage_description);
         }
+
     }
 }
