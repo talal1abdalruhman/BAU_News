@@ -36,6 +36,7 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/engineering"
                     android:layout_width="match_parent"
+                    android:transitionName="image"
                     android:layout_height="match_parent" />
 
                 <androidx.appcompat.widget.Toolbar

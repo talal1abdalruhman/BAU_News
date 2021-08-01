@@ -15,211 +15,218 @@
         <!-- TODO: Update blank fragment layout -->
 
         <LinearLayout
+            android:id="@+id/rootLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
             android:orientation="vertical">
 
             <RelativeLayout
-                android:padding="@dimen/_5sdp"
-                android:background="@drawable/item_background"
                 android:id="@+id/about_bau"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_14sdp"
                 android:layout_marginTop="@dimen/_25sdp"
                 android:layout_marginRight="@dimen/_14sdp"
-                android:layout_marginLeft="@dimen/_14sdp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:background="@drawable/item_background"
+                android:padding="@dimen/_5sdp">
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:textSize="@dimen/_16ssp"
-                    android:textColor="?attr/text_color"
                     android:text="@string/about_bau_university"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:textColor="?attr/text_color"
+                    android:textSize="@dimen/_16ssp"
                     tools:ignore="RelativeOverlap" />
 
                 <ImageView
-                    android:contentDescription="@string/app_name"
                     android:id="@+id/about_bau_arrow"
-                    android:layout_alignParentEnd="true"
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_30sdp"
+                    android:layout_alignParentEnd="true"
+                    android:contentDescription="@string/app_name"
                     android:src="@drawable/ic_down"
                     app:tint="@color/mainColor" />
             </RelativeLayout>
 
-                <TextView
-                    android:textSize="@dimen/_15ssp"
-                    android:fontFamily="@font/regular"
-                    android:visibility="gone"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginEnd="@dimen/_5sdp"
-                    android:id="@+id/about_bau_txt"
-                    android:text="@string/about_bau"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
+            <TextView
+                android:id="@+id/about_bau_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:fontFamily="@font/regular"
+                android:text="@string/about_bau"
+                android:textSize="@dimen/_15ssp"
+                android:visibility="gone" />
 
 
             <RelativeLayout
-                android:padding="@dimen/_5sdp"
-                android:background="@drawable/item_background"
                 android:id="@+id/royal_letter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_14sdp"
                 android:layout_marginTop="@dimen/_25sdp"
                 android:layout_marginRight="@dimen/_14sdp"
-                android:layout_marginLeft="@dimen/_14sdp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:background="@drawable/item_background"
+                android:padding="@dimen/_5sdp">
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:textSize="@dimen/_16ssp"
-                    android:textColor="?attr/text_color"
                     android:text="@string/the_royal_decree_letter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:ignore="RelativeOverlap" />
-
-                <ImageView
-                    android:contentDescription="@string/app_name"
-                    android:id="@+id/royal_arrow"
-                    android:layout_alignParentEnd="true"
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:src="@drawable/ic_down"
-                    app:tint="@color/mainColor" />
-            </RelativeLayout>
-
-                <TextView
-                    android:textSize="@dimen/_15ssp"
-                    android:fontFamily="@font/regular"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginEnd="@dimen/_5sdp"
-                    android:visibility="gone"
-                    android:id="@+id/txt_royal_letter"
-                    android:text="@string/royal_letter"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-
-            <RelativeLayout
-                android:padding="@dimen/_5sdp"
-                android:background="@drawable/item_background"
-                android:id="@+id/prepresident_letter"
-                android:layout_marginTop="@dimen/_25sdp"
-                android:layout_marginRight="@dimen/_14sdp"
-                android:layout_marginLeft="@dimen/_14sdp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:textSize="@dimen/_16ssp"
                     android:textColor="?attr/text_color"
-                    android:text="@string/the_prepresident_s_letter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_16ssp"
                     tools:ignore="RelativeOverlap" />
 
                 <ImageView
-                    android:contentDescription="@string/app_name"
-                    android:id="@+id/prepresident_arrow"
-                    android:layout_alignParentEnd="true"
+                    android:id="@+id/royal_arrow"
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_30sdp"
+                    android:layout_alignParentEnd="true"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_down"
+                    app:tint="@color/mainColor" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txt_royal_letter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:fontFamily="@font/regular"
+                android:text="@string/royal_letter"
+                android:textSize="@dimen/_15ssp"
+                android:visibility="gone" />
+
+
+            <RelativeLayout
+                android:id="@+id/prepresident_letter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_14sdp"
+                android:layout_marginTop="@dimen/_25sdp"
+                android:layout_marginRight="@dimen/_14sdp"
+                android:background="@drawable/item_background"
+                android:padding="@dimen/_5sdp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/the_prepresident_s_letter"
+                    android:textColor="?attr/text_color"
+                    android:textSize="@dimen/_16ssp"
+                    tools:ignore="RelativeOverlap" />
+
+                <ImageView
+                    android:id="@+id/prepresident_arrow"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_alignParentEnd="true"
+                    android:contentDescription="@string/app_name"
                     android:src="@drawable/ic_down"
                     app:tint="@color/mainColor" />
             </RelativeLayout>
 
 
-                <TextView
-                    android:textSize="@dimen/_15ssp"
-                    android:fontFamily="@font/regular"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginEnd="@dimen/_5sdp"
-                    android:visibility="gone"
-                    android:id="@+id/txt_prepresident_letter"
-                    android:text="@string/presidents_letter"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/txt_prepresident_letter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:fontFamily="@font/regular"
+                android:text="@string/presidents_letter"
+                android:textSize="@dimen/_15ssp"
+                android:visibility="gone" />
 
 
             <RelativeLayout
-                android:padding="@dimen/_5sdp"
-                android:background="@drawable/item_background"
                 android:id="@+id/vision"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_14sdp"
                 android:layout_marginTop="@dimen/_25sdp"
                 android:layout_marginRight="@dimen/_14sdp"
-                android:layout_marginLeft="@dimen/_14sdp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:background="@drawable/item_background"
+                android:padding="@dimen/_5sdp">
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:textSize="@dimen/_16ssp"
                     android:text="@string/vision"
                     android:textColor="?attr/text_color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_16ssp"
                     tools:ignore="RelativeOverlap" />
 
                 <ImageView
-                    android:contentDescription="@string/app_name"
                     android:id="@+id/vision_arrow"
-                    android:layout_alignParentEnd="true"
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_30sdp"
+                    android:layout_alignParentEnd="true"
+                    android:contentDescription="@string/app_name"
                     android:src="@drawable/ic_down"
                     app:tint="@color/mainColor" />
             </RelativeLayout>
 
-                <TextView
-                    android:textSize="@dimen/_15ssp"
-                    android:fontFamily="@font/regular"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginEnd="@dimen/_5sdp"
-                    android:visibility="gone"
-                    android:id="@+id/txt_vision"
-                    android:text="@string/vision_desc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/txt_vision"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:fontFamily="@font/regular"
+                android:text="@string/vision_desc"
+                android:textSize="@dimen/_15ssp"
+                android:visibility="gone" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
 
                 <TextView
-                    android:padding="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_25sdp"
-                    android:layout_marginRight="@dimen/_14sdp"
-                    android:layout_marginLeft="@dimen/_14sdp"
-                    android:fontFamily="@font/regular"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:textSize="@dimen/_16ssp"
-                    android:text="@string/colleges"
-                    android:textColor="?attr/text_color"
+                    android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="32dp"
+                    android:fontFamily="@font/regular"
+                    android:padding="@dimen/_5sdp"
+                    android:text="@string/colleges"
+                    android:textColor="?attr/text_color"
+                    android:textSize="@dimen/_16ssp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="RelativeOverlap" />
 
 
                 <GridLayout
                     android:id="@+id/colleges"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:alignmentMode="alignMargins"
                     android:columnCount="2"
                     android:columnOrderPreserved="false"
-                    android:alignmentMode="alignMargins"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    app:layout_constraintTop_toBottomOf="@+id/textView2">
 
                     <androidx.cardview.widget.CardView
-                        android:layout_columnWeight="1"
-                        android:layout_rowWeight="1"
                         android:id="@+id/engineering"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
                         android:layout_margin="@dimen/_9sdp"
                         android:clickable="true"
                         app:cardCornerRadius="@dimen/_10sdp"
@@ -232,11 +239,13 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:contentDescription="@string/app_name"
+                                android:id="@+id/img_eng"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/_100sdp"
+                                android:contentDescription="@string/app_name"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/engineering" />
+                                android:src="@drawable/engineering"
+                                android:transitionName="image" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -249,11 +258,11 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:layout_columnWeight="1"
-                        android:layout_rowWeight="1"
                         android:id="@+id/medicine"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
                         android:layout_margin="@dimen/_9sdp"
                         android:clickable="true"
                         app:cardCornerRadius="@dimen/_10sdp"
@@ -266,11 +275,13 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:contentDescription="@string/app_name"
+                                android:id="@+id/img_med"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/_100sdp"
+                                android:contentDescription="@string/app_name"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/medicine" />
+                                android:src="@drawable/medicine"
+                                android:transitionName="image" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -283,11 +294,11 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:layout_columnWeight="1"
-                        android:layout_rowWeight="1"
                         android:id="@+id/it"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
                         android:layout_margin="@dimen/_9sdp"
                         android:clickable="true"
                         app:cardCornerRadius="@dimen/_10sdp"
@@ -300,11 +311,13 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:contentDescription="@string/app_name"
+                                android:id="@+id/img_it"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/_100sdp"
+                                android:contentDescription="@string/app_name"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/it" />
+                                android:src="@drawable/it"
+                                android:transitionName="image" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -317,11 +330,11 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:layout_columnWeight="1"
-                        android:layout_rowWeight="1"
                         android:id="@+id/science"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
                         android:layout_margin="@dimen/_9sdp"
                         android:clickable="true"
                         app:cardCornerRadius="@dimen/_10sdp"
@@ -334,11 +347,14 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:contentDescription="@string/app_name"
+                                android:id="@+id/img_sci"
                                 android:layout_width="match_parent"
+
                                 android:layout_height="@dimen/_100sdp"
+                                android:contentDescription="@string/app_name"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/science" />
+                                android:src="@drawable/science"
+                                android:transitionName="image" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -351,11 +367,11 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:layout_columnWeight="1"
-                        android:layout_rowWeight="1"
                         android:id="@+id/agricultural"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
                         android:layout_margin="@dimen/_9sdp"
                         android:clickable="true"
                         app:cardCornerRadius="@dimen/_10sdp"
@@ -368,11 +384,14 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:contentDescription="@string/app_name"
+                                android:id="@+id/img_agr"
                                 android:layout_width="match_parent"
+
                                 android:layout_height="@dimen/_100sdp"
+                                android:contentDescription="@string/app_name"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/agricultural" />
+                                android:src="@drawable/agricultural"
+                                android:transitionName="image" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -385,11 +404,11 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:layout_columnWeight="1"
-                        android:layout_rowWeight="1"
                         android:id="@+id/business"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
                         android:layout_margin="@dimen/_9sdp"
                         android:clickable="true"
                         app:cardCornerRadius="@dimen/_10sdp"
@@ -402,11 +421,14 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:contentDescription="@string/app_name"
+                                android:id="@+id/img_business"
                                 android:layout_width="match_parent"
+
                                 android:layout_height="@dimen/_100sdp"
+                                android:contentDescription="@string/app_name"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/business" />
+                                android:src="@drawable/business"
+                                android:transitionName="image" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -419,11 +441,11 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:layout_columnWeight="1"
-                        android:layout_rowWeight="1"
                         android:id="@+id/human_sciences"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
                         android:layout_margin="@dimen/_9sdp"
                         android:clickable="true"
                         app:cardCornerRadius="@dimen/_10sdp"
@@ -436,11 +458,14 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:contentDescription="@string/app_name"
+                                android:id="@+id/img_hs"
                                 android:layout_width="match_parent"
+
                                 android:layout_height="@dimen/_100sdp"
+                                android:contentDescription="@string/app_name"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/human_sciences" />
+                                android:src="@drawable/human_sciences"
+                                android:transitionName="image" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -453,11 +478,11 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:layout_columnWeight="1"
-                        android:layout_rowWeight="1"
                         android:id="@+id/technical_collage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
                         android:layout_margin="@dimen/_9sdp"
                         android:clickable="true"
                         app:cardCornerRadius="@dimen/_10sdp"
@@ -470,11 +495,14 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:contentDescription="@string/app_name"
+                                android:id="@+id/img_tech"
                                 android:layout_width="match_parent"
+
                                 android:layout_height="@dimen/_100sdp"
+                                android:contentDescription="@string/app_name"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/technical_collage" />
+                                android:src="@drawable/technical_collage"
+                                android:transitionName="image" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -487,11 +515,11 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:layout_columnWeight="1"
-                        android:layout_rowWeight="1"
                         android:id="@+id/artifical_intelligence"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
                         android:layout_margin="@dimen/_9sdp"
                         android:clickable="true"
                         app:cardCornerRadius="@dimen/_10sdp"
@@ -504,11 +532,14 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:contentDescription="@string/app_name"
+                                android:id="@+id/img_ai"
                                 android:layout_width="match_parent"
+
                                 android:layout_height="@dimen/_100sdp"
+                                android:contentDescription="@string/app_name"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/artifical_intelligence" />
+                                android:src="@drawable/artifical_intelligence"
+                                android:transitionName="image" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -521,11 +552,11 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:layout_columnWeight="1"
-                        android:layout_rowWeight="1"
                         android:id="@+id/law_college"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
                         android:layout_margin="@dimen/_9sdp"
                         android:clickable="true"
                         app:cardCornerRadius="@dimen/_10sdp"
@@ -538,11 +569,14 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:contentDescription="@string/app_name"
+                                android:id="@+id/img_law"
                                 android:layout_width="match_parent"
+
                                 android:layout_height="@dimen/_100sdp"
+                                android:contentDescription="@string/app_name"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/law_college" />
+                                android:src="@drawable/law_college"
+                                android:transitionName="image" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -555,9 +589,9 @@
                     </androidx.cardview.widget.CardView>
 
                 </GridLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
-
 
 
     </ScrollView>
