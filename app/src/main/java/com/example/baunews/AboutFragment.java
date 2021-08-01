@@ -1,45 +1,32 @@
 package com.example.baunews;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.os.ConfigurationCompat;
 import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
-import android.os.Handler;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.GridLayout;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.baunews.databinding.FragmentAboutBinding;
 
-import java.util.Locale;
-
 public class AboutFragment extends Fragment implements View.OnClickListener {
 
 
-    Animation animation;
-    int[] heights;
+    Animation text_down,text_up;
     Intent intent;
+    boolean[] isclick ;
     private FragmentAboutBinding binding;
     ActivityOptionsCompat optionsCompat;
 
@@ -51,21 +38,18 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String locale = getActivity().getResources().getConfiguration().locale.getDisplayName();
-        if (locale.equals("Arabic") || locale.equals("العربية")) {
-            heights = new int[]{3161, 7079, 4801, 12644};
-        } else heights = new int[]{4525, 8444, 4412, 3507};
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        animation = AnimationUtils.loadAnimation(getActivity(), R.anim.text_anim);
+        text_down = AnimationUtils.loadAnimation(getActivity(), R.anim.text_anim);
+        text_up= AnimationUtils.loadAnimation(getActivity(), R.anim.text_anim_up);
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_about, container, false);
         View view = binding.getRoot();
-
+        isclick = new boolean[]{false, false, false, false};
         intent = new Intent(getActivity(), ShowCollegesActivity.class);
         // Inflate the layout for this fragment
         return view;
@@ -97,7 +81,7 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
         binding.lawCollege.setOnClickListener(this);
     }
 
-
+    //------------------------------------------------------------------------mathod--------------
     public void rotateUp(View v) {
         v.setPivotX(v.getWidth() / 2);
         v.setPivotY(v.getHeight() / 2);
@@ -105,186 +89,93 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
         v.animate().setDuration(400).rotation(90);
         v.animate().setDuration(400).rotation(180);
     }
-
+    //------------------------------------------------------------------------mathod--------------
     public void rotateDown(View v) {
         v.setPivotX(v.getWidth() / 2);
         v.setPivotY(v.getHeight() / 2);
         v.animate().setDuration(400).rotation(270);
         v.animate().setDuration(400).rotation(360);
     }
-
-
-    boolean[] isclick = {false, false, false, false, false};
-
+    //------------------------------------------------------------------------mathod--------------
+    private void showOrHideText(boolean b, View arrow, View layout, View txt) {
+        ViewGroup.LayoutParams params = txt.getLayoutParams();
+        if (!b) {
+            rotateUp(arrow);
+            layout.setBackground(getActivity().getDrawable(R.drawable.item_selected_background));
+            txt.setVisibility(View.VISIBLE);
+            txt.startAnimation(text_down);
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            txt.setLayoutParams(params);
+        } else {
+            rotateDown(arrow);
+            text_up.setDuration(0);
+            txt.setVisibility(View.INVISIBLE);
+            layout.setBackground(getActivity().getDrawable(R.drawable.item_background));
+            params.height = 0;
+            txt.setLayoutParams(params);
+        }
+    }
+    //------------------------------------------------------------------------mathod--------------
+    private void startShowCollegesActivity(int x,View view) {
+        intent.putExtra("college", x);
+        optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                getActivity(),
+                view,
+                ViewCompat.getTransitionName(view));
+        startActivity(intent, optionsCompat.toBundle());
+    }
+    //---------------------------------------------------------------------------------------------
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            //--------------------------------------------------------------layouts onclick--------
             case R.id.about_bau:
-                if (isclick[0] == false) {
-                    rotateUp(binding.aboutBauArrow);
-                    binding.aboutBau.setBackground(getActivity().getDrawable(R.drawable.item_selected_background));
-                    binding.aboutBauTxt.setVisibility(View.VISIBLE);
-                    binding.aboutBauTxt.startAnimation(animation);
-                    //binding.aboutBauTxt.setHeight(heights[0]);
-                    ViewGroup.LayoutParams params = binding.aboutBauTxt.getLayoutParams();
-                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    binding.aboutBauTxt.setLayoutParams(params);
-                } else {
-                    rotateDown(binding.aboutBauArrow);
-                    binding.aboutBauTxt.setVisibility(View.INVISIBLE);
-                    binding.aboutBau.setBackground(getActivity().getDrawable(R.drawable.item_background));
-                    //binding.aboutBauTxt.setHeight(0);
-                    ViewGroup.LayoutParams params = binding.aboutBauTxt.getLayoutParams();
-                    params.height = 0;
-                    binding.aboutBauTxt.setLayoutParams(params);
-                }
-                isclick[0] = !isclick[0];
+                showOrHideText(isclick[0],binding.aboutBauArrow,binding.aboutBau,binding.aboutBauTxt);
+                isclick[0]=!isclick[0];
                 break;
             case R.id.royal_letter:
-                if (isclick[1] == false) {
-                    rotateUp(binding.royalArrow);
-                    binding.royalLetter.setBackground(getActivity().getDrawable(R.drawable.item_selected_background));
-                    binding.txtRoyalLetter.setVisibility(View.VISIBLE);
-                    binding.txtRoyalLetter.startAnimation(animation);
-                    //binding.txtRoyalLetter.setHeight(heights[1]);
-                    ViewGroup.LayoutParams params = binding.txtRoyalLetter.getLayoutParams();
-                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    binding.txtRoyalLetter.setLayoutParams(params);
-                } else {
-                    rotateDown(binding.royalArrow);
-                    binding.txtRoyalLetter.setVisibility(View.INVISIBLE);
-                    binding.royalLetter.setBackground(getActivity().getDrawable(R.drawable.item_background));
-                    //binding.txtRoyalLetter.setHeight(0);
-                    ViewGroup.LayoutParams params = binding.txtRoyalLetter.getLayoutParams();
-                    params.height = 0;
-                    binding.txtRoyalLetter.setLayoutParams(params);
-                }
+                showOrHideText(isclick[1],binding.royalArrow,binding.royalLetter,binding.txtRoyalLetter);
                 isclick[1] = !isclick[1];
                 break;
             case R.id.prepresident_letter:
-                if (isclick[2] == false) {
-                    rotateUp(binding.prepresidentArrow);
-                    binding.prepresidentLetter.setBackground(getActivity().getDrawable(R.drawable.item_selected_background));
-                    binding.txtPrepresidentLetter.setVisibility(View.VISIBLE);
-                    binding.txtPrepresidentLetter.startAnimation(animation);
-                    //binding.txtPrepresidentLetter.setHeight(heights[2]);
-                    ViewGroup.LayoutParams params = binding.txtPrepresidentLetter.getLayoutParams();
-                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    binding.txtPrepresidentLetter.setLayoutParams(params);
-                } else {
-                    rotateDown(binding.prepresidentArrow);
-                    binding.txtPrepresidentLetter.setVisibility(View.INVISIBLE);
-                    binding.prepresidentLetter.setBackground(getActivity().getDrawable(R.drawable.item_background));
-                    //binding.txtPrepresidentLetter.setHeight(0);
-                    ViewGroup.LayoutParams params = binding.txtPrepresidentLetter.getLayoutParams();
-                    params.height = 0;
-                    binding.txtPrepresidentLetter.setLayoutParams(params);
-                }
+                showOrHideText(isclick[2],binding.prepresidentArrow,binding.prepresidentLetter,binding.txtPrepresidentLetter);
                 isclick[2] = !isclick[2];
                 break;
             case R.id.vision:
-                if (isclick[3] == false) {
-                    rotateUp(binding.visionArrow);
-                    binding.vision.setBackground(getActivity().getDrawable(R.drawable.item_selected_background));
-                    binding.txtVision.setVisibility(View.VISIBLE);
-                    binding.txtVision.startAnimation(animation);
-                    //binding.txtVision.setHeight(heights[3]);
-                    ViewGroup.LayoutParams params = binding.txtVision.getLayoutParams();
-                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    binding.txtVision.setLayoutParams(params);
-                } else {
-                    rotateDown(binding.visionArrow);
-                    binding.txtVision.setVisibility(View.INVISIBLE);
-                    binding.vision.setBackground(getActivity().getDrawable(R.drawable.item_background));
-                    //binding.txtVision.setHeight(0);
-                    ViewGroup.LayoutParams params = binding.txtVision.getLayoutParams();
-                    params.height = 0;
-                    binding.txtVision.setLayoutParams(params);
-                }
+                showOrHideText(isclick[3],binding.visionArrow,binding.vision,binding.txtVision);
                 isclick[3] = !isclick[3];
                 break;
 
-            //--------------------------------------------------------------cards onClick------
+            //--------------------------------------------------------------cards onClick----------
             case R.id.engineering:
-                intent.putExtra("college", 1);
-                optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        getActivity(),
-                        binding.imgEng,
-                        ViewCompat.getTransitionName(binding.imgEng));
-                startActivity(intent, optionsCompat.toBundle());
-
+                startShowCollegesActivity(1,binding.imgEng);
                 break;
             case R.id.medicine:
-                intent.putExtra("college", 2);
-                optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        getActivity(),
-                        binding.imgMed,
-                        ViewCompat.getTransitionName(binding.imgMed));
-                startActivity(intent, optionsCompat.toBundle());
+                startShowCollegesActivity(2,binding.imgMed);
                 break;
             case R.id.it:
-                intent.putExtra("college", 3);
-                optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        getActivity(),
-                        binding.imgIt,
-                        ViewCompat.getTransitionName(binding.imgIt));
-                startActivity(intent, optionsCompat.toBundle());
+                startShowCollegesActivity(3,binding.imgIt);
                 break;
             case R.id.science:
-                intent.putExtra("college", 4);
-                optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        getActivity(),
-                        binding.imgSci,
-                        ViewCompat.getTransitionName(binding.imgSci));
-                startActivity(intent, optionsCompat.toBundle());
+                startShowCollegesActivity(4,binding.imgSci);
                 break;
             case R.id.agricultural:
-                intent.putExtra("college", 5);
-                optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        getActivity(),
-                        binding.imgAgr,
-                        ViewCompat.getTransitionName(binding.imgAgr));
-                startActivity(intent, optionsCompat.toBundle());
+                startShowCollegesActivity(5,binding.imgAgr);
                 break;
             case R.id.business:
-                intent.putExtra("college", 6);
-                optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        getActivity(),
-                        binding.imgBusiness,
-                        ViewCompat.getTransitionName(binding.imgBusiness));
-                startActivity(intent, optionsCompat.toBundle());
+                startShowCollegesActivity(6,binding.imgBusiness);
                 break;
             case R.id.human_sciences:
-                intent.putExtra("college", 7);
-                optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        getActivity(),
-                        binding.imgHs,
-                        ViewCompat.getTransitionName(binding.imgHs));
-                startActivity(intent, optionsCompat.toBundle());
+                startShowCollegesActivity(7,binding.imgHs);
                 break;
             case R.id.technical_collage:
-                intent.putExtra("college", 8);
-                optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        getActivity(),
-                        binding.imgTech,
-                        ViewCompat.getTransitionName(binding.imgTech));
-                startActivity(intent, optionsCompat.toBundle());
+                startShowCollegesActivity(8,binding.imgTech);
                 break;
             case R.id.artifical_intelligence:
-                intent.putExtra("college", 9);
-                optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        getActivity(),
-                        binding.imgAi,
-                        ViewCompat.getTransitionName(binding.imgAi));
-                startActivity(intent, optionsCompat.toBundle());
+                startShowCollegesActivity(9,binding.imgAi);
                 break;
             case R.id.law_college:
-                intent.putExtra("college", 10);
-                optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        getActivity(),
-                        binding.imgLaw,
-                        ViewCompat.getTransitionName(binding.imgLaw));
-                startActivity(intent, optionsCompat.toBundle());
+                startShowCollegesActivity(10,binding.imgLaw);
         }
     }
 }
