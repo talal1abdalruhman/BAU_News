@@ -59,6 +59,7 @@
     <string name="change_language">تغيير اللغة</string>
     <string name="loading">جار التحميل..</string>
     <string name="bau_about">حول الجامعة</string>
+    <string name="events">الأحداث</string>
     <string-array name="languages">
         <item>الانجليزية</item>
         <item>العربية</item>
