@@ -342,5 +342,6 @@
     <string name="law_collage">الحقوق</string>
     <string name="enter_your_email_address">ادخل بريدك الإلكتروني:</string>
     <string name="check_your_email_please_we_send_you_a_link_to_reset_your_password">تحقق من بريدك الإلكتروني رجاءاً، لقد قمنا بإرسال رابط لإعادة تعيين كلمة المرور الخاصة بك.</string>
+    <string name="choose_collage">الكلية</string>
 
 </resources>

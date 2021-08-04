@@ -48,6 +48,7 @@
                 android:fontFamily="@font/medium"
                 android:textSize="@dimen/_13ssp"
                 android:textColor="@color/white"
+                android:textAlignment="viewStart"
                 android:inputType="textEmailAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -79,6 +80,7 @@
                 android:textSize="@dimen/_13ssp"
                 android:textColor="@color/white"
                 android:inputType="textPassword"
+                android:textAlignment="viewStart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

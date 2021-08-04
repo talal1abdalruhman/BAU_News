@@ -31,6 +31,12 @@
         <action
             android:id="@+id/action_college_news_to_general_news"
             app:destination="@id/general_news" />
+        <action
+            android:id="@+id/action_college_news_to_settings_news"
+            app:destination="@id/settings_news" />
+        <action
+            android:id="@+id/action_college_news_to_events_news"
+            app:destination="@id/events_news" />
     </fragment>
     <fragment
         android:id="@+id/settings_news"
@@ -40,6 +46,15 @@
         <action
             android:id="@+id/action_settings_news_to_general_news"
             app:destination="@id/general_news" />
+        <action
+            android:id="@+id/action_settings_news_to_college_news"
+            app:destination="@id/college_news" />
+        <action
+            android:id="@+id/action_settings_news_to_about_news"
+            app:destination="@id/about_news" />
+        <action
+            android:id="@+id/action_settings_news_to_events_news"
+            app:destination="@id/events_news" />
     </fragment>
     <fragment
         android:id="@+id/about_news"
@@ -49,6 +64,12 @@
         <action
             android:id="@+id/action_aboutFragment_to_general_news"
             app:destination="@id/general_news" />
+        <action
+            android:id="@+id/action_about_news_to_settings_news"
+            app:destination="@id/settings_news" />
+        <action
+            android:id="@+id/action_about_news_to_events_news"
+            app:destination="@id/events_news" />
     </fragment>
     <fragment
         android:id="@+id/events_news"
@@ -58,5 +79,14 @@
         <action
             android:id="@+id/action_eventsFragment_to_general_news"
             app:destination="@id/general_news" />
+        <action
+            android:id="@+id/action_events_news_to_settings_news"
+            app:destination="@id/settings_news" />
+        <action
+            android:id="@+id/action_events_news_to_college_news"
+            app:destination="@id/college_news" />
+        <action
+            android:id="@+id/action_events_news_to_about_news"
+            app:destination="@id/about_news" />
     </fragment>
 </navigation>

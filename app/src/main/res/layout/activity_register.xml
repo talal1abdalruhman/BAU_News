@@ -66,6 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/medium"
+                    android:textAlignment="viewStart"
                     android:inputType="textEmailAddress"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_13ssp" />
@@ -98,6 +99,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/medium"
+                    android:textAlignment="viewStart"
                     android:inputType="textPassword"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_13ssp" />
@@ -129,6 +131,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/medium"
+                    android:textAlignment="viewStart"
                     android:inputType="textPassword"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_13ssp" />
@@ -143,7 +146,7 @@
                 android:layout_marginStart="@dimen/_18sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_18sdp"
-                android:hint="@string/college"
+                android:hint="@string/choose_collage"
                 android:textColorHint="@color/white"
                 app:boxBackgroundMode="outline"
                 app:boxStrokeColor="@color/white"
