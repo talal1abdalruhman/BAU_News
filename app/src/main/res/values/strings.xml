@@ -47,20 +47,20 @@
     <string name="loading">Loading..</string>
     <string name="bau_about">About university</string>
 
-    <string name="about_bau">\n<font size="25" color="#02a951">History and Background</font>
+    <string name="about_bau">\n<font color="#02a951" size="25">History and Background</font>
     \n\n
      Al-Balqa Applied University (BAU) is a state university founded by royal decree on the 22nd of August 1996. Teaching at the university commenced in the academic year 1997/1998. The university offers 11 MA and 52 BA programs in addition to 117 intermediate university programs. BAU comprises of 6 faculties on its main campus in Salt City, and 12 university colleges as satellite campuses across the kingdom. The university also oversees the 51 private and public community colleges in Jordan.
      BAU’s main focus is on providing quality applied technical education through inspirational teaching and world-class research. Consequently, BAU graduates are able to compete in local, regional and international markets.
     \n\n
-        <font size="25" color="#02a951">Vision</font>
+        <font color="#02a951" size="25">Vision</font>
     \n\n
      A scientifically leading and globally competing applied university, distinguished in creativity, innovation, applied scientific research and leadership for the purpose of compounding knowledge economy and society.
     \n\n
-    <font size="25" color="#02a951">Mission</font>
+    <font color="#02a951" size="25">Mission</font>
     \n\n
      Providing high quality applied and technical education, and furnishing competitive, incubating and stimulating environment for innovation, creativity, research, development and leadership in order to contribute to attaining sustainable development and knowledge economy.
     \n\n
-    <font size="25" color="#02a951">Our Core Values</font>
+    <font color="#02a951" size="25">Our Core Values</font>
     \n\n
     - Academic Freedom
     \n
@@ -78,7 +78,7 @@
     \n
     - Dialogue, Pursuit of Excellence and Prompt Responsiveness to Challenges
     \n\n
-        <font size="25" color="#02a951">Programs and Degrees</font>
+        <font color="#02a951" size="25">Programs and Degrees</font>
     \n\n
      The university offers term-study programs according to the Credit Hours System.
     Upon recognition obtained from the Council of Higher Education in Jordan, Association of Arab Universities, International Association of universities, and international academic commissions, BAU awards the following academic degrees:
@@ -131,19 +131,19 @@
 
     <string name="vision_desc">
         \n
-        <font size="25" color="#02a951">History and Background</font>
+        <font color="#02a951" size="25">History and Background</font>
 \n\n
 Al-Balqa Applied University (BAU) is a state university founded by royal decree on the 22nd of August 1996. . Teaching at the university commenced in the academic year 1997/1998. The university offers 11 MA and 52 BA programs in addition to 117 intermediate university programs. BAU comprises of 6 faculties on its main campus in Salt City, and 12 university colleges as satellite campuses across the kingdom. The university also oversees the 51 private and public community colleges in Jordan. BAU’s main focus is on providing quality applied technical education through inspirational teaching and world-class research. Consequently BAU graduates are able to compete in local, regional and international markets.
 \n\n
-        <font size="25" color="#02a951">Vision</font>
+        <font color="#02a951" size="25">Vision</font>
 \n\n
 A scientifically leading and globally competing applied university, distinguished in creativity, innovation, applied scientific research and leadership for the purpose of compounding knowledge economy and society.
 \n\n
-        <font size="25" color="#02a951">Mission</font>
+        <font color="#02a951" size="25">Mission</font>
 \n\n
 Providing high quality applied and technical education, and furnishing competitive, incubating and stimulating environment for innovation, creativity, research, development and leadership in order to contribute to attaining sustainable development and knowledge economy.
 \n\n
-        <font size="25" color="#02a951">Our Core Values</font>
+        <font color="#02a951" size="25">Our Core Values</font>
 \n\n
 
 - Academic Freedom \n
@@ -157,10 +157,9 @@ Providing high quality applied and technical education, and furnishing competiti
     </string>
 
 
-
     <string name="engineering_description">
         \n
-        <font size="25" color="#02a951">Welcome to Faculty of Engineering</font>
+        <font color="#02a951" size="25">Welcome to Faculty of Engineering</font>
 \n\n
 Welcome to Engineering at BAU. Our school is one of the oldest faculties in BAU where teaching commenced in 1998/1999.
 \n\n
@@ -173,7 +172,7 @@ As a school of engineering, we have dedicated much of our 6400 m2 to meet the va
     </string>
     <string name="midicine_descripton">
         \n
-        <font size="25" color="#02a951">Welcome to the Faculty of medicine in the historical city of Al-Salt.</font>
+        <font color="#02a951" size="25">Welcome to the Faculty of medicine in the historical city of Al-Salt.</font>
         \n\n
 For almost 100 years ago, Al- Salt secondary school was a pilgrimage to those wishing to complete their studies and education in Jordan. \n Today, this city is the center of Al-Balqa Applied University (BAU) which has 23 faculties distributed all over the country of Jordan and we are grateful to have the opportunity to work on the main campus of BAU.\n
 Our mission is to prepare highly qualified, professional and compassionate physicians through utilizing flexible and innovative teaching and training frameworks to deliver world-class medical education. \n We deliver this mission through the synergies among top faculty staff in basic and clinical medicine and train our students in exceptional patient care facilities in Jordan.\n\n This combination of teaching, training and community care makes our faculty a nourishing and vibrant environment for students and staff.\n\n
@@ -185,14 +184,14 @@ I welcome you again to faculty of medicine at BAU and wish you a successful and 
     </string>
     <string name="it_descripton">
         \n
-        <font size="25" color="#02a951">Welcome to Prince Abdullah bin Ghazi Faculty of Information and Communication Technology</font>
+        <font color="#02a951" size="25">Welcome to Prince Abdullah bin Ghazi Faculty of Information and Communication Technology</font>
 \n\n
 Formerly known as the Faculty of Applied Sciences, our school is one of Jordan’s pioneering faculties.\n In its former capacity, it was among the first schools to award a BSc in Information Technology in the kingdom Today, and after a few changes in 2004 and 2011, the school is solely dedicated to Information and Communication Technology, and offers a wide range of sought-after world-class programs including Computer Science, Computer Graphics and Animation, Computer Information Systems and Software Engineering.\n The school continues to work hard to meet the goals set by BAU and is relentless in its efforts at providing transformative teaching, and making our students’ journey a memorable experience.\n We are actively working at achieving local and international accreditation and are continuously collaborating with industry stakeholders to develop and improve our offerings and study plans to enhance our graduates’ competitive edge. \n
 
     </string>
     <string name="Science_descripton">
         \n
-        <font size="25" color="#02a951">Welcome to Science College</font>
+        <font color="#02a951" size="25">Welcome to Science College</font>
 \n\n
 The College of Science was established in conjunction with the establishment of Al-Balqa Applied University (BAU) in 1997 under the name of the College of Applied Sciences.\n The college was amongst the first colleges in the Hashemite Kingdom of Jordan that offer the major of information technology.\n The college’s name was changed in 2004 to become Prince Abdullah Bin Ghazi College of Science and Information Technology.\n In 2011, the college was split into the College of Science and Prince Abdullah Bin Ghazi College of Information Technology.\n The College of Science sets its objectives in accordance with the overall objectives of Al-Balqa Applied University (BAU) to keep up with the scientific and technological development to serve the Jordanian society. \nMoreover, the college is looking forward to achieve distinction locally and globally in the field of applied sciences by providing a variety of outstanding academic programs that can grant both local and international quality and accreditation standards, as well as to meet the needs of labor markets, for now and the future.\n
 
@@ -200,7 +199,7 @@ The College of Science was established in conjunction with the establishment of 
 
     <string name="Agricultural_descripton">
         \n
-        <font size="25" color="#02a951">Welcome to the College of Agriculture Technology</font>
+        <font color="#02a951" size="25">Welcome to the College of Agriculture Technology</font>
 \n\n
     Al-Balqa Applied University in the Faculty of Agriculture Technology in November 1997.\n
     The main purpose of its establishment is to provide educational programs that integrate with the relevant disciplines in Jordanian
@@ -214,13 +213,13 @@ The College of Science was established in conjunction with the establishment of 
     </string>
     <string name="Business_description">
         \n
-        <font size="25" color="#02a951">Welcome to Faculty of Business</font>
+        <font color="#02a951" size="25">Welcome to Faculty of Business</font>
 \n\n
 The Faculty of Business is one of the first faculties at the university having been established in 1997.\n The school initially offered only two BA programs, Regional Planning and Economics.\n Since then, our school has grown substantially, and we are now home to four departments, and 9 BA programs including Business Administration, Marketing, Accounting, Project Management and Planning and many more.\n Studying business in BAU opens a host of new opportunities and equip students with the skills that employers are looking for.\n Our dynamic staff bring years of academic research and experience, and give our students the kind of practical know-how they will need in their future careers. \n
     </string>
     <string name="Human_Sciences_description">
         \n
-        <font size="25" color="#02a951">Welcome to Faculty of Salt College</font>
+        <font color="#02a951" size="25">Welcome to Faculty of Salt College</font>
 \n\n
 Our faculty is the foundation upon which Al-Balqa Applied University was built. Initially introduced as a teacher institute, the institute originally offered teacher education material.\n
 In 1980/1981, the institute was turned into a community college where it became home to a number of new and sought-after fields of study such as Plant Production, Interior Design and Fashion and Textile Manufacture.\n
@@ -229,7 +228,7 @@ In 1980/1981, the institute was turned into a community college where it became 
     </string>
     <string name="Technical_Collage_description">
         \n
-        <font size="25" color="#02a951">Welcome to Al-Salt Technical College</font>
+        <font color="#02a951" size="25">Welcome to Al-Salt Technical College</font>
 \n\n
         <font size="25">ABOUT SALTec</font>
 \n\n
@@ -239,14 +238,14 @@ Our programs integrate theoretical knowledge and applied training in the work pl
     </string>
     <string name="Artifical_Intelligence_description">
         \n
-        <font size="25" color="#02a951">Welcome to Artificial Intelligence College</font>
+        <font color="#02a951" size="25">Welcome to Artificial Intelligence College</font>
 \n\n
 BAU has always been at the forefront in innovative program offerings, The Faculty of Artificial Intelligence is yet another example of this leading role. \n
 The faculty of AI is the first of its kind in Jordan and the region and is home to cutting-edge programs in Artificial Intelligence, Robotics, Data Science, Virtual Reality and Information and Cyber Security.\n Our programs with give you in-depth knowledge in any of your chosen fields, and will include course work in a number of relevant fields such as computer science, computational modelling, statistics, etc. \n
     </string>
     <string name="Law_Collage_description">
         \n
-        <font size="25" color="#02a951">Welcome to Law College</font>
+        <font color="#02a951" size="25">Welcome to Law College</font>
 \n\n
 The introduction of the Faculty of Law to the BAU family in 2019 comes in response to the continuous demands on Law.\n In the 21st century, lawyers are needed to negotiate and draft agreements, mediate disputes and craft treaties.\n . Our program combines legal knowledge with real-world legal skills to prepare our student for their legal careers.\n If you are looking to learn at the hands of experts, in a strong and vibrant legal research community, then Law at BAU is the place to be.\n
     </string>
@@ -270,6 +269,7 @@ The introduction of the Faculty of Law to the BAU family in 2019 comes in respon
     <string name="law_collage">Law Collage</string>
     <string name="enter_your_email_address">Enter your email address:</string>
     <string name="check_your_email_please_we_send_you_a_link_to_reset_your_password">Check your email please, we send you a link to reset your password.</string>
+    <string name="events">Events</string>
     <string-array name="colleges_names">
         <item>Medicine</item>
         <item>Engineering</item>

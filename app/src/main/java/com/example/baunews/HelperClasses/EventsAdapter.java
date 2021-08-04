@@ -14,8 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.baunews.Models.NewsModel;
+import com.example.baunews.Models.EventsModel;
 import com.example.baunews.R;
+import com.example.baunews.ShowEventsActivity;
 import com.example.baunews.ShowNewsActivity;
 
 import java.text.SimpleDateFormat;
@@ -28,13 +29,13 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder>{
+public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHolder>{
     private static final String TAG = "DATE_TIME";
     private Context context;
-    private ArrayList<NewsModel> newsModelList;
+    private ArrayList<EventsModel> eventsModelList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        public TextView title,date,description;
+        public TextView title,date,startDate,description;
         public ImageView image;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -46,38 +47,39 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder>{
         }
     }
 
-    public NewsAdapter(Context context, ArrayList<NewsModel> newsModelList) {
+    public EventsAdapter(Context context, ArrayList<EventsModel> eventsModelList) {
         this.context = context;
-        this.newsModelList = newsModelList;
+        this.eventsModelList = eventsModelList;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.news_card,parent,false);
-        return new MyViewHolder(itemView);
+                .inflate(R.layout.events_card,parent,false);
+        return new EventsAdapter.MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        NewsModel newsModel = newsModelList.get(position);
-        newsModel.setId(newsModelList.get(position).getId());
-        holder.title.setText(newsModel.getTitle());
+        EventsModel eventsModel = eventsModelList.get(position);
+        eventsModel.setId(eventsModelList.get(position).getId());
+        holder.title.setText(eventsModel.getTitle());
         String currTime = getCurrentTime();
-        String newsTime = newsModel.getDate();
-        holder.date.setText(getDifferenceDateTime(newsTime, currTime));
+        String eventsTime = eventsModel.getDate();
+        String startEvent = eventsModel.getStart_date();
+        holder.date.setText(getDifferenceDateTime(eventsTime, currTime));
         Glide.with(context)
-                .load((newsModel.getImage().equals("null"))? R.drawable.bau : newsModel.getImage())
+                .load((eventsModel.getImage().equals("null"))? R.drawable.bau : eventsModel.getImage())
                 .into(holder.image);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"You clicked: "+ newsModel.getTitle(),Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(v.getContext(), ShowNewsActivity.class);
-                intent.putExtra("news_id", newsModel.getId());
-                intent.putExtra("category", newsModel.getCategory());
+                Toast.makeText(context,"You clicked: "+ eventsModel.getTitle(),Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(v.getContext(), ShowEventsActivity.class);
+                intent.putExtra("news_id", eventsModel.getId());
+                intent.putExtra("category", eventsModel.getCategory());
                 v.getContext().startActivity(intent);
             }
         });
@@ -85,7 +87,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder>{
 
     @Override
     public int getItemCount() {
-        return newsModelList.size();
+        return eventsModelList.size();
     }
 
     public static String getCurrentTime() {

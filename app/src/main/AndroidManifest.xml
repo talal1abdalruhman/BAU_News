@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.baunews">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/bau_news_logo_bg"
@@ -9,6 +12,7 @@
         android:roundIcon="@drawable/bau_news_logo_bg"
         android:supportsRtl="true"
         android:theme="@style/Theme.BAUNews">
+        <activity android:name=".ShowEventsActivity"></activity>
         <activity android:name=".ShowCollegesActivity" />
         <activity android:name=".PdfViewerActivity" />
         <activity android:name=".ShowNewsActivity" />
@@ -38,8 +42,5 @@
             </intent-filter>
         </service>
     </application>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
