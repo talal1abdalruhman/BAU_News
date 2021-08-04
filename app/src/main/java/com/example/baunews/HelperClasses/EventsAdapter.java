@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.baunews.Models.EventsModel;
 import com.example.baunews.R;
+import com.example.baunews.ShowEventsActivity;
 import com.example.baunews.ShowNewsActivity;
 
 import java.text.SimpleDateFormat;
@@ -76,7 +77,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
             @Override
             public void onClick(View v) {
                 Toast.makeText(context,"You clicked: "+ eventsModel.getTitle(),Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(v.getContext(), ShowNewsActivity.class);
+                Intent intent = new Intent(v.getContext(), ShowEventsActivity.class);
                 intent.putExtra("news_id", eventsModel.getId());
                 intent.putExtra("category", eventsModel.getCategory());
                 v.getContext().startActivity(intent);
