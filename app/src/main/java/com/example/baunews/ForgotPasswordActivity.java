@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -32,6 +33,11 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_forgot_password);
         validation = new Validation(getResources());
         mAuth = FirebaseAuth.getInstance();
+
+        SharedPreferences langPref = getSharedPreferences("LANGUAGE_PREFERENCE", Context.MODE_PRIVATE);
+        if(langPref.getString("language", "").equals("ar")) {
+            binding.backBtn.setRotationY(180);
+        }
 
     }
 

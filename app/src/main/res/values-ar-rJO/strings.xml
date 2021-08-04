@@ -10,9 +10,9 @@
     <string name="register">تسجيل</string>
     <string name="college">اخبار الكلية</string>
     <string name="don_t_have_an_account">ليس لديك حساب؟</string>
-    <string name="sing_up">تسجيل</string>
-    <string name="already_have_an_account">؟لديك حساب</string>
-    <string name="sing_in">تسجيل دخول</string>
+    <string name="sing_up">إنشاء حساب</string>
+    <string name="already_have_an_account">لديك حساب؟</string>
+    <string name="sing_in">تسجيل الدخول</string>
     <string name="field_cannot_be_empty">لا يمكنك ترك هذا الحقل فارغاً</string>
     <string name="invalid_email_address">البريد الإلكتروني غير صالح</string>
     <string name="password_is_too_weak">كلمة المرور ضعيفة</string>
@@ -339,5 +339,7 @@
     <string name="technical_collage"> \ \ \ \ \السلط التقنية \ \ \ \ \</string>
     <string name="artifical_intelligence">الذكاء الاصطناعي</string>
     <string name="law_collage">الحقوق</string>
+    <string name="enter_your_email_address">ادخل بريدك الإلكتروني:</string>
+    <string name="check_your_email_please_we_send_you_a_link_to_reset_your_password">تحقق من بريدك الإلكتروني رجاءاً، لقد قمنا بإرسال رابط لإعادة تعيين كلمة المرور الخاصة بك.</string>
 
 </resources>

@@ -8,6 +8,7 @@ import android.animation.Animator;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mDatabaseReference;
+    SharedPreferences langPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,11 @@ public class RegisterActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_register);
         getWindow().setExitTransition(null);
         getWindow().setEnterTransition(null);
+
+        langPref = getSharedPreferences("LANGUAGE_PREFERENCE", Context.MODE_PRIVATE);
+        if(langPref.getString("language", "").equals("ar")) {
+            binding.backBtn.setRotationY(180);
+        }
 
         validation = new Validation(this.getResources());
         mAuth = FirebaseAuth.getInstance();
