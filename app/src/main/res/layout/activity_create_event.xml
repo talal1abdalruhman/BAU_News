@@ -100,6 +100,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
 
                     <LinearLayout
+                        android:layout_margin="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:id="@+id/linear"
                         android:gravity="center"
@@ -109,6 +110,8 @@
                         android:layout_height="wrap_content">
 
                         <LinearLayout
+                            android:padding="@dimen/_5sdp"
+                            android:background="@drawable/item_background"
                             android:layout_weight="1"
                             android:layout_margin="@dimen/_10sdp"
                             android:orientation="vertical"
@@ -145,6 +148,8 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:padding="@dimen/_5sdp"
+                            android:background="@drawable/item_background"
                             android:layout_weight="1"
                             android:layout_margin="@dimen/_10sdp"
                             android:orientation="vertical"

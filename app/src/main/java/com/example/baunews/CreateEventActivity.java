@@ -37,6 +37,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class CreateEventActivity extends AppCompatActivity {
 
@@ -47,8 +48,10 @@ public class CreateEventActivity extends AppCompatActivity {
 
     Uri ImgUri,PdfUri;
 
+    Calendar calendar;
+
     int hour,minute,year,month,day;
-    String date,time,altrTime,altrDate,startEventDateAndTime;
+    String startEventDateAndTime;
 
     private AlertDialog dialogAddURL;
 
@@ -59,9 +62,10 @@ public class CreateEventActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_event);
 
-        binding.btnDate.setText(new SimpleDateFormat("dd/M/yyyy", Locale.getDefault()).format(new Date()));
-        binding.btnTime.setText(new SimpleDateFormat("HH:mm a", Locale.getDefault()).format(new Date()));
-        binding.txtDateAndTime.setText(new SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm a", Locale.getDefault()).format(new Date()));
+        binding.btnDate.setText(new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(new Date()));
+        binding.btnTime.setText(new SimpleDateFormat("HH:mm a", Locale.ENGLISH).format(new Date()));
+        binding.txtDateAndTime.setText(new SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm a", Locale.ENGLISH).format(new Date()));
+        calendar=Calendar.getInstance();
         AddOthers();
 
         //-----------------------------------------------------------------------Event Date--------
@@ -85,17 +89,12 @@ public class CreateEventActivity extends AppCompatActivity {
 
                 //------------------------------------------If the admin does not choose the date or time---------------------------
 
-                altrTime=new SimpleDateFormat(" HH:mm a", Locale.getDefault()).format(new Date());
-                altrDate=new SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.getDefault()).format(new Date());
-                if(time == null){
-                    time=altrTime;
-                }
-                if (date == null){
-                    date=altrDate;
-                }
-                if(time != null || date != null){
-                    startEventDateAndTime=date+time;
-                }
+                //------------------------------------------------------------------------------------------------------------------
+
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+                simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+3"));
+                Date today = calendar.getTime();
+                startEventDateAndTime=simpleDateFormat.format(today);
                 Toast.makeText(CreateEventActivity.this,startEventDateAndTime,Toast.LENGTH_LONG).show();
             }
         });
@@ -141,10 +140,8 @@ public class CreateEventActivity extends AppCompatActivity {
             public void onTimeSet(TimePicker timePicker, int hourS, int minuteS) {
                 hour=hourS;
                 minute=minuteS;
-                Calendar calendar=Calendar.getInstance();
-                calendar.set(0,0,0,hour,minute);
-                time = DateFormat.format(" hh:mm aa", calendar) + "";
-                binding.btnTime.setText(time);
+                calendar.set(year,month,day,hour,minute);
+                binding.btnTime.setText(DateFormat.format("hh:mm aa", calendar) );
             }
         };
         TimePickerDialog timeDialog =new TimePickerDialog(CreateEventActivity.this,listener,hour,minute,false);
@@ -156,14 +153,11 @@ public class CreateEventActivity extends AppCompatActivity {
         DatePickerDialog.OnDateSetListener listener =new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int yearS, int monthS, int dayS) {
-                monthS+=1;
                 year=yearS;
                 month=monthS;
                 day=dayS;
-                Calendar calendar=Calendar.getInstance();
-                calendar.set(year,month,day);
-                date = DateFormat.format("EEEE, dd MMMM yyyy", calendar) + "";
-                binding.btnDate.setText(day+"/"+month+"/"+year);
+                calendar.set(year,month,day,hour,minute);
+                binding.btnDate.setText(day+"/"+(month+1)+"/"+year);
             }
         };
         DatePickerDialog dateDialog=new DatePickerDialog(CreateEventActivity.this,listener,year,month,day);
