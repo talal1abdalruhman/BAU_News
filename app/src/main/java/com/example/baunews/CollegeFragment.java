@@ -21,6 +21,9 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 
 
 import com.example.baunews.HelperClasses.NewsAdapter;
@@ -136,4 +139,5 @@ public class CollegeFragment extends Fragment {
                     }
                 });
     }
+
 }

@@ -271,6 +271,8 @@ The introduction of the Faculty of Law to the BAU family in 2019 comes in respon
     <string name="check_your_email_please_we_send_you_a_link_to_reset_your_password">Check your email please, we send you a link to reset your password.</string>
     <string name="events">Events</string>
     <string name="choose_collage">Collage</string>
+    <string name="event_time">Event Time</string>
+    <string name="event_date">Event Date</string>
     <string-array name="colleges_names">
         <item>Medicine</item>
         <item>Engineering</item>
