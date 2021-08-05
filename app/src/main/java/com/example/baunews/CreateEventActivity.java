@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -51,7 +52,7 @@ public class CreateEventActivity extends AppCompatActivity {
     Calendar calendar;
 
     int hour=0,minute=0,year=0,month=0,day=0;
-    String startEventDateAndTime;
+    String startEventDateAndTime, timeToCheck,dateToCheck;
 
     private AlertDialog dialogAddURL;
 
@@ -89,13 +90,15 @@ public class CreateEventActivity extends AppCompatActivity {
 
                 //------------------------------------------If the admin does not choose the date or time---------------------------
 
-                //------------------------------------------------------------------------------------------------------------------
+                if(timeToCheck == null){
 
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
-                simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+3"));
-                Date eventDate = calendar.getTime();
-                startEventDateAndTime=simpleDateFormat.format(eventDate);
-                Toast.makeText(CreateEventActivity.this,startEventDateAndTime,Toast.LENGTH_LONG).show();
+                }
+                if(dateToCheck == null){
+
+                }
+                //------------------------------------------------------------------------------------------------------------------
+                if(dateToCheck != null && timeToCheck!=null)
+                getEventDateAndTime();
             }
         });
 
@@ -132,7 +135,20 @@ public class CreateEventActivity extends AppCompatActivity {
             }
         });
     }
+
     //---------------------------------------------------------------------------------------------
+
+
+
+    //-----------------------------------------------------------------------------method----------
+    private void getEventDateAndTime() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+3"));
+        Date eventDate = calendar.getTime();
+        startEventDateAndTime=simpleDateFormat.format(eventDate);
+        Toast.makeText(CreateEventActivity.this,startEventDateAndTime,Toast.LENGTH_LONG).show();
+    }
+
     //-----------------------------------------------------------------------------TimePicker------
     private void showTimePicker() {
         TimePickerDialog.OnTimeSetListener listener=new TimePickerDialog.OnTimeSetListener() {
@@ -141,7 +157,8 @@ public class CreateEventActivity extends AppCompatActivity {
                 hour=hourS;
                 minute=minuteS;
                 calendar.set(year,month,day,hour,minute);
-                binding.btnTime.setText(DateFormat.format("hh:mm aa", calendar) );
+                timeToCheck=DateFormat.format("hh:mm aa", calendar)+"";
+                binding.btnTime.setText(timeToCheck);
             }
         };
         TimePickerDialog timeDialog =new TimePickerDialog(CreateEventActivity.this,listener,hour,minute,false);
@@ -157,7 +174,8 @@ public class CreateEventActivity extends AppCompatActivity {
                 month=monthS;
                 day=dayS;
                 calendar.set(year,month,day,hour,minute);
-                binding.btnDate.setText(day+"/"+(month+1)+"/"+year);
+                dateToCheck=day+"/"+(month+1)+"/"+year;
+                binding.btnDate.setText(dateToCheck);
             }
         };
         DatePickerDialog dateDialog=new DatePickerDialog(CreateEventActivity.this,listener,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
