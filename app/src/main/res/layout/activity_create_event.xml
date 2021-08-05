@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateEventActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:clipToPadding="false"
+        android:paddingBottom="20dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true">
+
+            <RelativeLayout
+                android:id="@+id/relative"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:background="?attr/toolbar_background"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/btnBack"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:clickable="true"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_back"
+                    app:tint="@color/white" />
+
+                <ImageView
+                    android:id="@+id/btnSave"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@drawable/background_done_button"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_done"
+                    app:tint="@color/white" />
+
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/txtTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:autofillHints="null"
+                android:background="@null"
+                android:fontFamily="@font/bold"
+                android:hint="@string/title"
+                android:inputType="text|textMultiLine"
+                android:textColor="?attr/text_color"
+                android:textColorHint="?attr/text_color_hint"
+                android:textSize="@dimen/_16ssp"
+                app:layout_constraintTop_toBottomOf="@id/relative" />
+
+            <TextView
+                android:id="@+id/txtDateAndTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:fontFamily="@font/regular"
+                android:textColor="?attr/text_color"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintEnd_toEndOf="@+id/txtTitle"
+                app:layout_constraintStart_toStartOf="@+id/txtTitle"
+                app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/_10sdp"
+                android:id="@+id/linear"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/txtDateAndTime"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:src="@drawable/ic_date"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"/>
+                    <TextView
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:id="@+id/txt_date"
+                        android:fontFamily="@font/bold"
+                        android:textColor="@color/blackColor"
+                        android:textSize="@dimen/_15ssp"
+                        android:text="Event Date"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+                    <Button
+                        android:id="@+id/btn_date"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:text="1/1/2021"
+                        android:textSize="@dimen/_12ssp"
+                        style="@style/Widget.AppCompat.Spinner.DropDown"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:src="@drawable/ic_time"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"/>
+
+                    <TextView
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:id="@+id/txt_time"
+                        android:text="Event Time"
+                        android:fontFamily="@font/bold"
+                        android:textColor="@color/blackColor"
+                        android:textSize="@dimen/_15ssp"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <Button
+                        android:id="@+id/btn_time"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:text="12:12  AM"
+                        android:textSize="@dimen/_12ssp"
+                        style="@style/Widget.AppCompat.Spinner.DropDown"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/imageNews"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/app_name"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/layoutWebURL"
+                app:layout_constraintTop_toBottomOf="@id/linear" />
+
+            <ImageView
+                android:id="@+id/removeImage"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@drawable/background_delete"
+                android:contentDescription="@string/app_name"
+                android:padding="@dimen/_4sdp"
+                android:src="@drawable/ic_delete"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/imageNews"
+                app:layout_constraintTop_toTopOf="@+id/imageNews"
+                app:tint="@color/white" />
+
+            <RelativeLayout
+                android:id="@+id/layoutWebURL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/layoutPdf"
+                app:layout_constraintTop_toBottomOf="@id/imageNews"
+                tools:ignore="UseCompoundDrawables">
+
+                <TextView
+                    android:id="@+id/textWebURL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:autoLink="web"
+                    android:fontFamily="@font/regular"
+                    android:includeFontPadding="false"
+                    android:textSize="@dimen/_13ssp" />
+
+                <ImageView
+                    android:id="@+id/removeWebURL"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/background_delete_white"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_delete"
+                    app:tint="@color/colorDelete" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layoutPdf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/txtDescription"
+                app:layout_constraintTop_toBottomOf="@id/layoutWebURL"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:id="@+id/image_pdf"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_alignParentStart="true"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/pdf" />
+
+                <TextView
+                    android:id="@+id/textPdf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/image_pdf"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:autoLink="web"
+                    android:fontFamily="@font/regular"
+                    android:includeFontPadding="false"
+                    android:textSize="@dimen/_13ssp" />
+
+                <ImageView
+                    android:id="@+id/removePdf"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/background_delete_white"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_delete"
+                    app:tint="@color/colorDelete" />
+
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/txtDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:background="@null"
+                android:fontFamily="@font/regular"
+                android:gravity="top"
+                android:hint="@string/type_description_here"
+                android:importantForAutofill="no"
+                android:includeFontPadding="false"
+                android:inputType="textMultiLine"
+                android:textColor="?attr/text_color"
+                android:textColorHint="?attr/text_color_hint"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutPdf" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <include layout="@layout/others" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

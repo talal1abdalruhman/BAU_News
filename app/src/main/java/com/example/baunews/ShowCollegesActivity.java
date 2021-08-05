@@ -22,7 +22,6 @@ public class ShowCollegesActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_show_colleges);
         binding.txt.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD);
 
-
         Intent intent=getIntent();
         Bundle b=intent.getExtras();
 
