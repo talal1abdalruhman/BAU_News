@@ -38,7 +38,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class CreateEventActivity extends AppCompatActivity {
+public class CreateEventActivity extends AppCompatActivity implements View.OnClickListener {
 
     ActivityCreateEventBinding binding;
 
@@ -63,6 +63,19 @@ public class CreateEventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_event);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_event);
+
+        binding.addFab.setOnClickListener(this);
+        binding.urlFab.setOnClickListener(this);
+        binding.pdfFab.setOnClickListener(this);
+        binding.imageFab.setOnClickListener(this);
+        binding.btnDate.setOnClickListener(this);
+        binding.btnTime.setOnClickListener(this);
+        binding.btnSave.setOnClickListener(this);
+        binding.btnBack.setOnClickListener(this);
+        binding.removeImage.setOnClickListener(this);
+        binding.removePdf.setOnClickListener(this);
+        binding.removeWebURL.setOnClickListener(this);
+
         rotate_froward= AnimationUtils.loadAnimation(this, R.anim.rotate_forward);
         rotate_backward= AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
         fab_image_open=AnimationUtils.loadAnimation(this,R.anim.fab_image_open_translate);
@@ -71,163 +84,57 @@ public class CreateEventActivity extends AppCompatActivity {
         fab_url_close=AnimationUtils.loadAnimation(this,R.anim.fab_url_close_translate);
         fab_pdf_open=AnimationUtils.loadAnimation(this,R.anim.fab_pdf_open_translate);
         fab_pdf_close=AnimationUtils.loadAnimation(this,R.anim.fab_pdf_close_translate);
-        clicked=true;
+
+        clicked=false;
 
         binding.btnDate.setText(new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(new Date()));
         binding.btnTime.setText(new SimpleDateFormat("HH:mm a", Locale.ENGLISH).format(new Date()));
         binding.txtDateAndTime.setText(new SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm a", Locale.ENGLISH).format(new Date()));
         calendar=Calendar.getInstance();
-
-        //-----------------------------------------------------------------------Event Date--------
-        binding.btnDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDatePicker();
-            }
-        });
-        //-----------------------------------------------------------------------Event Time--------
-        binding.btnTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showTimePicker();
-            }
-        });
-        binding.addFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onAddBtnClick();
-            }
-        });
-        binding.imageFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(CreateEventActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, IMAGE_REQUEST_CODE);
-                } else {
-                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                    startActivityForResult(intent, IMAGE_REQUEST_CODE);
-                }
-                onAddBtnClick();
-            }
-        });
-        binding.dpfFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(CreateEventActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, FILE_REQUEST_CODE);
-                } else {
-                    Intent intent = new Intent();
-                    intent.setType("application/pdf");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(Intent.createChooser(intent, "Select file"), FILE_REQUEST_CODE);
-                }
-                onAddBtnClick();
-            }
-        });
-        binding.urlFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showAddURLDialog();
-                onAddBtnClick();
-            }
-        });
-        //--------------------------------------------------------------------save button-----------------
-        binding.btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //------------------------------------------If the admin does not choose the date or time---------------------------
-
-                if(timeToCheck == null){
-
-                }
-                if(dateToCheck == null){
-
-                }
-                //------------------------------------------------------------------------------------------------------------------
-                if(dateToCheck != null && timeToCheck!=null)
-                getEventDateAndTime();
-            }
-        });
-
-
-        binding.removeImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.imageNews.setImageURI(null);
-                binding.imageNews.setVisibility(View.GONE);
-                binding.removeImage.setVisibility(View.GONE);
-            }
-        });
-        binding.removeWebURL.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.textWebURL.setText(null);
-                binding.layoutWebURL.setVisibility(View.GONE);
-            }
-        });
-        binding.removePdf.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.textPdf.setText(null);
-                binding.layoutPdf.setVisibility(View.GONE);
-            }
-        });
-        //--------------------------------------------------------------------back button----------
-
-        binding.btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CreateEventActivity.this,MainActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
 
 
+
+
+
+
     //------------------------------------------------------------methods to set fabs animations----
+
     private void onAddBtnClick() {
         setVisibility(clicked);
         setAnimation(clicked);
         clicked=!clicked;
     }
-
     private void setAnimation(boolean b) {
         if(!b){
             binding.imageFab.startAnimation(fab_image_open);
-            binding.dpfFab.startAnimation(fab_pdf_open);
+            binding.pdfFab.startAnimation(fab_pdf_open);
             binding.urlFab.startAnimation(fab_url_open);
             binding.addFab.startAnimation(rotate_froward);
             binding.addFab.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.colorDelete)));
         }else {
             binding.imageFab.startAnimation(fab_image_close);
-            binding.dpfFab.startAnimation(fab_pdf_close);
+            binding.pdfFab.startAnimation(fab_pdf_close);
             binding.urlFab.startAnimation(fab_url_close);
             binding.addFab.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.mainColor)));
             binding.addFab.startAnimation(rotate_backward);
         }
     }
-
     private void setVisibility(boolean b) {
         if(!b){
             binding.imageFab.setVisibility(View.VISIBLE);
-            binding.dpfFab.setVisibility(View.VISIBLE);
+            binding.pdfFab.setVisibility(View.VISIBLE);
             binding.urlFab.setVisibility(View.VISIBLE);
         }else {
             binding.imageFab.setVisibility(View.INVISIBLE);
-            binding.dpfFab.setVisibility(View.INVISIBLE);
+            binding.pdfFab.setVisibility(View.INVISIBLE);
             binding.urlFab.setVisibility(View.INVISIBLE);
         }
     }
 
-    //---------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------method to set date format----------
 
-
-
-
-
-    //-----------------------------------------------------------------------------method----------
     private void getEventDateAndTime() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+3"));
@@ -300,7 +207,6 @@ public class CreateEventActivity extends AppCompatActivity {
                     }
                 }
             });
-
             view.findViewById(R.id.textCancel).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -308,9 +214,9 @@ public class CreateEventActivity extends AppCompatActivity {
                 }
             });
         }
-
         dialogAddURL.show();
     }
+
     //--------------------------------------------------------------------result ------------------
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -351,6 +257,67 @@ public class CreateEventActivity extends AppCompatActivity {
             binding.textPdf.setText(pdfFileName);
             binding.layoutPdf.setVisibility(View.VISIBLE);
             binding.removePdf.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.add_fab:{onAddBtnClick();}break;
+            case R.id.image_fab:{
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(CreateEventActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, IMAGE_REQUEST_CODE);
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, IMAGE_REQUEST_CODE);
+                }
+                onAddBtnClick();
+            }break;
+            case R.id.pdf_fab:{
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(CreateEventActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, FILE_REQUEST_CODE);
+                } else {
+                    Intent intent = new Intent();
+                    intent.setType("application/pdf");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(Intent.createChooser(intent, "Select file"), FILE_REQUEST_CODE);
+                }
+                onAddBtnClick();
+            }break;
+            case R.id.url_fab:{
+                showAddURLDialog();
+                onAddBtnClick();
+            }break;
+            case R.id.btn_date:{ showDatePicker(); }break;
+            case R.id.btn_time:{showTimePicker(); }break;
+            case R.id.removeImage:{
+                binding.imageNews.setImageURI(null);
+                binding.imageNews.setVisibility(View.GONE);
+                binding.removeImage.setVisibility(View.GONE);
+            }break;
+            case R.id.removePdf:{
+                binding.textPdf.setText(null);
+                binding.layoutPdf.setVisibility(View.GONE);
+            }break;
+            case R.id.removeWebURL:{
+                binding.textWebURL.setText(null);
+                binding.layoutWebURL.setVisibility(View.GONE);
+            }break;
+            case R.id.btnBack:{
+                Intent intent = new Intent(CreateEventActivity.this,MainActivity.class);
+                startActivity(intent);
+            }break;
+            case R.id.btnSave:{
+                //-------------------If the admin does not choose the date or time-----------------
+                if(timeToCheck == null){
+                    Toast.makeText(CreateEventActivity.this,"choose Event Time",Toast.LENGTH_SHORT).show();
+                }
+                if(dateToCheck == null){
+                    Toast.makeText(CreateEventActivity.this,"choose choose Event Date",Toast.LENGTH_SHORT).show();
+                }
+                if(dateToCheck != null && timeToCheck!=null)
+                    getEventDateAndTime();
+            }break;
         }
     }
 }
