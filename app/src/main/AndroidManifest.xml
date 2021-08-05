@@ -11,12 +11,6 @@
         android:theme="@style/Theme.BAUNews">
         <activity android:name=".CreateEventActivity">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
         </activity>
         <activity
             android:name=".ShowEventsActivity"
@@ -30,7 +24,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".CreateNewsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+
+        </activity>
         <activity
             android:name=".ForgotPasswordActivity"
             android:screenOrientation="portrait" />
@@ -47,7 +43,11 @@
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <service android:name=".NotificationPackage.MyFirebaseIdService">

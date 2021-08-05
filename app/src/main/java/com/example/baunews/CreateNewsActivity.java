@@ -15,6 +15,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
@@ -28,6 +29,8 @@ import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -86,10 +89,25 @@ public class CreateNewsActivity extends AppCompatActivity {
     private String category, collageId;
     ArrayList<String> usersToken;
 
+    Animation rotate_froward,rotate_backward,fab_image_open,fab_image_close,fab_url_open,fab_url_close,fab_pdf_open,fab_pdf_close;
+    boolean clicked;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_news);
+
+        rotate_froward= AnimationUtils.loadAnimation(this, R.anim.rotate_forward);
+        rotate_backward= AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
+        fab_image_open=AnimationUtils.loadAnimation(this,R.anim.fab_image_open_translate);
+        fab_image_close=AnimationUtils.loadAnimation(this,R.anim.fab_image_close_translate);
+        fab_url_open=AnimationUtils.loadAnimation(this,R.anim.fab_url_open_translate);
+        fab_url_close=AnimationUtils.loadAnimation(this,R.anim.fab_url_close_translate);
+        fab_pdf_open=AnimationUtils.loadAnimation(this,R.anim.fab_pdf_open_translate);
+        fab_pdf_close=AnimationUtils.loadAnimation(this,R.anim.fab_pdf_close_translate);
+
+        clicked=false;
+
 
         category = getIntent().getStringExtra("news_category");
         if (category.equals("general")) {
@@ -102,7 +120,6 @@ public class CreateNewsActivity extends AppCompatActivity {
         getAllUser();
         apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
-        AddOthers();
         binding.txtDateAndTime.setText(new SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm a", Locale.getDefault()).format(new Date()));
 
         //--------------------------------------------------------------------save button-----------------
@@ -128,6 +145,45 @@ public class CreateNewsActivity extends AppCompatActivity {
             }
         });
 
+        binding.addFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onAddBtnClick();
+            }
+        });
+        binding.imageFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(CreateNewsActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, IMAGE_REQUEST_CODE);
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, IMAGE_REQUEST_CODE);
+                }
+                onAddBtnClick();
+            }
+        });
+        binding.pdfFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(CreateNewsActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, FILE_REQUEST_CODE);
+                } else {
+                    Intent intent = new Intent();
+                    intent.setType("application/pdf");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(Intent.createChooser(intent, "Select file"), FILE_REQUEST_CODE);
+                }
+                onAddBtnClick();
+            }
+        });
+        binding.urlFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showAddURLDialog();
+                onAddBtnClick();
+            }
+        });
 
         binding.removeImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,60 +210,6 @@ public class CreateNewsActivity extends AppCompatActivity {
             }
         });
     }
-
-    private void AddOthers() {
-        final LinearLayout layout = findViewById(R.id.layoutAddOthers);
-        Log.d("OthersId", "AddOthers: " + layout.getId());
-        final BottomSheetBehavior<LinearLayout> bottomSheetBehavior = BottomSheetBehavior.from(layout);
-        layout.findViewById(R.id.others).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
-                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                } else {
-                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                }
-            }
-        });
-
-        //--------------------------------------------------------------------add Image------------
-        layout.findViewById(R.id.addImage).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(CreateNewsActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, IMAGE_REQUEST_CODE);
-                } else {
-                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                    startActivityForResult(intent, IMAGE_REQUEST_CODE);
-                }
-            }
-        });
-        //--------------------------------------------------------------------add Url--------------
-        layout.findViewById(R.id.addUrl).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                showAddURLDialog();
-            }
-        });
-        //--------------------------------------------------------------------add Pdf--------------
-        layout.findViewById(R.id.addPdf).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(CreateNewsActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, FILE_REQUEST_CODE);
-                } else {
-                    Intent intent = new Intent();
-                    intent.setType("application/pdf");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(Intent.createChooser(intent, "Select file"), FILE_REQUEST_CODE);
-                }
-            }
-        });
-    }
-
     //--------------------------------------------------------------------Dialog-------------------
     private void showAddURLDialog() {
         if (dialogAddURL == null) {
@@ -635,5 +637,38 @@ public class CreateNewsActivity extends AppCompatActivity {
         InputMethodManager imm = (InputMethodManager) getSystemService(
                 Activity.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+    }
+    //------------------------------------------------------------methods to set fabs animations----
+
+    private void onAddBtnClick() {
+        setVisibility(clicked);
+        setAnimation(clicked);
+        clicked=!clicked;
+    }
+    private void setAnimation(boolean b) {
+        if(!b){
+            binding.imageFab.startAnimation(fab_image_open);
+            binding.pdfFab.startAnimation(fab_pdf_open);
+            binding.urlFab.startAnimation(fab_url_open);
+            binding.addFab.startAnimation(rotate_froward);
+            binding.addFab.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.colorDelete)));
+        }else {
+            binding.imageFab.startAnimation(fab_image_close);
+            binding.pdfFab.startAnimation(fab_pdf_close);
+            binding.urlFab.startAnimation(fab_url_close);
+            binding.addFab.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.mainColor)));
+            binding.addFab.startAnimation(rotate_backward);
+        }
+    }
+    private void setVisibility(boolean b) {
+        if(!b){
+            binding.imageFab.setVisibility(View.VISIBLE);
+            binding.pdfFab.setVisibility(View.VISIBLE);
+            binding.urlFab.setVisibility(View.VISIBLE);
+        }else {
+            binding.imageFab.setVisibility(View.INVISIBLE);
+            binding.pdfFab.setVisibility(View.INVISIBLE);
+            binding.urlFab.setVisibility(View.INVISIBLE);
+        }
     }
 }
