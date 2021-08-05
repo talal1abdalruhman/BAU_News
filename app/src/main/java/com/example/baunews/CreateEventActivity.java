@@ -93,8 +93,8 @@ public class CreateEventActivity extends AppCompatActivity {
 
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
                 simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+3"));
-                Date today = calendar.getTime();
-                startEventDateAndTime=simpleDateFormat.format(today);
+                Date eventDate = calendar.getTime();
+                startEventDateAndTime=simpleDateFormat.format(eventDate);
                 Toast.makeText(CreateEventActivity.this,startEventDateAndTime,Toast.LENGTH_LONG).show();
             }
         });
@@ -160,7 +160,7 @@ public class CreateEventActivity extends AppCompatActivity {
                 binding.btnDate.setText(day+"/"+(month+1)+"/"+year);
             }
         };
-        DatePickerDialog dateDialog=new DatePickerDialog(CreateEventActivity.this,listener,year,month,day);
+        DatePickerDialog dateDialog=new DatePickerDialog(CreateEventActivity.this,listener,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
         //dateDialog.getWindow().setBackgroundDrawableResource(R.color.mainColor);
         dateDialog.show();
     }
