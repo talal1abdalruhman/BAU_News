@@ -50,7 +50,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
     Calendar calendar;
 
-    int hour,minute,year,month,day;
+    int hour=0,minute=0,year=0,month=0,day=0;
     String startEventDateAndTime;
 
     private AlertDialog dialogAddURL;
