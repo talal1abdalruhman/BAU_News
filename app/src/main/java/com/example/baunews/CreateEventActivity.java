@@ -9,10 +9,10 @@ import androidx.databinding.DataBindingUtil;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -20,19 +20,17 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.baunews.databinding.ActivityCreateEventBinding;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -54,6 +52,9 @@ public class CreateEventActivity extends AppCompatActivity {
     int hour=0,minute=0,year=0,month=0,day=0;
     String startEventDateAndTime, timeToCheck,dateToCheck;
 
+    Animation rotate_froward,rotate_backward,fab_image_open,fab_image_close,fab_url_open,fab_url_close,fab_pdf_open,fab_pdf_close;
+    boolean clicked;
+
     private AlertDialog dialogAddURL;
 
     @Override
@@ -62,12 +63,20 @@ public class CreateEventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_event);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_event);
+        rotate_froward= AnimationUtils.loadAnimation(this, R.anim.rotate_forward);
+        rotate_backward= AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
+        fab_image_open=AnimationUtils.loadAnimation(this,R.anim.fab_image_open_translate);
+        fab_image_close=AnimationUtils.loadAnimation(this,R.anim.fab_image_close_translate);
+        fab_url_open=AnimationUtils.loadAnimation(this,R.anim.fab_url_open_translate);
+        fab_url_close=AnimationUtils.loadAnimation(this,R.anim.fab_url_close_translate);
+        fab_pdf_open=AnimationUtils.loadAnimation(this,R.anim.fab_pdf_open_translate);
+        fab_pdf_close=AnimationUtils.loadAnimation(this,R.anim.fab_pdf_close_translate);
+        clicked=true;
 
         binding.btnDate.setText(new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(new Date()));
         binding.btnTime.setText(new SimpleDateFormat("HH:mm a", Locale.ENGLISH).format(new Date()));
         binding.txtDateAndTime.setText(new SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm a", Locale.ENGLISH).format(new Date()));
         calendar=Calendar.getInstance();
-        AddOthers();
 
         //-----------------------------------------------------------------------Event Date--------
         binding.btnDate.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +90,45 @@ public class CreateEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showTimePicker();
+            }
+        });
+        binding.addFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onAddBtnClick();
+            }
+        });
+        binding.imageFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(CreateEventActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, IMAGE_REQUEST_CODE);
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, IMAGE_REQUEST_CODE);
+                }
+                onAddBtnClick();
+            }
+        });
+        binding.dpfFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(CreateEventActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, FILE_REQUEST_CODE);
+                } else {
+                    Intent intent = new Intent();
+                    intent.setType("application/pdf");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(Intent.createChooser(intent, "Select file"), FILE_REQUEST_CODE);
+                }
+                onAddBtnClick();
+            }
+        });
+        binding.urlFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showAddURLDialog();
+                onAddBtnClick();
             }
         });
         //--------------------------------------------------------------------save button-----------------
@@ -136,7 +184,46 @@ public class CreateEventActivity extends AppCompatActivity {
         });
     }
 
+
+
+    //------------------------------------------------------------methods to set fabs animations----
+    private void onAddBtnClick() {
+        setVisibility(clicked);
+        setAnimation(clicked);
+        clicked=!clicked;
+    }
+
+    private void setAnimation(boolean b) {
+        if(!b){
+            binding.imageFab.startAnimation(fab_image_open);
+            binding.dpfFab.startAnimation(fab_pdf_open);
+            binding.urlFab.startAnimation(fab_url_open);
+            binding.addFab.startAnimation(rotate_froward);
+            binding.addFab.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.colorDelete)));
+        }else {
+            binding.imageFab.startAnimation(fab_image_close);
+            binding.dpfFab.startAnimation(fab_pdf_close);
+            binding.urlFab.startAnimation(fab_url_close);
+            binding.addFab.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.mainColor)));
+            binding.addFab.startAnimation(rotate_backward);
+        }
+    }
+
+    private void setVisibility(boolean b) {
+        if(!b){
+            binding.imageFab.setVisibility(View.VISIBLE);
+            binding.dpfFab.setVisibility(View.VISIBLE);
+            binding.urlFab.setVisibility(View.VISIBLE);
+        }else {
+            binding.imageFab.setVisibility(View.INVISIBLE);
+            binding.dpfFab.setVisibility(View.INVISIBLE);
+            binding.urlFab.setVisibility(View.INVISIBLE);
+        }
+    }
+
     //---------------------------------------------------------------------------------------------
+
+
 
 
 
@@ -183,63 +270,6 @@ public class CreateEventActivity extends AppCompatActivity {
         dateDialog.show();
     }
 
-
-
-
-    //-------------------------------------------------------------------------------Others--------
-    private void AddOthers() {
-        final LinearLayout layout = findViewById(R.id.layoutAddOthers);
-        Log.d("OthersId", "AddOthers: " + layout.getId());
-        final BottomSheetBehavior<LinearLayout> bottomSheetBehavior = BottomSheetBehavior.from(layout);
-        layout.findViewById(R.id.others).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
-                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                } else {
-                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                }
-            }
-        });
-
-        //--------------------------------------------------------------------add Image------------
-        layout.findViewById(R.id.addImage).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(CreateEventActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, IMAGE_REQUEST_CODE);
-                } else {
-                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                    startActivityForResult(intent, IMAGE_REQUEST_CODE);
-                }
-            }
-        });
-        //--------------------------------------------------------------------add Url--------------
-        layout.findViewById(R.id.addUrl).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                showAddURLDialog();
-            }
-        });
-        //--------------------------------------------------------------------add Pdf--------------
-        layout.findViewById(R.id.addPdf).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(CreateEventActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, FILE_REQUEST_CODE);
-                } else {
-                    Intent intent = new Intent();
-                    intent.setType("application/pdf");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(Intent.createChooser(intent, "Select file"), FILE_REQUEST_CODE);
-                }
-            }
-        });
-    }
-    //---------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------URL Dialog---------------
     private void showAddURLDialog() {
         if (dialogAddURL == null) {
