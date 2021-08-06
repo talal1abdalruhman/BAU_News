@@ -101,15 +101,22 @@ public class ShowEventsActivity extends AppCompatActivity {
 
         calendar = Calendar.getInstance();
 
+        String locale = ShowEventsActivity.this.getResources().getConfiguration().locale.getDisplayName();
+        if (locale.equals("Arabic") || locale.equals("العربية")) {
+            fab_pdf_close = AnimationUtils.loadAnimation(this, R.anim.fab_pdf_close_translate_arabic);
+            fab_url_close = AnimationUtils.loadAnimation(this, R.anim.fab_url_close_translate_arabic);
+            fab_url_open = AnimationUtils.loadAnimation(this, R.anim.fab_url_open_translate_arabic);
+            fab_pdf_open = AnimationUtils.loadAnimation(this, R.anim.fab_pdf_open_translate_arabic);
+        } else {
+            fab_pdf_close = AnimationUtils.loadAnimation(this, R.anim.fab_pdf_close_translate);
+            fab_url_close = AnimationUtils.loadAnimation(this, R.anim.fab_url_close_translate);
+            fab_url_open = AnimationUtils.loadAnimation(this, R.anim.fab_url_open_translate);
+            fab_pdf_open = AnimationUtils.loadAnimation(this, R.anim.fab_pdf_open_translate);
+        }
+        fab_image_close = AnimationUtils.loadAnimation(this, R.anim.fab_image_close_translate);
+        fab_image_open = AnimationUtils.loadAnimation(this, R.anim.fab_image_open_translate);
         rotate_froward = AnimationUtils.loadAnimation(this, R.anim.rotate_forward);
         rotate_backward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
-        fab_image_open = AnimationUtils.loadAnimation(this, R.anim.fab_image_open_translate);
-        fab_image_close = AnimationUtils.loadAnimation(this, R.anim.fab_image_close_translate);
-        fab_url_open = AnimationUtils.loadAnimation(this, R.anim.fab_url_open_translate);
-        fab_url_close = AnimationUtils.loadAnimation(this, R.anim.fab_url_close_translate);
-        fab_pdf_open = AnimationUtils.loadAnimation(this, R.anim.fab_pdf_open_translate);
-        fab_pdf_close = AnimationUtils.loadAnimation(this, R.anim.fab_pdf_close_translate);
-
         clicked = false;
 
         binding.addFab.setOnClickListener(new View.OnClickListener() {
