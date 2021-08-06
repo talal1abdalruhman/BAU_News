@@ -19,6 +19,7 @@ import com.example.baunews.R;
 import com.example.baunews.ShowEventsActivity;
 import com.example.baunews.ShowNewsActivity;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -35,15 +36,16 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
     private ArrayList<EventsModel> eventsModelList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        public TextView title,date,startDate,description;
+        public TextView title,date,startDate;
         public ImageView image;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            title=itemView.findViewById(R.id.news_title);
-            date = itemView.findViewById(R.id.news_date);
-            image = itemView.findViewById(R.id.news_img);
+            title=itemView.findViewById(R.id.event_title);
+            date = itemView.findViewById(R.id.event_date);
+            image = itemView.findViewById(R.id.event_img);
+            startDate = itemView.findViewById(R.id.event_start_date);
         }
     }
 
@@ -69,6 +71,15 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
         String eventsTime = eventsModel.getDate();
         String startEvent = eventsModel.getStart_date();
         holder.date.setText(getDifferenceDateTime(eventsTime, currTime));
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy h:mm a", Locale.ENGLISH);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+        try {
+            Date date = dateFormat.parse(startEvent);
+            startEvent = sdf.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        holder.startDate.setText("Start at: "+startEvent);
         Glide.with(context)
                 .load((eventsModel.getImage().equals("null"))? R.drawable.bau : eventsModel.getImage())
                 .into(holder.image);
@@ -80,7 +91,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
                 Intent intent = new Intent(v.getContext(), ShowEventsActivity.class);
                 intent.putExtra("news_id", eventsModel.getId());
                 intent.putExtra("category", eventsModel.getCategory());
-                v.getContext().startActivity(intent);
+                //v.getContext().startActivity(intent);
             }
         });
     }

@@ -37,6 +37,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_add"
             app:tint="@android:color/white"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

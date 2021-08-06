@@ -120,7 +120,7 @@ public class CreateNewsActivity extends AppCompatActivity {
         getAllUser();
         apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
-        binding.txtDateAndTime.setText(new SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm a", Locale.getDefault()).format(new Date()));
+        binding.txtDateAndTime.setText(new SimpleDateFormat("EEEE, dd MMMM yyyy h:mm a", Locale.getDefault()).format(new Date()));
 
         //--------------------------------------------------------------------save button-----------------
         binding.btnSave.setOnClickListener(new View.OnClickListener() {

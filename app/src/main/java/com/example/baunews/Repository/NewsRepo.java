@@ -1,13 +1,11 @@
 package com.example.baunews.Repository;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.baunews.CreateNewsActivity;
 import com.example.baunews.Models.NewsModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -18,18 +16,18 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class Repo {
+public class NewsRepo {
     private static final String TAG = "Tracing Data";
-    static Repo instance;
+    static NewsRepo instance;
     private ArrayList<NewsModel> newsModels;
     private ArrayList<NewsModel> newsModels2;
     static Context mContext;
     MutableLiveData<ArrayList<NewsModel>> newsModel;
     MutableLiveData<ArrayList<NewsModel>> newsModel2;
 
-    public static Repo getInstance() {
+    public static NewsRepo getInstance() {
         if (instance == null) {
-            instance = new Repo();
+            instance = new NewsRepo();
         }
         return instance;
     }
