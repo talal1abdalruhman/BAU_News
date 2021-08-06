@@ -345,5 +345,9 @@
     <string name="choose_collage">الكلية</string>
     <string name="event_time">Event Time</string>
     <string name="event_date">Event Date</string>
+    <string name="delete_news">delete news</string>
+    <string name="update_news">update news</string>
+    <string name="delete_event">delete Event</string>
+    <string name="update_event">update Event</string>
 
 </resources>

@@ -7,7 +7,7 @@
 
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/fragment_background"
@@ -253,6 +253,77 @@
 
         </ScrollView>
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/add_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:clickable="true"
+                android:contentDescription="@string/app_name"
+                android:focusable="true"
+                app:backgroundTint="@color/mainColor"
+                app:fabCustomSize="@dimen/_40sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/ic_add"
+                app:tint="@android:color/white"
+                tools:ignore="VectorDrawableCompat" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/url_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_65sdp"
+                android:layout_marginBottom="4dp"
+                android:clickable="true"
+                android:contentDescription="@string/app_name"
+                android:focusable="true"
+                android:visibility="gone"
+                app:backgroundTint="@color/deep_green"
+                app:fabCustomSize="@dimen/_45sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/add_fab"
+                app:layout_constraintEnd_toStartOf="@+id/add_fab"
+                app:srcCompat="@drawable/ic_link"
+                app:tint="@android:color/white"
+                tools:ignore="VectorDrawableCompat" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/pdf_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_30sdp"
+                android:layout_marginBottom="@dimen/_30sdp"
+                android:clickable="true"
+                android:contentDescription="@string/app_name"
+                android:focusable="true"
+                android:visibility="gone"
+                app:backgroundTint="@color/deep_green"
+                app:fabCustomSize="@dimen/_45sdp"
+                app:layout_constraintBottom_toTopOf="@+id/url_fab"
+                app:layout_constraintEnd_toStartOf="@+id/image_fab"
+                app:srcCompat="@drawable/ic_pdf"
+                app:tint="@android:color/white"
+                tools:ignore="VectorDrawableCompat" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/image_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="@dimen/_65sdp"
+                android:clickable="true"
+                android:contentDescription="@string/app_name"
+                android:focusable="true"
+                android:visibility="gone"
+                app:backgroundTint="@color/deep_green"
+                app:fabCustomSize="@dimen/_45sdp"
+                app:layout_constraintBottom_toTopOf="@+id/add_fab"
+                app:layout_constraintEnd_toEndOf="@+id/add_fab"
+                app:srcCompat="@drawable/ic_image"
+                app:tint="@android:color/white"
+                tools:ignore="VectorDrawableCompat" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -265,7 +336,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutPdf">
+            >
 
             <Button
                 android:id="@+id/updateBtn"
@@ -273,7 +344,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="UpdateNews"
-                android:text="update news"
+                android:text="@string/update_news"
                 android:layout_margin="@dimen/_5sdp"
                 android:visibility="gone" />
 
@@ -284,13 +355,10 @@
                 android:backgroundTint="@color/colorDelete"
                 android:layout_weight="1"
                 android:onClick="DeleteNews"
-                android:text="delete news"
+                android:text="@string/delete_news"
                 android:layout_margin="@dimen/_5sdp"
                 android:visibility="gone" />
         </LinearLayout>
 
-        <include
-            layout="@layout/others"/>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -7,7 +7,7 @@
 
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/fragment_background"
@@ -102,19 +102,100 @@
                     app:layout_constraintStart_toStartOf="@+id/txtTitle"
                     app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
 
-                <TextView
-                    android:id="@+id/start_event_date"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:id="@+id/linear"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:layout_marginEnd="@dimen/_12sdp"
-                    android:layout_marginBottom="@dimen/_15sdp"
-                    android:fontFamily="@font/regular"
-                    android:textColor="?attr/text_color"
-                    android:textSize="@dimen/_10ssp"
-                    app:layout_constraintEnd_toEndOf="@+id/txtTitle"
-                    app:layout_constraintStart_toStartOf="@+id/txtTitle"
-                    app:layout_constraintTop_toBottomOf="@+id/txtDateAndTime" />
+                    android:layout_margin="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:baselineAligned="false"
+                    android:gravity="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtDateAndTime">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        android:background="@drawable/item_background"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_5sdp">
+
+                        <ImageView
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:contentDescription="@string/app_name"
+                            android:src="@drawable/ic_date" />
+
+                        <TextView
+                            android:id="@+id/txt_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:fontFamily="@font/bold"
+                            android:gravity="center"
+                            android:text="@string/event_date"
+                            android:textColor="@color/blackColor"
+                            android:textSize="@dimen/_15ssp" />
+
+                        <Button
+                            android:id="@+id/btn_date"
+                            style="@style/Widget.AppCompat.Spinner.DropDown"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text=""
+                            android:clickable="false"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12ssp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        android:background="@drawable/item_background"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_5sdp">
+
+                        <ImageView
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:contentDescription="@string/app_name"
+                            android:src="@drawable/ic_time" />
+
+                        <TextView
+                            android:id="@+id/txt_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:fontFamily="@font/bold"
+                            android:gravity="center"
+                            android:text="@string/event_time"
+                            android:textColor="@color/blackColor"
+                            android:textSize="@dimen/_15ssp" />
+
+                        <Button
+                            android:id="@+id/btn_time"
+                            style="@style/Widget.AppCompat.Spinner.DropDown"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text=""
+                            android:clickable="false"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12ssp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
 
                 <ImageView
                     android:id="@+id/imageNews"
@@ -267,6 +348,78 @@
 
         </ScrollView>
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:clickable="true"
+            android:contentDescription="@string/app_name"
+            android:focusable="true"
+            app:backgroundTint="@color/mainColor"
+            app:fabCustomSize="@dimen/_40sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_add"
+            app:tint="@android:color/white"
+            tools:ignore="VectorDrawableCompat" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/url_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_65sdp"
+            android:layout_marginBottom="4dp"
+            android:clickable="true"
+            android:contentDescription="@string/app_name"
+            android:focusable="true"
+            android:visibility="gone"
+            app:backgroundTint="@color/deep_green"
+            app:fabCustomSize="@dimen/_45sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/add_fab"
+            app:layout_constraintEnd_toStartOf="@+id/add_fab"
+            app:srcCompat="@drawable/ic_link"
+            app:tint="@android:color/white"
+            tools:ignore="VectorDrawableCompat" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/pdf_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_30sdp"
+            android:clickable="true"
+            android:contentDescription="@string/app_name"
+            android:focusable="true"
+            android:visibility="gone"
+            app:backgroundTint="@color/deep_green"
+            app:fabCustomSize="@dimen/_45sdp"
+            app:layout_constraintBottom_toTopOf="@+id/url_fab"
+            app:layout_constraintEnd_toStartOf="@+id/image_fab"
+            app:srcCompat="@drawable/ic_pdf"
+            app:tint="@android:color/white"
+            tools:ignore="VectorDrawableCompat" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/image_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="@dimen/_65sdp"
+            android:clickable="true"
+            android:contentDescription="@string/app_name"
+            android:focusable="true"
+            android:visibility="gone"
+            app:backgroundTint="@color/deep_green"
+            app:fabCustomSize="@dimen/_45sdp"
+            app:layout_constraintBottom_toTopOf="@+id/add_fab"
+            app:layout_constraintEnd_toEndOf="@+id/add_fab"
+            app:srcCompat="@drawable/ic_image"
+            app:tint="@android:color/white"
+            tools:ignore="VectorDrawableCompat" />
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -278,8 +431,7 @@
             android:layout_marginBottom="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutPdf">
+            app:layout_constraintStart_toStartOf="parent">
 
             <Button
                 android:id="@+id/updateBtn"
@@ -287,7 +439,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="UpdateEvent"
-                android:text="update Event"
+                android:text="@string/update_event"
                 android:layout_margin="@dimen/_5sdp"
                 android:visibility="gone" />
 
@@ -298,13 +450,10 @@
                 android:backgroundTint="@color/colorDelete"
                 android:layout_weight="1"
                 android:onClick="DeleteEvent"
-                android:text="delete Event"
+                android:text="@string/delete_event"
                 android:layout_margin="@dimen/_5sdp"
                 android:visibility="gone" />
         </LinearLayout>
 
-        <include
-            layout="@layout/others"/>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

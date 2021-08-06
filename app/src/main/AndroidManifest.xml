@@ -9,12 +9,12 @@
         android:roundIcon="@drawable/bau_news_logo_bg"
         android:supportsRtl="true"
         android:theme="@style/Theme.BAUNews">
-        <activity android:name=".CreateEventActivity">
-
-        </activity>
+        <activity android:name=".CreateEventActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShowEventsActivity"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".ShowCollegesActivity"
             android:screenOrientation="portrait" />
@@ -24,9 +24,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".CreateNewsActivity"
-            android:screenOrientation="portrait" >
-
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ForgotPasswordActivity"
             android:screenOrientation="portrait" />
