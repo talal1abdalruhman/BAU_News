@@ -286,8 +286,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="UpdateNews"
-                android:text="update news"
+                android:onClick="UpdateEvent"
+                android:text="update Event"
                 android:layout_margin="@dimen/_5sdp"
                 android:visibility="gone" />
 
@@ -297,8 +297,8 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorDelete"
                 android:layout_weight="1"
-                android:onClick="DeleteNews"
-                android:text="delete news"
+                android:onClick="DeleteEvent"
+                android:text="delete Event"
                 android:layout_margin="@dimen/_5sdp"
                 android:visibility="gone" />
         </LinearLayout>
