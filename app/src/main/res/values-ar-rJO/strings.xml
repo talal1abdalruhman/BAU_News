@@ -60,6 +60,7 @@
     <string name="loading">جار التحميل..</string>
     <string name="bau_about">حول الجامعة</string>
     <string name="events">الأحداث</string>
+    <string name="press_kit">الملف الصحفي</string>
     <string-array name="languages">
         <item>الانجليزية</item>
         <item>العربية</item>

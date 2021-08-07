@@ -18,6 +18,11 @@
                 android:checkable="true"
                 android:id="@+id/events_news"
                 android:icon="@drawable/ic_event"/>
+            <item
+                android:title="@string/press_kit"
+                android:checkable="true"
+                android:id="@+id/press_kit_news"
+                android:icon="@drawable/ic_folder"/>
         </menu>
     </item>
     <group android:checkableBehavior="single">

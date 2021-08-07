@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.baunews">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/bau_news_logo_bg"
@@ -9,12 +12,14 @@
         android:roundIcon="@drawable/bau_news_logo_bg"
         android:supportsRtl="true"
         android:theme="@style/Theme.BAUNews">
-        <activity android:name=".CreateEventActivity"
+        <activity android:name=".ShowPressKitActivity"></activity>
+        <activity android:name=".CreatePressKitActivity" />
+        <activity
+            android:name=".CreateEventActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ShowEventsActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ShowCollegesActivity"
             android:screenOrientation="portrait" />
@@ -59,8 +64,5 @@
             </intent-filter>
         </service>
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>
