@@ -102,8 +102,8 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
     //--------------------------------------------------------------------initialization---------
 
     private void initialization() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_show_events);
 
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_show_events);
         binding.addFab.setVisibility(View.GONE);
         progressDialog = new ProgressDialog(this);
 

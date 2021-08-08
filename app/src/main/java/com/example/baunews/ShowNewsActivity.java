@@ -75,14 +75,13 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_show_news);
-
         initialization();
     }
 
     //-------------------------------------------------------------------------initialization------
     private void initialization() {
 
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_show_news);
         binding.addFab.setVisibility(View.GONE);
         Log.d("NewsKey", getIntent().getStringExtra("news_id"));
         Log.d("NewsKey", getIntent().getStringExtra("category"));
