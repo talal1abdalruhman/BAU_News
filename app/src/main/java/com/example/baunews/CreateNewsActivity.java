@@ -138,6 +138,8 @@ public class CreateNewsActivity extends AppCompatActivity {
                         | !validation.validateNewsText(binding.txtTitle)
                         | !validation.validateNewsText(binding.txtDescription))
                     return;
+                binding.btnSave.setFocusable(true);
+                binding.btnSave.requestFocus();
                 UploadNewsData();
             }
         });
@@ -608,7 +610,7 @@ public class CreateNewsActivity extends AppCompatActivity {
     }
 
     public void showDoneAnim(){
-        hideKeyboard();
+        hideKeyboard(binding.btnSave);
         binding.rootLayout.animate().scaleX(0).scaleY(0).setDuration(250);
         binding.doneAnim.setVisibility(View.VISIBLE);
         binding.doneAnim.playAnimation();
@@ -640,10 +642,11 @@ public class CreateNewsActivity extends AppCompatActivity {
         });
     }
 
-    public  void hideKeyboard() {
+    public  void hideKeyboard(View v) {
         InputMethodManager imm = (InputMethodManager) getSystemService(
-                Activity.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                Context.INPUT_METHOD_SERVICE);
+        //imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+        imm.hideSoftInputFromWindow(v.getWindowToken(),0);
     }
     //------------------------------------------------------------methods to set fabs animations----
 
