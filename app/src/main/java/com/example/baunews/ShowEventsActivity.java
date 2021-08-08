@@ -61,7 +61,11 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -75,12 +79,12 @@ public class ShowEventsActivity extends AppCompatActivity {
     private FirebaseStorage storage;
     private DatabaseReference mRef;
     ActivityShowEventsBinding binding;
-    String newsKey, newsCategory, PdfUrl, adminType;
+    String eventKey, eventCategory, PdfUrl, adminType;
     LinearLayout layout;
     EventsModel eventsModel;
     AlertDialog dialogAddURL;
     Uri ImgUri = null, PdfUri = null;
-    boolean isImgEdited = false, isPdfEdited = false, isUrlEdited = false;
+    boolean isImgEdited = false, isPdfEdited = false, isUrlEdited = false, isTimeEdited = false, isDateEdited = false;
     ProgressDialog progressDialog;
     Animation rotate_froward, rotate_backward, fab_image_open, fab_image_close, fab_url_open, fab_url_close, fab_pdf_open, fab_pdf_close;
     boolean clicked;
@@ -92,10 +96,10 @@ public class ShowEventsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_show_events);
+
         binding.addFab.setVisibility(View.GONE);
-        Log.d("NewsKey", getIntent().getStringExtra("news_id"));
-        Log.d("NewsKey", getIntent().getStringExtra("category"));
         progressDialog = new ProgressDialog(this);
+
         ShowTheEvent();
         isAdmin();
 
@@ -275,6 +279,7 @@ public class ShowEventsActivity extends AppCompatActivity {
         };
         TimePickerDialog timeDialog = new TimePickerDialog(ShowEventsActivity.this, listener, hour, minute, false);
         timeDialog.show();
+        isTimeEdited = true;
     }
 
     //-----------------------------------------------------------------------------DatePicker------
@@ -293,6 +298,7 @@ public class ShowEventsActivity extends AppCompatActivity {
         DatePickerDialog dateDialog = new DatePickerDialog(ShowEventsActivity.this, listener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         //dateDialog.getWindow().setBackgroundDrawableResource(R.color.mainColor);
         dateDialog.show();
+        isDateEdited = true;
     }
 
     public boolean isConnect() {
@@ -307,11 +313,11 @@ public class ShowEventsActivity extends AppCompatActivity {
     }
 
     public void ShowTheEvent() {
-        newsKey = getIntent().getStringExtra("news_id");
-        newsCategory = getIntent().getStringExtra("category");
+        eventKey = getIntent().getStringExtra("event_id");
+        eventCategory = getIntent().getStringExtra("category");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        database.getReference("news").child(newsCategory)
-                .child(newsKey).addValueEventListener(new ValueEventListener() {
+        database.getReference("events").child(eventKey)
+                .addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -339,6 +345,25 @@ public class ShowEventsActivity extends AppCompatActivity {
                     } else {
                         binding.textWebURL.setVisibility(View.GONE);
                     }
+                    String dateAndTime = eventsModel.getStart_date();
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy h:mm a", Locale.ENGLISH);
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+                    try {
+                        Date date = dateFormat.parse(dateAndTime);
+                        dateAndTime = sdf.format(date);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    LocalDateTime dateTime = LocalDateTime.parse(dateAndTime,
+                            DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy h:mm a"));
+                    String formattedDate
+                            = dateTime.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));
+                    String formattedTime
+                            = dateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM));
+
+                    binding.btnDate.setText(formattedDate);
+                    binding.btnTime.setText(formattedTime);
                 }
             }
 
@@ -365,8 +390,8 @@ public class ShowEventsActivity extends AppCompatActivity {
         binding.txtTitle.setEnabled(true);
         binding.txtDescription.setEnabled(true);
 
-        binding.btnDate.setClickable(true);
-        binding.btnTime.setClickable(true);
+        binding.btnDate.setEnabled(true);
+        binding.btnTime.setEnabled(true);
 
         binding.updateBtn.setVisibility(View.GONE);
         binding.deleteBtn.setVisibility(View.GONE);
@@ -381,8 +406,8 @@ public class ShowEventsActivity extends AppCompatActivity {
         binding.txtTitle.setEnabled(false);
         binding.txtDescription.setEnabled(false);
 
-        binding.btnDate.setClickable(false);
-        binding.btnTime.setClickable(false);
+        binding.btnDate.setEnabled(false);
+        binding.btnTime.setEnabled(false);
 
         binding.updateBtn.setVisibility(View.VISIBLE);
         binding.deleteBtn.setVisibility(View.VISIBLE);
@@ -402,16 +427,16 @@ public class ShowEventsActivity extends AppCompatActivity {
         FirebaseUser currUser = FirebaseAuth.getInstance().getCurrentUser();
         String userId = currUser.getUid();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        database.getReference("users").child(userId).child("admin")
+        database.getReference("users").child(userId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()) {
-                            adminType = snapshot.getValue(String.class);
-                            if (adminType.equals("G") && newsCategory.equals("general")) {
+                        if (snapshot.exists() && snapshot.hasChild("admin")) {
+                            adminType = snapshot.child("admin").getValue(String.class);
+                            if (adminType.equals("G") && eventCategory.equals("G")) {
                                 binding.updateBtn.setVisibility(View.VISIBLE);
                                 binding.deleteBtn.setVisibility(View.VISIBLE);
-                            } else if (adminType.equals("C") && !newsCategory.equals("general")) {
+                            } else if (adminType.equals("C") && eventCategory.equals(snapshot.child("collageId").getValue(String.class))) {
                                 binding.updateBtn.setVisibility(View.VISIBLE);
                                 binding.deleteBtn.setVisibility(View.VISIBLE);
                             }
@@ -510,20 +535,20 @@ public class ShowEventsActivity extends AppCompatActivity {
     }
 
     private void SaveEventsUpdates() {
-        progressDialog.setTitle("News Update..");
+        progressDialog.setTitle("Event Update..");
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        mRef = database.getReference("news").child(newsCategory).child(newsKey);
+        mRef = database.getReference("events").child(eventKey);
 
         if (isPdfEdited && PdfUri != null) {
-            mStorageRef = storage.getInstance().getReference().child("news_pdfs").child(eventsModel.getDate() + ".pdf");
+            mStorageRef = storage.getInstance().getReference().child("events_pdfs").child(eventsModel.getDate() + ".pdf");
             if (!eventsModel.getPdf().equals("null")) {
                 mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.d("DATA_UPDATE", "pdf deleted");
+                            Log.d("DATA_UPDATE", "event old pdf deleted");
                             mStorageRef.putFile(PdfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -531,12 +556,12 @@ public class ShowEventsActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Uri> task) {
                                             if (task.isSuccessful()) {
-                                                Log.d("DATA_UPDATE", "pdf uploaded");
+                                                Log.d("DATA_UPDATE", "event new pdf uploaded");
                                                 String pdfLink = task.getResult().toString();
                                                 eventsModel.setPdf(pdfLink);
                                                 CheckImageStatus();
                                             } else {
-                                                Log.d("DATA_UPDATE", "pdf NOT uploaded");
+                                                Log.d("DATA_UPDATE", "event new pdf NOT uploaded");
                                                 progressDialog.dismiss();
                                             }
                                         }
@@ -544,7 +569,7 @@ public class ShowEventsActivity extends AppCompatActivity {
                                 }
                             });
                         } else {
-                            Log.d("DATA_UPDATE", "pdf NOT deleted");
+                            Log.d("DATA_UPDATE", "event old pdf NOT deleted");
                             progressDialog.dismiss();
                         }
                     }
@@ -557,13 +582,13 @@ public class ShowEventsActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Uri> task) {
                                 if (task.isSuccessful()) {
-                                    Log.d("DATA_UPDATE", "pdf uploaded");
+                                    Log.d("DATA_UPDATE", "event new pdf uploaded");
                                     String pdfLink = task.getResult().toString();
                                     eventsModel.setPdf(pdfLink);
                                     CheckImageStatus();
                                 } else {
                                     progressDialog.dismiss();
-                                    Log.d("DATA_UPDATE", "pdf NOT uploaded");
+                                    Log.d("DATA_UPDATE", "event new pdf NOT uploaded");
                                 }
                             }
                         });
@@ -572,16 +597,16 @@ public class ShowEventsActivity extends AppCompatActivity {
             }
         } else if (isPdfEdited && PdfUri == null) {
             if (!eventsModel.getPdf().equals("null")) {
-                mStorageRef = storage.getInstance().getReference().child("news_pdfs").child(eventsModel.getDate() + ".pdf");
+                mStorageRef = storage.getInstance().getReference().child("events_pdfs").child(eventsModel.getDate() + ".pdf");
                 mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.d("DATA_UPDATE", "pdf deleted");
+                            Log.d("DATA_UPDATE", "event old pdf deleted");
                             eventsModel.setPdf("null");
                             CheckImageStatus();
                         } else {
-                            Log.d("DATA_UPDATE", "pdf NOT deleted");
+                            Log.d("DATA_UPDATE", "event old pdf NOT deleted");
                             progressDialog.dismiss();
                         }
                     }
@@ -594,13 +619,13 @@ public class ShowEventsActivity extends AppCompatActivity {
 
     public void CheckImageStatus() {
         if (isImgEdited && ImgUri != null) {
-            mStorageRef = storage.getInstance().getReference().child("news_images").child(eventsModel.getDate() + ".jpg");
+            mStorageRef = storage.getInstance().getReference().child("events_images").child(eventsModel.getDate() + ".jpg");
             if (!eventsModel.getImage().equals("null")) {
                 mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.d("DATA_UPDATE", "img deleted");
+                            Log.d("DATA_UPDATE", "event old image deleted");
                             mStorageRef.putFile(ImgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -608,12 +633,12 @@ public class ShowEventsActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Uri> task) {
                                             if (task.isSuccessful()) {
-                                                Log.d("DATA_UPDATE", "image uploaded");
+                                                Log.d("DATA_UPDATE", "event new image uploaded");
                                                 String imageLink = task.getResult().toString();
                                                 eventsModel.setImage(imageLink);
                                                 CheckTextStatus();
                                             } else {
-                                                Log.d("DATA_UPDATE", "image NOT uploaded");
+                                                Log.d("DATA_UPDATE", "event new image NOT uploaded");
                                                 progressDialog.dismiss();
                                             }
                                         }
@@ -621,7 +646,7 @@ public class ShowEventsActivity extends AppCompatActivity {
                                 }
                             });
                         } else {
-                            Log.d("DATA_UPDATE", "img NOT deleted");
+                            Log.d("DATA_UPDATE", "event old img NOT deleted");
                             progressDialog.dismiss();
                         }
                     }
@@ -634,12 +659,12 @@ public class ShowEventsActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Uri> task) {
                                 if (task.isSuccessful()) {
-                                    Log.d("DATA_UPDATE", "image uploaded");
+                                    Log.d("DATA_UPDATE", "event new image uploaded");
                                     String imageLink = task.getResult().toString();
                                     eventsModel.setImage(imageLink);
                                     CheckTextStatus();
                                 } else {
-                                    Log.d("DATA_UPDATE", "image NOT uploaded");
+                                    Log.d("DATA_UPDATE", "event new image NOT uploaded");
                                     progressDialog.dismiss();
                                 }
                             }
@@ -649,16 +674,16 @@ public class ShowEventsActivity extends AppCompatActivity {
             }
         } else if (isImgEdited && ImgUri == null) {
             if (!eventsModel.getImage().equals("null")) {
-                mStorageRef = storage.getInstance().getReference().child("news_images").child(eventsModel.getDate() + ".jpg");
+                mStorageRef = storage.getInstance().getReference().child("events_images").child(eventsModel.getDate() + ".jpg");
                 mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.d("DATA_UPDATE", "img deleted");
+                            Log.d("DATA_UPDATE", "event old img deleted");
                             eventsModel.setImage("null");
                             CheckTextStatus();
                         } else {
-                            Log.d("DATA_UPDATE", "img NOT deleted");
+                            Log.d("DATA_UPDATE", "event old img NOT deleted");
                             progressDialog.dismiss();
                         }
                     }
@@ -674,6 +699,13 @@ public class ShowEventsActivity extends AppCompatActivity {
     }
 
     public void CheckTextStatus() {
+        if(isTimeEdited || isDateEdited){
+            String newTimeDate = getEventDateAndTime();
+            if(!eventsModel.getStart_date().equals(newTimeDate)){
+                eventsModel.setStart_date(newTimeDate);
+            }
+            isDateEdited = isTimeEdited = false;
+        }
         if (isUrlEdited) {
             String newUrl = binding.textWebURL.getText().toString().trim();
             eventsModel.setUrl(newUrl);
@@ -684,11 +716,13 @@ public class ShowEventsActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Log.d("DATA_UPDATE", "news updated");
+                    Log.d("DATA_UPDATE", "event updated");
                     progressDialog.dismiss();
+                    isPdfEdited = isImgEdited = false;
+                    PdfUri = ImgUri = null;
                     CancelEdit(new View(ShowEventsActivity.this));
                 } else {
-                    Log.d("DATA_UPDATE", "news NOT updated");
+                    Log.d("DATA_UPDATE", "event NOT updated");
                     progressDialog.dismiss();
                 }
             }
@@ -696,39 +730,39 @@ public class ShowEventsActivity extends AppCompatActivity {
     }
 
     public void DeleteEvent(View view) {
-        progressDialog.setTitle("News Delete..");
+        progressDialog.setTitle("Event Delete..");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        mRef = database.getReference("news").child(newsCategory).child(newsKey);
+        mRef = database.getReference("events").child(eventKey);
         if (!eventsModel.getPdf().equals("null")) {
-            mStorageRef = storage.getInstance().getReference().child("news_pdfs").child(eventsModel.getDate() + ".pdf");
+            mStorageRef = storage.getInstance().getReference().child("events_pdfs").child(eventsModel.getDate() + ".pdf");
             mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        Log.d("DATA_DELETE", "pdf deleted");
-                        mStorageRef = storage.getInstance().getReference().child("news_images").child(eventsModel.getDate() + ".jpg");
+                        Log.d("DATA_DELETE", "event pdf deleted");
+                        mStorageRef = storage.getInstance().getReference().child("events_images").child(eventsModel.getDate() + ".jpg");
                         if (!eventsModel.getImage().equals("null")) {
                             mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Log.d("DATA_DELETE", "img deleted");
+                                        Log.d("DATA_DELETE", "event img deleted");
                                         mRef.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
-                                                    Log.d("DATA_DELETE", "data deleted");
+                                                    Log.d("DATA_DELETE", "event data deleted");
                                                     progressDialog.dismiss();
                                                     finish();
                                                 } else {
-                                                    Log.d("DATA_DELETE", "data Not deleted");
+                                                    Log.d("DATA_DELETE", "event data Not deleted");
                                                     progressDialog.dismiss();
                                                 }
                                             }
                                         });
                                     } else {
-                                        Log.d("DATA_DELETE", "img NOT deleted");
+                                        Log.d("DATA_DELETE", "event img NOT deleted");
                                         progressDialog.dismiss();
                                     }
                                 }
@@ -738,11 +772,11 @@ public class ShowEventsActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Log.d("DATA_DELETE", "data deleted");
+                                        Log.d("DATA_DELETE", "event data deleted");
                                         progressDialog.dismiss();
                                         finish();
                                     } else {
-                                        Log.d("DATA_DELETE", "data Not deleted");
+                                        Log.d("DATA_DELETE", "event data Not deleted");
                                         progressDialog.dismiss();
                                     }
                                 }
@@ -750,34 +784,34 @@ public class ShowEventsActivity extends AppCompatActivity {
                         }
 
                     } else {
-                        Log.d("DATA_DELETE", "pdf Not deleted");
+                        Log.d("DATA_DELETE", "event pdf Not deleted");
                         progressDialog.dismiss();
                     }
                 }
             });
         } else {
-            mStorageRef = storage.getInstance().getReference().child("news_images").child(eventsModel.getDate() + ".jpg");
+            mStorageRef = storage.getInstance().getReference().child("events_images").child(eventsModel.getDate() + ".jpg");
             if (!eventsModel.getImage().equals("null")) {
                 mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.d("DATA_DELETE", "img deleted");
+                            Log.d("DATA_DELETE", "event img deleted");
                             mRef.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Log.d("DATA_DELETE", "data deleted");
+                                        Log.d("DATA_DELETE", "event data deleted");
                                         progressDialog.dismiss();
                                         finish();
                                     } else {
-                                        Log.d("DATA_DELETE", "data Not deleted");
+                                        Log.d("DATA_DELETE", "event data Not deleted");
                                         progressDialog.dismiss();
                                     }
                                 }
                             });
                         } else {
-                            Log.d("DATA_DELETE", "img NOT deleted");
+                            Log.d("DATA_DELETE", "event img NOT deleted");
                             progressDialog.dismiss();
                         }
                     }
@@ -787,11 +821,11 @@ public class ShowEventsActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.d("DATA_DELETE", "data deleted");
+                            Log.d("DATA_DELETE", "event data deleted");
                             progressDialog.dismiss();
                             finish();
                         } else {
-                            Log.d("DATA_DELETE", "data Not deleted");
+                            Log.d("DATA_DELETE", "event data Not deleted");
                             progressDialog.dismiss();
                         }
                     }
