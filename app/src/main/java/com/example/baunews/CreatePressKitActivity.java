@@ -97,6 +97,7 @@ public class CreatePressKitActivity extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_create_press_kit);
+
         initialization();
 
     }
@@ -115,6 +116,8 @@ public class CreatePressKitActivity extends AppCompatActivity implements View.On
         binding.removeWebURL.setOnClickListener(this);
         binding.btnAddResource.setOnClickListener(this);
         binding.removeTxtResource.setOnClickListener(this);
+        binding.btnBack.setOnClickListener(this);
+        binding.btnSave.setOnClickListener(this);
 
         String locale = CreatePressKitActivity.this.getResources().getConfiguration().locale.getDisplayName();
         if (locale.equals("Arabic") || locale.equals("العربية")) {
@@ -254,7 +257,7 @@ public class CreatePressKitActivity extends AppCompatActivity implements View.On
         }
     }
 
-
+    //-----------------------------------------------------------------Buttons OnClick------------
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -314,6 +317,15 @@ public class CreatePressKitActivity extends AppCompatActivity implements View.On
             case R.id.removeTxtResource :{
                 binding.txtResource.setText(null);
                 binding.layoutResourceTxt.setVisibility(view.GONE);
+            }
+            break;
+            case R.id.btnBack : {
+                Intent intent = new Intent(CreatePressKitActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+            break;
+            case R.id.btnSave : {
+
             }
             break;
         }
