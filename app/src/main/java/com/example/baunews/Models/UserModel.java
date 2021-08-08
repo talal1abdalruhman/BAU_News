@@ -1,7 +1,5 @@
 package com.example.baunews.Models;
 
-import com.example.baunews.HelperClasses.Token;
-
 public class UserModel {
     String email, password, collage, collageId, admin;
     String device_token;

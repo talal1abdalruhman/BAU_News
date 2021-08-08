@@ -87,11 +87,11 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"You clicked: "+ eventsModel.getTitle(),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context,"You clicked: "+ eventsModel.getTitle(),Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(v.getContext(), ShowEventsActivity.class);
-                intent.putExtra("news_id", eventsModel.getId());
+                intent.putExtra("event_id", eventsModel.getId());
                 intent.putExtra("category", eventsModel.getCategory());
-                //v.getContext().startActivity(intent);
+                v.getContext().startActivity(intent);
             }
         });
     }

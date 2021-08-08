@@ -198,7 +198,7 @@
 
 
                 <ImageView
-                    android:id="@+id/imageEvent"
+                    android:id="@+id/imageNews"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_10sdp"
@@ -222,8 +222,8 @@
                     android:padding="@dimen/_4sdp"
                     android:src="@drawable/ic_delete"
                     android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="@+id/imageEvent"
-                    app:layout_constraintTop_toTopOf="@+id/imageEvent"
+                    app:layout_constraintEnd_toEndOf="@+id/imageNews"
+                    app:layout_constraintTop_toTopOf="@+id/imageNews"
                     app:tint="@color/white" />
 
 
@@ -247,7 +247,7 @@
                     android:textSize="@dimen/_13ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageEvent" />
+                    app:layout_constraintTop_toBottomOf="@+id/imageNews" />
 
 
                 <RelativeLayout

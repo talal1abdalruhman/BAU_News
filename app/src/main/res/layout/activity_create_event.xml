@@ -10,16 +10,16 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/fragment_background">
+        android:background="?attr/fragment_background"
+        android:transitionName="layout"
+        tools:context=".CreateEventActivity">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/rootLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?attr/fragment_background"
-            android:transitionName="layout"
-            tools:context=".CreateEventActivity">
+            android:background="?attr/fragment_background">
 
             <ScrollView
                 android:layout_width="match_parent"
