@@ -74,13 +74,13 @@ import retrofit2.Response;
 
 import com.example.baunews.databinding.ActivityCreatePressKitBinding;
 
-public class CreatePressKitActivity extends AppCompatActivity {
+public class CreatePressKitActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "Upload_Process";
     ActivityCreatePressKitBinding binding;
     private APIService apiService;
     Uri ImgUri = null, PdfUri = null;
-    private AlertDialog dialogAddURL;
+    private AlertDialog dialogAddURL,dialogAddResource;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private StorageReference mStorageRef;
     private DatabaseReference mRef;
@@ -97,6 +97,25 @@ public class CreatePressKitActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_create_press_kit);
+        initialization();
+
+    }
+
+
+    //--------------------------------------------------------------------initialization-----------
+
+    private void initialization() {
+
+        binding.addFab.setOnClickListener(this);
+        binding.imageFab.setOnClickListener(this);
+        binding.pdfFab.setOnClickListener(this);
+        binding.urlFab.setOnClickListener(this);
+        binding.removeImage.setOnClickListener(this);
+        binding.removePdf.setOnClickListener(this);
+        binding.removeWebURL.setOnClickListener(this);
+        binding.btnAddResource.setOnClickListener(this);
+        binding.removeTxtResource.setOnClickListener(this);
+
         String locale = CreatePressKitActivity.this.getResources().getConfiguration().locale.getDisplayName();
         if (locale.equals("Arabic") || locale.equals("العربية")) {
             fab_pdf_close = AnimationUtils.loadAnimation(this, R.anim.fab_pdf_close_translate_arabic);
@@ -116,49 +135,9 @@ public class CreatePressKitActivity extends AppCompatActivity {
         clicked=false;
 
         binding.txtDateAndTime.setText(new SimpleDateFormat("EEEE, dd MMMM yyyy h:mm a", Locale.getDefault()).format(new Date()));
-
-
-        binding.addFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onAddBtnClick();
-            }
-        });
-        binding.imageFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(CreatePressKitActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, IMAGE_REQUEST_CODE);
-                } else {
-                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                    startActivityForResult(intent, IMAGE_REQUEST_CODE);
-                }
-                onAddBtnClick();
-            }
-        });
-        binding.pdfFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(CreatePressKitActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, FILE_REQUEST_CODE);
-                } else {
-                    Intent intent = new Intent();
-                    intent.setType("application/pdf");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(Intent.createChooser(intent, "Select file"), FILE_REQUEST_CODE);
-                }
-                onAddBtnClick();
-            }
-        });
-        binding.urlFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showAddURLDialog();
-                onAddBtnClick();
-            }
-        });
     }
-    //--------------------------------------------------------------------Dialog-------------------
+
+    //---------------------------------------------------------------------URL Dialog--------------
     private void showAddURLDialog() {
         if (dialogAddURL == null) {
             AlertDialog.Builder builder = new AlertDialog.Builder(CreatePressKitActivity.this);
@@ -199,6 +178,47 @@ public class CreatePressKitActivity extends AppCompatActivity {
 
         dialogAddURL.show();
     }
+    //---------------------------------------------------------------------Resource Dialog--------------
+    private void showAddResourceDialog() {
+        if (dialogAddResource == null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(CreatePressKitActivity.this);
+            View view = LayoutInflater.from(this).inflate(
+                    R.layout.layout_add_url, findViewById(R.id.layoutAddUrlContainer)
+            );
+            builder.setView(view);
+            dialogAddResource = builder.create();
+
+            if (dialogAddResource.getWindow() != null) {
+                dialogAddResource.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+            }
+            final EditText inputURL = view.findViewById(R.id.inputUrl);
+            inputURL.requestFocus();
+
+            view.findViewById(R.id.textAdd).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (inputURL.getText().toString().trim().isEmpty()) {
+                        Toast.makeText(CreatePressKitActivity.this, "Enter URL", Toast.LENGTH_SHORT).show();
+                    } else if (!Patterns.WEB_URL.matcher(inputURL.getText().toString()).matches()) {
+                        Toast.makeText(CreatePressKitActivity.this, "Enter Valid URL", Toast.LENGTH_SHORT).show();
+                    } else {
+                        binding.txtResource.setText(inputURL.getText().toString());
+                        binding.layoutResourceTxt.setVisibility(View.VISIBLE);
+                        dialogAddResource.dismiss();
+                    }
+                }
+            });
+
+            view.findViewById(R.id.textCancel).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialogAddResource.dismiss();
+                }
+            });
+        }
+
+        dialogAddResource.show();
+    }
 
     //------------------------------------------------------------methods to set fabs animations----
 
@@ -231,6 +251,113 @@ public class CreatePressKitActivity extends AppCompatActivity {
             binding.imageFab.setVisibility(View.INVISIBLE);
             binding.pdfFab.setVisibility(View.INVISIBLE);
             binding.urlFab.setVisibility(View.INVISIBLE);
+        }
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.add_fab: {
+                onAddBtnClick();
+            }
+            break;
+            case R.id.image_fab: {
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(CreatePressKitActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, IMAGE_REQUEST_CODE);
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, IMAGE_REQUEST_CODE);
+                }
+                onAddBtnClick();
+            }
+            break;
+            case R.id.pdf_fab: {
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(CreatePressKitActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, FILE_REQUEST_CODE);
+                } else {
+                    Intent intent = new Intent();
+                    intent.setType("application/pdf");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(Intent.createChooser(intent, "Select file"), FILE_REQUEST_CODE);
+                }
+                onAddBtnClick();
+            }
+            break;
+            case R.id.url_fab: {
+                showAddURLDialog();
+                onAddBtnClick();
+            }
+            break;
+            case R.id.removeImage : {
+                ImgUri = null;
+                binding.imagePress.setImageURI(null);
+                binding.imagePress.setVisibility(View.GONE);
+                binding.removeImage.setVisibility(View.GONE);
+            }
+            break;
+            case R.id.removePdf : {
+                PdfUri = null;
+                binding.textPdf.setText(null);
+                binding.layoutPdf.setVisibility(View.GONE);
+            }
+            break;
+            case R.id.removeWebURL :{
+                binding.textWebURL.setText(null);
+                binding.layoutWebURL.setVisibility(View.GONE);
+            }
+            break;
+            case R.id.btn_add_resource : {
+                showAddResourceDialog();
+            }
+            break;
+            case R.id.removeTxtResource :{
+                binding.txtResource.setText(null);
+                binding.layoutResourceTxt.setVisibility(view.GONE);
+            }
+            break;
+        }
+    }
+    //--------------------------------------------------------------------result ------------------
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == IMAGE_REQUEST_CODE && resultCode == RESULT_OK) {
+            ImgUri = null;
+            if (data != null) {
+                ImgUri = data.getData();
+            }
+            binding.imagePress.setImageURI(ImgUri);
+            binding.imagePress.setVisibility(View.VISIBLE);
+            binding.removeImage.setVisibility(View.VISIBLE);
+        }
+        if (requestCode == FILE_REQUEST_CODE && resultCode == RESULT_OK) {
+            PdfUri = null;
+            String pdfFileName = null;
+            if (data != null) {
+                PdfUri = data.getData();
+                String uriString = PdfUri.toString();
+                File myFile = new File(uriString);
+
+                if (uriString.startsWith("content://")) {
+                    Cursor cursor = null;
+                    try {
+                        cursor = getContentResolver().query(PdfUri, null, null, null, null);
+                        if (cursor != null && cursor.moveToFirst()) {
+                            pdfFileName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                        }
+                    } finally {
+                        cursor.close();
+                    }
+                } else if (uriString.startsWith("file://")) {
+                    pdfFileName = myFile.getName();
+                }
+            }
+
+            String ss = PdfUri.getPath();
+            binding.textPdf.setText(pdfFileName);
+            binding.layoutPdf.setVisibility(View.VISIBLE);
+            binding.removePdf.setVisibility(View.VISIBLE);
         }
     }
 }

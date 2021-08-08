@@ -12,8 +12,15 @@
         android:roundIcon="@drawable/bau_news_logo_bg"
         android:supportsRtl="true"
         android:theme="@style/Theme.BAUNews">
-        <activity android:name=".ShowPressKitActivity"></activity>
-        <activity android:name=".CreatePressKitActivity" />
+        <activity android:name=".ShowPressKitActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".CreatePressKitActivity" >
+        </activity>
         <activity
             android:name=".CreateEventActivity"
             android:screenOrientation="portrait" />
@@ -46,11 +53,6 @@
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <service android:name=".NotificationPackage.MyFirebaseIdService">
