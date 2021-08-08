@@ -54,7 +54,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 
-public class ShowNewsActivity extends AppCompatActivity {
+public class ShowNewsActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int IMAGE_REQUEST_CODE = 100;
     private static final int FILE_REQUEST_CODE = 101;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -76,6 +76,13 @@ public class ShowNewsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_show_news);
+
+        initialization();
+    }
+
+    //-------------------------------------------------------------------------initialization------
+    private void initialization() {
+
         binding.addFab.setVisibility(View.GONE);
         Log.d("NewsKey", getIntent().getStringExtra("news_id"));
         Log.d("NewsKey", getIntent().getStringExtra("category"));
@@ -83,8 +90,17 @@ public class ShowNewsActivity extends AppCompatActivity {
         ShowTheNews();
         isAdmin();
 
+        binding.addFab.setOnClickListener(this);
+        binding.imageFab.setOnClickListener(this);
+        binding.pdfFab.setOnClickListener(this);
+        binding.urlFab.setOnClickListener(this);
+        binding.btnSave.setOnClickListener(this);
+        binding.removeImage.setOnClickListener(this);
+        binding.removePdf.setOnClickListener(this);
+        binding.removeWebURL.setOnClickListener(this);
+
         String locale = ShowNewsActivity.this.getResources().getConfiguration().locale.getDisplayName();
-        if (locale.equals("Arabic") || locale.equals("العربية")) {
+        if ( locale.equals("Arabic") || locale.equals("العربية") ) {
             fab_pdf_close = AnimationUtils.loadAnimation(this, R.anim.fab_pdf_close_translate_arabic);
             fab_url_close = AnimationUtils.loadAnimation(this, R.anim.fab_url_close_translate_arabic);
             fab_url_open = AnimationUtils.loadAnimation(this, R.anim.fab_url_open_translate_arabic);
@@ -101,15 +117,18 @@ public class ShowNewsActivity extends AppCompatActivity {
         rotate_backward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
         clicked = false;
 
-        binding.addFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    }
+
+    //-----------------------------------------------------------------------ButtonsOnClick--------
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.add_fab : {
                 onAddBtnClick();
             }
-        });
-        binding.imageFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            break;
+            case R.id.image_fab : {
                 if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(ShowNewsActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, IMAGE_REQUEST_CODE);
                 } else {
@@ -118,10 +137,8 @@ public class ShowNewsActivity extends AppCompatActivity {
                 }
                 onAddBtnClick();
             }
-        });
-        binding.pdfFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            break;
+            case R.id.pdf_fab : {
                 if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(ShowNewsActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, FILE_REQUEST_CODE);
                 } else {
@@ -132,18 +149,13 @@ public class ShowNewsActivity extends AppCompatActivity {
                 }
                 onAddBtnClick();
             }
-        });
-        binding.urlFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            break;
+            case R.id.url_fab : {
                 showAddURLDialog();
                 onAddBtnClick();
             }
-        });
-
-        binding.btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            break;
+            case R.id.btnSave : {
                 Validation validation = new Validation(getResources());
                 if (!isConnect()
                         | !validation.validateNewsText(binding.txtTitle)
@@ -151,36 +163,28 @@ public class ShowNewsActivity extends AppCompatActivity {
                     return;
                 SaveNewsUpdates();
             }
-        });
-
-        binding.removeImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            break;
+            case R.id.removeImage : {
                 ImgUri = null;
                 isImgEdited = true;
                 binding.imageNews.setImageURI(null);
                 binding.imageNews.setVisibility(View.GONE);
                 binding.removeImage.setVisibility(View.GONE);
             }
-        });
-
-        binding.removePdf.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            break;
+            case R.id.removePdf : {
                 isPdfEdited = true;
                 PdfUri = null;
                 binding.layoutPdf.setVisibility(View.GONE);
             }
-        });
-
-        binding.removeWebURL.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            break;
+            case R.id.removeWebURL : {
                 isUrlEdited = true;
                 binding.textWebURL.setText(null);
                 binding.layoutWebURL.setVisibility(View.GONE);
             }
-        });
+            break;
+        }
     }
     //------------------------------------------------------------methods to set fabs animations----
 
@@ -340,6 +344,7 @@ public class ShowNewsActivity extends AppCompatActivity {
                 });
     }
 
+    //----------------------------------------------------------------------URL Dialog-------------
     private void showAddURLDialog() {
         if (dialogAddURL == null) {
             AlertDialog.Builder builder = new AlertDialog.Builder(ShowNewsActivity.this);

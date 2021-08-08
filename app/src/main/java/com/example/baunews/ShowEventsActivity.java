@@ -67,7 +67,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class ShowEventsActivity extends AppCompatActivity {
+public class ShowEventsActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int IMAGE_REQUEST_CODE = 100;
     private static final int FILE_REQUEST_CODE = 101;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -92,14 +92,34 @@ public class ShowEventsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_show_events);
+
+        initialization();
+
+    }
+
+    private void initialization() {
+
         binding.addFab.setVisibility(View.GONE);
         Log.d("NewsKey", getIntent().getStringExtra("news_id"));
         Log.d("NewsKey", getIntent().getStringExtra("category"));
         progressDialog = new ProgressDialog(this);
+
         ShowTheEvent();
+
         isAdmin();
 
         calendar = Calendar.getInstance();
+
+        binding.addFab.setOnClickListener(this);
+        binding.imageFab.setOnClickListener(this);
+        binding.pdfFab.setOnClickListener(this);
+        binding.urlFab.setOnClickListener(this);
+        binding.btnSave.setOnClickListener(this);
+        binding.btnTime.setOnClickListener(this);
+        binding.btnDate.setOnClickListener(this);
+        binding.removeImage.setOnClickListener(this);
+        binding.removePdf.setOnClickListener(this);
+        binding.removeWebURL.setOnClickListener(this);
 
         String locale = ShowEventsActivity.this.getResources().getConfiguration().locale.getDisplayName();
         if (locale.equals("Arabic") || locale.equals("العربية")) {
@@ -117,17 +137,22 @@ public class ShowEventsActivity extends AppCompatActivity {
         fab_image_open = AnimationUtils.loadAnimation(this, R.anim.fab_image_open_translate);
         rotate_froward = AnimationUtils.loadAnimation(this, R.anim.rotate_forward);
         rotate_backward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
+
         clicked = false;
 
-        binding.addFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    }
+
+
+    //-----------------------------------------------------------------------ButtonsOnClick--------
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.add_fab : {
                 onAddBtnClick();
             }
-        });
-        binding.imageFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            break;
+            case R.id.image_fab : {
                 if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(ShowEventsActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, IMAGE_REQUEST_CODE);
                 } else {
@@ -136,10 +161,8 @@ public class ShowEventsActivity extends AppCompatActivity {
                 }
                 onAddBtnClick();
             }
-        });
-        binding.pdfFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            break;
+            case R.id.pdf_fab : {
                 if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(ShowEventsActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, FILE_REQUEST_CODE);
                 } else {
@@ -150,32 +173,13 @@ public class ShowEventsActivity extends AppCompatActivity {
                 }
                 onAddBtnClick();
             }
-        });
-        binding.urlFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            break;
+            case R.id.url_fab : {
                 showAddURLDialog();
                 onAddBtnClick();
             }
-        });
-
-
-        binding.btnTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showTimePicker();
-            }
-        });
-        binding.btnDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDatePicker();
-            }
-        });
-
-        binding.btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            break;
+            case R.id.btnSave : {
                 Validation validation = new Validation(getResources());
                 if (!isConnect()
                         | !validation.validateNewsText(binding.txtTitle)
@@ -183,36 +187,36 @@ public class ShowEventsActivity extends AppCompatActivity {
                     return;
                 SaveEventsUpdates();
             }
-        });
-
-        binding.removeImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            break;
+            case R.id.btn_time : {
+                showTimePicker();
+            }
+            break;
+            case R.id.btn_date : {
+                showDatePicker();
+            }
+            break;
+            case R.id.removeImage : {
                 ImgUri = null;
                 isImgEdited = true;
-                binding.imageNews.setImageURI(null);
-                binding.imageNews.setVisibility(View.GONE);
+                binding.imageEvent.setImageURI(null);
+                binding.imageEvent.setVisibility(View.GONE);
                 binding.removeImage.setVisibility(View.GONE);
             }
-        });
-
-        binding.removePdf.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            break;
+            case R.id.removePdf :{
                 isPdfEdited = true;
                 PdfUri = null;
                 binding.layoutPdf.setVisibility(View.GONE);
             }
-        });
-
-        binding.removeWebURL.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            break;
+            case R.id.removeWebURL : {
                 isUrlEdited = true;
                 binding.textWebURL.setText(null);
                 binding.layoutWebURL.setVisibility(View.GONE);
             }
-        });
+            break;
+        }
     }
     //------------------------------------------------------------methods to set fabs animations----
 
@@ -323,9 +327,9 @@ public class ShowEventsActivity extends AppCompatActivity {
                     if (!eventsModel.getImage().equals("null")) {
                         Glide.with(ShowEventsActivity.this)
                                 .load(eventsModel.getImage())
-                                .into(binding.imageNews);
+                                .into(binding.imageEvent);
                     } else {
-                        binding.imageNews.setVisibility(View.GONE);
+                        binding.imageEvent.setVisibility(View.GONE);
                     }
                     if (!eventsModel.getPdf().equals("null")) {
                         PdfUrl = eventsModel.getPdf();
@@ -475,8 +479,8 @@ public class ShowEventsActivity extends AppCompatActivity {
                 ImgUri = data.getData();
             }
             isImgEdited = true;
-            binding.imageNews.setImageURI(ImgUri);
-            binding.imageNews.setVisibility(View.VISIBLE);
+            binding.imageEvent.setImageURI(ImgUri);
+            binding.imageEvent.setVisibility(View.VISIBLE);
             binding.removeImage.setVisibility(View.VISIBLE);
         }
         if (requestCode == FILE_REQUEST_CODE && resultCode == RESULT_OK) {

@@ -7,244 +7,250 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/main_background"
         tools:context=".RegisterActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/formLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
-            <ImageView
-                android:id="@+id/back_btn"
-                android:layout_width="@dimen/_35sdp"
-                android:layout_height="@dimen/_35sdp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:onClick="GoBackToLogin"
-                android:src="@drawable/ic_arrow_back"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/img"
-                android:layout_width="@dimen/_200sdp"
-                android:layout_height="@dimen/_200sdp"
-                android:layout_marginTop="4dp"
-                android:contentDescription="@string/todo"
-                android:src="@drawable/bau_news_logo_bg"
-                android:transitionName="logo"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/back_btn" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/email"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/formLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_18sdp"
-                android:layout_marginEnd="@dimen/_18sdp"
-                android:hint="@string/email"
-                android:textColorHint="@color/white"
-                android:transitionName="email"
-                app:boxBackgroundMode="outline"
-                app:boxStrokeColor="@color/white"
-                app:hintTextColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img"
-                app:startIconDrawable="@drawable/ic_email"
-                app:startIconTint="@color/white">
+                android:layout_height="match_parent">
 
-                <com.google.android.material.textfield.TextInputEditText
+
+                <ImageView
+                    android:id="@+id/back_btn"
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:onClick="GoBackToLogin"
+                    android:src="@drawable/ic_arrow_back"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/img"
+                    android:layout_width="@dimen/_200sdp"
+                    android:layout_height="@dimen/_200sdp"
+                    android:layout_marginTop="4dp"
+                    android:contentDescription="@string/todo"
+                    android:src="@drawable/bau_news_logo_bg"
+                    android:transitionName="logo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/back_btn" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/email"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/medium"
-                    android:textAlignment="viewStart"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_13ssp" />
+                    android:layout_marginStart="@dimen/_18sdp"
+                    android:layout_marginEnd="@dimen/_18sdp"
+                    android:hint="@string/email"
+                    android:textColorHint="@color/white"
+                    android:transitionName="email"
+                    app:boxBackgroundMode="outline"
+                    app:boxStrokeColor="@color/white"
+                    app:hintTextColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/img"
+                    app:startIconDrawable="@drawable/ic_email"
+                    app:startIconTint="@color/white">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/medium"
+                        android:textAlignment="viewStart"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13ssp" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/password"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_18sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_18sdp"
-                android:hint="@string/password"
-                android:textColorHint="@color/white"
-                android:transitionName="password"
-                app:boxBackgroundMode="outline"
-                app:boxStrokeColor="@color/white"
-                app:hintTextColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/email"
-                app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/white"
-                app:startIconDrawable="@drawable/ic_lock"
-                app:startIconTint="@color/white">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/password"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/medium"
-                    android:textAlignment="viewStart"
-                    android:inputType="textPassword"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_13ssp" />
+                    android:layout_marginStart="@dimen/_18sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_18sdp"
+                    android:hint="@string/password"
+                    android:textColorHint="@color/white"
+                    android:transitionName="password"
+                    app:boxBackgroundMode="outline"
+                    app:boxStrokeColor="@color/white"
+                    app:hintTextColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/email"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/white"
+                    app:startIconDrawable="@drawable/ic_lock"
+                    app:startIconTint="@color/white">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/medium"
+                        android:textAlignment="viewStart"
+                        android:inputType="textPassword"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13ssp" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/confirm_password"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_18sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_18sdp"
-                android:hint="@string/confirm_password"
-                android:textColorHint="@color/white"
-                app:boxBackgroundMode="outline"
-                app:boxStrokeColor="@color/white"
-                app:hintTextColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/password"
-                app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/white"
-                app:startIconDrawable="@drawable/ic_lock"
-                app:startIconTint="@color/white">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/confirm_password"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/medium"
-                    android:textAlignment="viewStart"
-                    android:inputType="textPassword"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_13ssp" />
+                    android:layout_marginStart="@dimen/_18sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_18sdp"
+                    android:hint="@string/confirm_password"
+                    android:textColorHint="@color/white"
+                    app:boxBackgroundMode="outline"
+                    app:boxStrokeColor="@color/white"
+                    app:hintTextColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/password"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/white"
+                    app:startIconDrawable="@drawable/ic_lock"
+                    app:startIconTint="@color/white">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/medium"
+                        android:textAlignment="viewStart"
+                        android:inputType="textPassword"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13ssp" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/dropdown"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_18sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_18sdp"
-                android:hint="@string/choose_collage"
-                android:textColorHint="@color/white"
-                app:boxBackgroundMode="outline"
-                app:boxStrokeColor="@color/white"
-                app:hintTextColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/confirm_password"
-                app:startIconDrawable="@drawable/ic_college"
-                app:startIconTint="@color/white">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <AutoCompleteTextView
-                    android:id="@+id/autoComplete"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/dropdown"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_18sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_18sdp"
+                    android:hint="@string/choose_collage"
+                    android:textColorHint="@color/white"
+                    app:boxBackgroundMode="outline"
+                    app:boxStrokeColor="@color/white"
+                    app:hintTextColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/confirm_password"
+                    app:startIconDrawable="@drawable/ic_college"
+                    app:startIconTint="@color/white">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/autoComplete"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/medium"
+                        android:inputType="none"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13ssp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/register"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="36dp"
+                    android:layout_marginEnd="24dp"
                     android:fontFamily="@font/medium"
-                    android:inputType="none"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_13ssp" />
+                    android:onClick="RegisterUser"
+                    android:text="@string/register"
+                    android:textSize="@dimen/_13ssp"
+                    android:transitionName="button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dropdown" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/loadingAnim"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_150sdp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/register"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/register"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/loading" />
 
-            <Button
-                android:id="@+id/register"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="36dp"
-                android:layout_marginEnd="24dp"
-                android:fontFamily="@font/medium"
-                android:onClick="RegisterUser"
-                android:text="@string/register"
-                android:textSize="@dimen/_13ssp"
-                android:transitionName="button"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dropdown" />
+                <LinearLayout
+                    android:id="@+id/linear_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:transitionName="underText"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/register">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/regular"
+                        android:text="@string/already_have_an_account"
+                        android:textSize="@dimen/_10ssp" />
+
+                    <TextView
+                        android:id="@+id/sign_in"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:fontFamily="@font/bold"
+                        android:text="@string/sing_in"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_11ssp" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/loadingAnim"
+                android:id="@+id/finishedAnim"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_150sdp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/register"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/register"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/loading" />
-
-            <LinearLayout
-                android:id="@+id/linear_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_24sdp"
-                android:layout_marginBottom="@dimen/_4sdp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:transitionName="underText"
+                android:layout_height="match_parent"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/register">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/regular"
-                    android:text="@string/already_have_an_account"
-                    android:textSize="@dimen/_10ssp" />
-
-                <TextView
-                    android:id="@+id/sign_in"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_4sdp"
-                    android:fontFamily="@font/bold"
-                    android:text="@string/sing_in"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_11ssp" />
-
-            </LinearLayout>
+                app:layout_constraintTop_toTopOf="parent"
+                android:transitionName="logo"
+                app:lottie_autoPlay="false"
+                app:lottie_loop="false"
+                app:lottie_rawRes="@raw/register_finished" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/finishedAnim"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:transitionName="logo"
-            app:lottie_autoPlay="false"
-            app:lottie_loop="false"
-            app:lottie_rawRes="@raw/register_finished" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

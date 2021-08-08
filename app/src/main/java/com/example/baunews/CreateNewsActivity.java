@@ -73,7 +73,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CreateNewsActivity extends AppCompatActivity {
+public class CreateNewsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "Upload_Process";
     ActivityCreateNewsBinding binding;
@@ -97,6 +97,36 @@ public class CreateNewsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_news);
 
+        initialization();
+    }
+
+
+
+    //-----------------------------------------------------------------------------initialization
+    private void initialization() {
+
+        category = getIntent().getStringExtra("news_category");
+        if (category.equals("general")) {
+            Log.d("ADMIN", "general");
+        } else if (category.equals("collage")) {
+            collageId = getIntent().getStringExtra("collage_id");
+            Log.d("ADMIN", "collage id = " + collageId);
+        }
+        getAllUser();
+        apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
+
+        binding.txtDateAndTime.setText(new SimpleDateFormat("EEEE, dd MMMM yyyy h:mm a", Locale.getDefault()).format(new Date()));
+
+        binding.addFab.setOnClickListener(this);
+        binding.imageFab.setOnClickListener(this);
+        binding.pdfFab.setOnClickListener(this);
+        binding.urlFab.setOnClickListener(this);
+        binding.btnSave.setOnClickListener(this);
+        binding.btnBack.setOnClickListener(this);
+        binding.removeImage.setOnClickListener(this);
+        binding.removePdf.setOnClickListener(this);
+        binding.removeWebURL.setOnClickListener(this);
+
         String locale = CreateNewsActivity.this.getResources().getConfiguration().locale.getDisplayName();
         if (locale.equals("Arabic") || locale.equals("العربية")) {
             fab_pdf_close = AnimationUtils.loadAnimation(this, R.anim.fab_pdf_close_translate_arabic);
@@ -113,26 +143,16 @@ public class CreateNewsActivity extends AppCompatActivity {
         fab_image_open = AnimationUtils.loadAnimation(this, R.anim.fab_image_open_translate);
         rotate_froward = AnimationUtils.loadAnimation(this, R.anim.rotate_forward);
         rotate_backward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
+
         clicked=false;
+    }
 
 
-        category = getIntent().getStringExtra("news_category");
-        if (category.equals("general")) {
-            Log.d("ADMIN", "general");
-        } else if (category.equals("collage")) {
-            collageId = getIntent().getStringExtra("collage_id");
-            Log.d("ADMIN", "collage id = " + collageId);
-        }
-
-        getAllUser();
-        apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
-
-        binding.txtDateAndTime.setText(new SimpleDateFormat("EEEE, dd MMMM yyyy h:mm a", Locale.getDefault()).format(new Date()));
-
-        //--------------------------------------------------------------------save button-----------------
-        binding.btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    //-----------------------------------------------------------------------ButtonsOnClick--------
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btnSave : {
                 Validation validation = new Validation(getResources());
                 if (!isConnect()
                         | !validation.validateNewsText(binding.txtTitle)
@@ -140,27 +160,17 @@ public class CreateNewsActivity extends AppCompatActivity {
                     return;
                 UploadNewsData();
             }
-        });
-
-
-        //--------------------------------------------------------------------back button-----------------
-        binding.btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            break;
+            case R.id.btnBack : {
                 Intent intent = new Intent(CreateNewsActivity.this, MainActivity.class);
                 startActivity(intent);
             }
-        });
-
-        binding.addFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            break;
+            case R.id.add_fab : {
                 onAddBtnClick();
             }
-        });
-        binding.imageFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            break;
+            case R.id.image_fab : {
                 if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(CreateNewsActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, IMAGE_REQUEST_CODE);
                 } else {
@@ -169,10 +179,8 @@ public class CreateNewsActivity extends AppCompatActivity {
                 }
                 onAddBtnClick();
             }
-        });
-        binding.pdfFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            break;
+            case R.id.pdf_fab : {
                 if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(CreateNewsActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, FILE_REQUEST_CODE);
                 } else {
@@ -183,41 +191,34 @@ public class CreateNewsActivity extends AppCompatActivity {
                 }
                 onAddBtnClick();
             }
-        });
-        binding.urlFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            break;
+            case R.id.url_fab : {
                 showAddURLDialog();
                 onAddBtnClick();
             }
-        });
-
-        binding.removeImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            break;
+            case R.id.removeImage : {
                 ImgUri = null;
                 binding.imageNews.setImageURI(null);
                 binding.imageNews.setVisibility(View.GONE);
                 binding.removeImage.setVisibility(View.GONE);
             }
-        });
-        binding.removeWebURL.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.textWebURL.setText(null);
-                binding.layoutWebURL.setVisibility(View.GONE);
-            }
-        });
-        binding.removePdf.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            break;
+            case R.id.removePdf : {
                 PdfUri = null;
                 binding.textPdf.setText(null);
                 binding.layoutPdf.setVisibility(View.GONE);
             }
-        });
+            break;
+            case R.id.removeWebURL :{
+                binding.textWebURL.setText(null);
+                binding.layoutWebURL.setVisibility(View.GONE);
+            }
+            break;
+        }
     }
-    //--------------------------------------------------------------------Dialog-------------------
+
+    //--------------------------------------------------------------------URL Dialog---------------
     private void showAddURLDialog() {
         if (dialogAddURL == null) {
             AlertDialog.Builder builder = new AlertDialog.Builder(CreateNewsActivity.this);

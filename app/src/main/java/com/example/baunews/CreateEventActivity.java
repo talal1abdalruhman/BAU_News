@@ -101,12 +101,25 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_event);
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_event);
+
+        initialization();
+    }
+
+    //-------------------------------------------------------------------------initialization------
+    private void initialization() {
         category = getIntent().getStringExtra("category");
         Log.d("CATEGORY", "Category: " + category);
         validation = new Validation(getResources());
+
+        getAllUser();
+        apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
+
+        binding.btnDate.setText(new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(new Date()));
+        binding.btnTime.setText(new SimpleDateFormat("h:mm a", Locale.ENGLISH).format(new Date()));
+        binding.txtDateAndTime.setText(new SimpleDateFormat("EEEE, dd MMMM yyyy h:mm a", Locale.ENGLISH).format(new Date()));
+        calendar = Calendar.getInstance();
+
         binding.addFab.setOnClickListener(this);
         binding.urlFab.setOnClickListener(this);
         binding.pdfFab.setOnClickListener(this);
@@ -118,7 +131,6 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         binding.removeImage.setOnClickListener(this);
         binding.removePdf.setOnClickListener(this);
         binding.removeWebURL.setOnClickListener(this);
-
 
         String locale = CreateEventActivity.this.getResources().getConfiguration().locale.getDisplayName();
         if (locale.equals("Arabic") || locale.equals("العربية")) {
@@ -137,16 +149,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         rotate_froward = AnimationUtils.loadAnimation(this, R.anim.rotate_forward);
         rotate_backward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
 
-
         clicked = false;
 
-        binding.btnDate.setText(new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(new Date()));
-        binding.btnTime.setText(new SimpleDateFormat("h:mm a", Locale.ENGLISH).format(new Date()));
-        binding.txtDateAndTime.setText(new SimpleDateFormat("EEEE, dd MMMM yyyy h:mm a", Locale.ENGLISH).format(new Date()));
-        calendar = Calendar.getInstance();
-
-        getAllUser();
-        apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
     }
 
 
@@ -214,6 +218,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     }
 
     //-----------------------------------------------------------------------------DatePicker------
+
     private void showDatePicker() {
         DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -280,8 +285,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             if (data != null) {
                 ImgUri = data.getData();
             }
-            binding.imageNews.setImageURI(ImgUri);
-            binding.imageNews.setVisibility(View.VISIBLE);
+            binding.imageEvent.setImageURI(ImgUri);
+            binding.imageEvent.setVisibility(View.VISIBLE);
             binding.removeImage.setVisibility(View.VISIBLE);
         }
         if (requestCode == FILE_REQUEST_CODE && resultCode == RESULT_OK) {
@@ -314,6 +319,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    //-----------------------------------------------------------------------ButtonsOnClick--------
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -357,8 +363,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             }
             break;
             case R.id.removeImage: {
-                binding.imageNews.setImageURI(null);
-                binding.imageNews.setVisibility(View.GONE);
+                binding.imageEvent.setImageURI(null);
+                binding.imageEvent.setVisibility(View.GONE);
                 binding.removeImage.setVisibility(View.GONE);
             }
             break;
