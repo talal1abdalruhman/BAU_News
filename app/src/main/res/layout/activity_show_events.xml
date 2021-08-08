@@ -75,6 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_alignParentTop="true"
+                    android:layout_marginBottom="@dimen/_15sdp"
                     android:layout_gravity="center_horizontal|top"
                     android:animateLayoutChanges="true">
 
@@ -382,7 +383,7 @@
                         android:layout_weight="1"
                         android:onClick="UpdateEvent"
                         android:text="@string/update_event"
-                        android:visibility="visible" />
+                        android:visibility="gone" />
 
                     <Button
                         android:id="@+id/deleteBtn"
@@ -395,7 +396,7 @@
                         android:backgroundTint="@color/colorDelete"
                         android:onClick="DeleteEvent"
                         android:text="@string/delete_event"
-                        android:visibility="visible" />
+                        android:visibility="gone" />
                 </LinearLayout>
             </RelativeLayout>
 

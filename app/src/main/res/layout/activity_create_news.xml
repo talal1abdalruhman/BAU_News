@@ -10,10 +10,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?attr/fragment_background"
         android:transitionName="layout"
-        android:id="@+id/rootLayout"
-        tools:context=".CreateNewsActivity"
-        android:background="?attr/fragment_background">
+        tools:context=".CreateNewsActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rootLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/fragment_background">
 
 
             <ScrollView
@@ -232,76 +237,79 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </ScrollView>
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/add_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:clickable="true"
-            android:focusable="true"
-            android:contentDescription="@string/app_name"
-            app:backgroundTint="@color/mainColor"
-            app:fabCustomSize="@dimen/_40sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_add"
-            app:tint="@android:color/white"
-            tools:ignore="VectorDrawableCompat" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/url_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginEnd="@dimen/_65sdp"
-            android:contentDescription="@string/app_name"
-            android:clickable="true"
-            android:focusable="true"
-            android:visibility="gone"
-            app:backgroundTint="@color/deep_green"
-            app:fabCustomSize="@dimen/_45sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/add_fab"
-            app:layout_constraintEnd_toStartOf="@+id/add_fab"
-            app:srcCompat="@drawable/ic_link"
-            app:tint="@android:color/white"
-            tools:ignore="VectorDrawableCompat" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/add_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:clickable="true"
+                android:contentDescription="@string/app_name"
+                android:focusable="true"
+                app:backgroundTint="@color/mainColor"
+                app:fabCustomSize="@dimen/_40sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/ic_add"
+                app:tint="@android:color/white"
+                tools:ignore="VectorDrawableCompat" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/pdf_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_30sdp"
-            android:layout_marginEnd="@dimen/_30sdp"
-            android:contentDescription="@string/app_name"
-            android:clickable="true"
-            android:focusable="true"
-            android:visibility="gone"
-            app:backgroundTint="@color/deep_green"
-            app:fabCustomSize="@dimen/_45sdp"
-            app:layout_constraintBottom_toTopOf="@+id/url_fab"
-            app:layout_constraintEnd_toStartOf="@+id/image_fab"
-            app:srcCompat="@drawable/ic_pdf"
-            app:tint="@android:color/white"
-            tools:ignore="VectorDrawableCompat" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/url_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_65sdp"
+                android:layout_marginBottom="4dp"
+                android:clickable="true"
+                android:contentDescription="@string/app_name"
+                android:focusable="true"
+                android:visibility="gone"
+                app:backgroundTint="@color/deep_green"
+                app:fabCustomSize="@dimen/_45sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/add_fab"
+                app:layout_constraintEnd_toStartOf="@+id/add_fab"
+                app:srcCompat="@drawable/ic_link"
+                app:tint="@android:color/white"
+                tools:ignore="VectorDrawableCompat" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/image_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_65sdp"
-            android:layout_marginEnd="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:visibility="gone"
-            android:contentDescription="@string/app_name"
-            app:backgroundTint="@color/deep_green"
-            app:fabCustomSize="@dimen/_45sdp"
-            app:layout_constraintBottom_toTopOf="@+id/add_fab"
-            app:layout_constraintEnd_toEndOf="@+id/add_fab"
-            app:srcCompat="@drawable/ic_image"
-            app:tint="@android:color/white"
-            tools:ignore="VectorDrawableCompat" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/pdf_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_30sdp"
+                android:layout_marginBottom="@dimen/_30sdp"
+                android:clickable="true"
+                android:contentDescription="@string/app_name"
+                android:focusable="true"
+                android:visibility="gone"
+                app:backgroundTint="@color/deep_green"
+                app:fabCustomSize="@dimen/_45sdp"
+                app:layout_constraintBottom_toTopOf="@+id/url_fab"
+                app:layout_constraintEnd_toStartOf="@+id/image_fab"
+                app:srcCompat="@drawable/ic_pdf"
+                app:tint="@android:color/white"
+                tools:ignore="VectorDrawableCompat" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/image_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="@dimen/_65sdp"
+                android:clickable="true"
+                android:contentDescription="@string/app_name"
+                android:focusable="true"
+                android:visibility="gone"
+                app:backgroundTint="@color/deep_green"
+                app:fabCustomSize="@dimen/_45sdp"
+                app:layout_constraintBottom_toTopOf="@+id/add_fab"
+                app:layout_constraintEnd_toEndOf="@+id/add_fab"
+                app:srcCompat="@drawable/ic_image"
+                app:tint="@android:color/white"
+                tools:ignore="VectorDrawableCompat" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/doneAnim"
