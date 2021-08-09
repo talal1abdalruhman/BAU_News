@@ -126,7 +126,6 @@ public class RegisterActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Log.d(AUTH_COMPLETE, "userModel data added");
-                                        // TODO: return userModel to loginScreen, Add progressBar and Disable register button
                                         binding.loadingAnim.setVisibility(View.GONE);
                                         binding.formLayout.animate().scaleY(0).scaleX(0).setDuration(300);
                                         binding.finishedAnim.setVisibility(View.VISIBLE);

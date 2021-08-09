@@ -630,6 +630,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void CheckTextStatus() {
+        //todo: check what happened with fucken' url when it edited
         if (isUrlEdited) {
             String newUrl = binding.textWebURL.getText().toString().trim();
             newsModel.setUrl(newUrl);

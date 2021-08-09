@@ -327,6 +327,7 @@ public class CreatePressKitActivity extends AppCompatActivity implements View.On
             }
             break;
             case R.id.btnSave : {
+                //todo: validation
                 if(!isConnect()) return;
                 UploadPressKitData();
             }

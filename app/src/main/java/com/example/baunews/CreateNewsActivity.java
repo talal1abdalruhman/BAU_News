@@ -635,8 +635,7 @@ public class CreateNewsActivity extends AppCompatActivity implements View.OnClic
 
     public void sendNotificationForAllUsers(){
         for(String userToken : usersToken){
-            //todo: uncomment this
-            //sendNotifications(userToken, "BAU News", category);
+            sendNotifications(userToken, "BAU News", category);
         }
     }
 

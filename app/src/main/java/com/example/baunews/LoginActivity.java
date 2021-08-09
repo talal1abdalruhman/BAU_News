@@ -126,7 +126,6 @@ public class LoginActivity extends AppCompatActivity {
                     });
 
                     if (emailVerified) {
-                        //TODO: goto mainScreen
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     } else {
                         dialog.show();
