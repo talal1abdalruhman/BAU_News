@@ -281,7 +281,26 @@ The introduction of the Faculty of Law to the BAU family in 2019 comes in respon
     <string name="resource">Resource:</string>
     <string name="type_resource_name_here">type resource name here</string>
     <string name="resource_link">Resource Link:</string>
+    <string name="choose_where_to_share">Choose where to share:</string>
+    <string name="share">Share</string>
+    <string name="cancel_">Cancel</string>
+    <string name="share_news">share News</string>
+    <string name="res_name_string">\"\n\nResource: \"</string>
+    <string name="res_link_string">\"\nResource Link: \"</string>
     <string-array name="colleges_names">
+        <item>Medicine</item>
+        <item>Engineering</item>
+        <item>Information and Communication Technology</item>
+        <item>Science</item>
+        <item>Agricultural Technology</item>
+        <item>Business</item>
+        <item>Salt College</item>
+        <item>Al-Salt Technical College</item>
+        <item>Artificial Intelligence</item>
+        <item>Law</item>
+    </string-array>
+    <string-array name="share_names">
+        <item>General</item>
         <item>Medicine</item>
         <item>Engineering</item>
         <item>Information and Communication Technology</item>

@@ -47,6 +47,19 @@
         <item>الذكاء الاصطناعي</item>
         <item>الحقوق</item>
     </string-array>
+    <string-array name="share_names">
+        <item>العامة</item>
+        <item>الطب</item>
+        <item>الهندسة</item>
+        <item>الاتصالات وتكنولوجيا المعلومات</item>
+        <item>العلوم</item>
+        <item>الزراعة التكنلوجية</item>
+        <item>الأعمال</item>
+        <item>السلط للعلوم الإنسانية</item>
+        <item>السلط التقنية</item>
+        <item>الذكاء الاصطناعي</item>
+        <item>الحقوق</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">صفحة فارغة</string>
     <string name="navigation_drawer_open">فتح</string>
@@ -345,13 +358,19 @@
     <string name="enter_your_email_address">ادخل بريدك الإلكتروني:</string>
     <string name="check_your_email_please_we_send_you_a_link_to_reset_your_password">تحقق من بريدك الإلكتروني رجاءاً، لقد قمنا بإرسال رابط لإعادة تعيين كلمة المرور الخاصة بك.</string>
     <string name="choose_collage">الكلية</string>
-    <string name="event_time">Event Time</string>
-    <string name="event_date">Event Date</string>
-    <string name="delete_news">delete news</string>
-    <string name="update_news">update news</string>
-    <string name="delete_event">delete Event</string>
-    <string name="update_event">update Event</string>
+    <string name="event_time">وقت الحدث</string>
+    <string name="event_date">تاريخ الحدث</string>
+    <string name="delete_news">حذف الخبر</string>
+    <string name="update_news">تعديل الخبر</string>
+    <string name="delete_event">حذف الحدث</string>
+    <string name="update_event">تعديل الحدث</string>
     <string name="type_resource_name_here">أدخل اسم المصدر هنا</string>
     <string name="resource_link">رابط المصدر:</string>
+    <string name="choose_where_to_share">اختر اين سيتم النشر:</string>
+    <string name="share">نشر</string>
+    <string name="cancel_">إلغاء الامر</string>
+    <string name="share_news">نشر الخبر</string>
+    <string name="res_name_string">\n\nالمصدر:  </string>
+    <string name="res_link_string">\nرابط المصدر: </string>
 
 </resources>

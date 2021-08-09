@@ -33,6 +33,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -58,7 +59,7 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
     ActivityShowPressKitBinding binding;
 
 
-    Animation rotate_froward,rotate_backward,fab_image_open,fab_image_close,fab_url_open,fab_url_close,fab_pdf_open,fab_pdf_close,fab_share_open,fab_share_close;
+    Animation rotate_froward, rotate_backward, fab_image_open, fab_image_close, fab_url_open, fab_url_close, fab_pdf_open, fab_pdf_close, fab_share_open, fab_share_close;
     boolean clicked;
 
     private static final int IMAGE_REQUEST_CODE = 100;
@@ -68,7 +69,7 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
     Uri ImgUri = null, PdfUri = null;
     boolean isImgEdited = false, isPdfEdited = false, isUrlEdited = false;
     ProgressDialog progressDialog;
-    private AlertDialog dialogAddURL,dialogAddResource;
+    private AlertDialog dialogAddURL, dialogAddResource, dialogShare;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private StorageReference mStorageRef;
     private FirebaseStorage storage;
@@ -78,7 +79,7 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding= DataBindingUtil.setContentView(this,R.layout.activity_show_press_kit);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_show_press_kit);
 
         initialization();
         ShowThePressKit();
@@ -109,13 +110,13 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
             fab_url_open = AnimationUtils.loadAnimation(this, R.anim.fab_url_open_translate);
             fab_pdf_open = AnimationUtils.loadAnimation(this, R.anim.fab_pdf_open_translate);
         }
-        fab_share_open = AnimationUtils.loadAnimation(this,R.anim.fab_image_close_translate);
-        fab_share_close = AnimationUtils.loadAnimation(this,R.anim.fab_image_open_translate);
+        fab_share_open = AnimationUtils.loadAnimation(this, R.anim.fab_image_close_translate);
+        fab_share_close = AnimationUtils.loadAnimation(this, R.anim.fab_image_open_translate);
         fab_image_close = AnimationUtils.loadAnimation(this, R.anim.fab_image_close_translate);
         fab_image_open = AnimationUtils.loadAnimation(this, R.anim.fab_image_open_translate);
         rotate_froward = AnimationUtils.loadAnimation(this, R.anim.rotate_forward);
         rotate_backward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
-        clicked=false;
+        clicked = false;
         binding.addFab.setVisibility(View.GONE);
     }
 
@@ -123,17 +124,17 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
     private void onAddBtnClick() {
         setVisibility(clicked);
         setAnimation(clicked);
-        clicked=!clicked;
+        clicked = !clicked;
     }
 
     private void setAnimation(boolean b) {
-        if(!b){
+        if (!b) {
             binding.imageFab.startAnimation(fab_image_open);
             binding.pdfFab.startAnimation(fab_pdf_open);
             binding.urlFab.startAnimation(fab_url_open);
             binding.addFab.startAnimation(rotate_froward);
             binding.addFab.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.colorDelete)));
-        }else {
+        } else {
             binding.imageFab.startAnimation(fab_image_close);
             binding.pdfFab.startAnimation(fab_pdf_close);
             binding.urlFab.startAnimation(fab_url_close);
@@ -143,11 +144,11 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void setVisibility(boolean b) {
-        if(!b){
+        if (!b) {
             binding.imageFab.setVisibility(View.VISIBLE);
             binding.pdfFab.setVisibility(View.VISIBLE);
             binding.urlFab.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             binding.imageFab.setVisibility(View.INVISIBLE);
             binding.pdfFab.setVisibility(View.INVISIBLE);
             binding.urlFab.setVisibility(View.INVISIBLE);
@@ -272,7 +273,7 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
                 onAddBtnClick();
             }
             break;
-            case R.id.removeImage : {
+            case R.id.removeImage: {
                 ImgUri = null;
                 isImgEdited = true;
                 binding.imagePress.setImageURI(null);
@@ -280,30 +281,30 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
                 binding.removeImage.setVisibility(View.GONE);
             }
             break;
-            case R.id.removePdf : {
+            case R.id.removePdf: {
                 PdfUri = null;
                 isPdfEdited = true;
                 binding.textPdf.setText(null);
                 binding.layoutPdf.setVisibility(View.GONE);
             }
             break;
-            case R.id.removeWebURL :{
+            case R.id.removeWebURL: {
                 isUrlEdited = true;
                 binding.textWebURL.setText(null);
                 binding.layoutWebURL.setVisibility(View.GONE);
             }
             break;
-            case R.id.btn_add_resource : {
+            case R.id.btn_add_resource: {
                 showAddResourceDialog();
             }
             break;
-            case R.id.removeTxtResource :{
+            case R.id.removeTxtResource: {
                 binding.txtResource.setText(null);
                 binding.layoutResourceTxt.setVisibility(view.GONE);
             }
             break;
-            case R.id.btnSave:{
-                if(!isConnect()) return;
+            case R.id.btnSave: {
+                if (!isConnect()) return;
                 SavePressKitUpdates();
             }
             break;
@@ -370,48 +371,48 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
         database.getReference("press_kit").child(newsKey)
                 .addValueEventListener(new ValueEventListener() {
 
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    pressKitModel = snapshot.getValue(PressKitModel.class);
-                    binding.txtTitle.setText(pressKitModel.getTitle());
-                    binding.txtDateAndTime.setText(pressKitModel.getDate());
-                    binding.txtDescription.setText(pressKitModel.getDescription());
-                    if (!pressKitModel.getImage().equals("null")) {
-                        binding.imagePress.setVisibility(View.VISIBLE);
-                        Glide.with(getApplicationContext())
-                                .load(pressKitModel.getImage())
-                                .into(binding.imagePress);
-                    } else {
-                        binding.imagePress.setVisibility(View.GONE);
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            pressKitModel = snapshot.getValue(PressKitModel.class);
+                            binding.txtTitle.setText(pressKitModel.getTitle());
+                            binding.txtDateAndTime.setText(pressKitModel.getDate());
+                            binding.txtDescription.setText(pressKitModel.getDescription());
+                            if (!pressKitModel.getImage().equals("null")) {
+                                binding.imagePress.setVisibility(View.VISIBLE);
+                                Glide.with(getApplicationContext())
+                                        .load(pressKitModel.getImage())
+                                        .into(binding.imagePress);
+                            } else {
+                                binding.imagePress.setVisibility(View.GONE);
+                            }
+                            if (!pressKitModel.getPdf().equals("null")) {
+                                PdfUrl = pressKitModel.getPdf();
+                                binding.layoutPdf.setVisibility(View.VISIBLE);
+                            } else {
+                                binding.layoutPdf.setVisibility(View.GONE);
+                            }
+                            if (!pressKitModel.getUrl().equals("")) {
+                                binding.layoutWebURL.setVisibility(View.VISIBLE);
+                                binding.textWebURL.setText(pressKitModel.getUrl());
+                            } else {
+                                binding.textWebURL.setVisibility(View.GONE);
+                            }
+                            binding.resourceName.setText(pressKitModel.getResourceName());
+                            if (!pressKitModel.getResourceLink().equals("")) {
+                                binding.layoutResourceTxt.setVisibility(View.VISIBLE);
+                                binding.txtResource.setText(pressKitModel.getResourceLink());
+                            } else {
+                                binding.layoutResourceTxt.setVisibility(View.GONE);
+                            }
+                        }
                     }
-                    if (!pressKitModel.getPdf().equals("null")) {
-                        PdfUrl = pressKitModel.getPdf();
-                        binding.layoutPdf.setVisibility(View.VISIBLE);
-                    } else {
-                        binding.layoutPdf.setVisibility(View.GONE);
-                    }
-                    if (!pressKitModel.getUrl().equals("")) {
-                        binding.layoutWebURL.setVisibility(View.VISIBLE);
-                        binding.textWebURL.setText(pressKitModel.getUrl());
-                    } else {
-                        binding.textWebURL.setVisibility(View.GONE);
-                    }
-                    binding.resourceName.setText(pressKitModel.getResourceName());
-                    if(!pressKitModel.getResourceLink().equals("")){
-                        binding.layoutResourceTxt.setVisibility(View.VISIBLE);
-                        binding.txtResource.setText(pressKitModel.getResourceLink());
-                    } else {
-                        binding.layoutResourceTxt.setVisibility(View.GONE);
-                    }
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                    }
+                });
     }
 
     public void UpdatePressKit(View view) {
@@ -764,6 +765,82 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void ShareNews(View view) {
+        if (dialogShare == null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(ShowPressKitActivity.this);
+            View v = LayoutInflater.from(this).inflate(
+                    R.layout.layout_share_news_dialog, findViewById(R.id.layout_share_container)
+            );
+            builder.setView(v);
+            dialogShare = builder.create();
+
+            if (dialogShare.getWindow() != null) {
+                dialogShare.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            }
+            Spinner spinner = v.findViewById(R.id.spinner);
+            spinner.setSelection(0);
+            v.findViewById(R.id.share).setOnClickListener(v1 -> {
+                String category;
+                long id = spinner.getSelectedItemId();
+                if (id > 0) {
+                    category = (id - 1) + "";
+                } else {
+                    category = "general";
+                }
+                shareToCategory(category);
+            });
+
+            v.findViewById(R.id.cancel).setOnClickListener(v1 -> {
+                dialogShare.dismiss();
+            });
+        }
+        dialogShare.show();
+    }
+
+    public void shareToCategory(String category) {
+        dialogShare.dismiss();
+        ProgressDialog dialog = new ProgressDialog(ShowPressKitActivity.this);
+        dialog.setTitle("Sharing news..");
+        dialog.setCancelable(false);
+        dialog.show();
+        Log.d("category_check", "shareToCategory: " + category);
+        NewsModel newsModel = new NewsModel();
+        newsModel.setTitle(pressKitModel.getTitle());
+        newsModel.setDate(pressKitModel.getDate());
+        newsModel.setDescription(
+                pressKitModel.getDescription()
+                        + getString(R.string.res_name_string) + pressKitModel.getResourceName()
+                        + getString(R.string.res_link_string)  + pressKitModel.getResourceLink());
+        newsModel.setUrl(pressKitModel.getUrl());
+        newsModel.setImage(pressKitModel.getImage());
+        newsModel.setPdf(pressKitModel.getPdf());
+        newsModel.setCategory(category);
+        mRef = database.getReference("news").child(category);
+        DatabaseReference newsRef = mRef.push();
+        String newsKey = newsRef.getKey();
+        newsModel.setId(newsKey);
+        mRef.child(newsKey).setValue(newsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Log.d("SHARE_NEWS", "onComplete: SUCCESS" );
+                    database.getReference("press_kit").child(pressKitModel.getId())
+                            .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        Log.d("SHARE_NEWS", "onComplete: value removed" );
+                                        finish();
+                                    }else {
+                                        Log.d("SHARE_NEWS", "onComplete: value NOT removed" );
+                                    }
+                                    dialog.dismiss();
+                                }
+                            });
+                } else{
+                    Log.d("SHARE_NEWS", "onComplete: NOT SUCCESS" );
+                }
+            }
+        });
 
     }
 }

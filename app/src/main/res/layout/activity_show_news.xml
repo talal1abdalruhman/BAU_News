@@ -240,7 +240,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignStart="@+id/image_pdf"
-                            android:layout_alignParentBottom="true"
+                            android:layout_centerVertical="true"
                             android:layout_marginStart="@dimen/_30sdp"
                             android:autoLink="web"
                             android:fontFamily="@font/regular"
