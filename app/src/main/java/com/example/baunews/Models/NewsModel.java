@@ -6,24 +6,45 @@ public class NewsModel {
     private String date;
     private String description;
     private String image;
+    private String imageName;
     private String pdf;
+    private String pdfName;
     private String url;
     private String category;
+    private String resourceName;
+    private String resourceLink;
 
 
     public NewsModel() {
 
     }
 
-    public NewsModel(String id, String title, String date, String description, String image, String pdf, String url, String category) {
+    public NewsModel(String id, String title, String date, String description, String image, String imageName, String pdf, String pdfName, String url, String category) {
         this.id = id;
         this.title = title;
         this.date = date;
         this.description = description;
         this.image = image;
+        this.imageName = imageName;
         this.pdf = pdf;
+        this.pdfName = pdfName;
         this.url = url;
         this.category = category;
+    }
+
+    public NewsModel(String id, String title, String date, String description, String image, String imageName, String pdf, String pdfName, String url, String category, String resourceName, String resourceLink) {
+        this.id = id;
+        this.title = title;
+        this.date = date;
+        this.description = description;
+        this.image = image;
+        this.imageName = imageName;
+        this.pdf = pdf;
+        this.pdfName = pdfName;
+        this.url = url;
+        this.category = category;
+        this.resourceName = resourceName;
+        this.resourceLink = resourceLink;
     }
 
     public String getCategory() {
@@ -88,5 +109,37 @@ public class NewsModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getPdfName() {
+        return pdfName;
+    }
+
+    public void setPdfName(String pdfName) {
+        this.pdfName = pdfName;
+    }
+
+    public String getResourceName() {
+        return resourceName;
+    }
+
+    public void setResourceName(String resourceName) {
+        this.resourceName = resourceName;
+    }
+
+    public String getResourceLink() {
+        return resourceLink;
+    }
+
+    public void setResourceLink(String resourceLink) {
+        this.resourceLink = resourceLink;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 }

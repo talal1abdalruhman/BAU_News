@@ -355,7 +355,7 @@ public class CreateNewsActivity extends AppCompatActivity implements View.OnClic
             String link = (!binding.textWebURL.getText().equals(null)) ? binding.textWebURL.getText().toString().trim() : "null";
             NewsModel newsModel = new NewsModel(
                     newsId, title, currentTime,
-                    desc, "null", "null",
+                    desc, "null", "null", "null", "null",
                     link, (category.equals("general") ? category : collageId));
             mRef.child(newsId).setValue(newsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
@@ -391,7 +391,7 @@ public class CreateNewsActivity extends AppCompatActivity implements View.OnClic
                                 String link = (!binding.textWebURL.getText().equals(null)) ? binding.textWebURL.getText().toString().trim() : "null";
                                 NewsModel newsModel = new NewsModel(
                                         newsId, title, currentTime,
-                                        desc, imageLink, "null",
+                                        desc, imageLink, currentTime, "null", "null",
                                         link, (category.equals("general") ? category : collageId));
                                 mRef.child(newsId).setValue(newsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
@@ -442,7 +442,7 @@ public class CreateNewsActivity extends AppCompatActivity implements View.OnClic
                                 String link = (!binding.textWebURL.getText().equals(null)) ? binding.textWebURL.getText().toString().trim() : "null";
                                 NewsModel newsModel = new NewsModel(
                                         newsId, title, currentTime,
-                                        desc, "null", pdfLink,
+                                        desc, "null", "null", pdfLink, currentTime,
                                         link, (category.equals("general") ? category : collageId));
                                 mRef.child(newsId).setValue(newsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
@@ -502,7 +502,7 @@ public class CreateNewsActivity extends AppCompatActivity implements View.OnClic
                                                     String link = (!binding.textWebURL.getText().equals(null)) ? binding.textWebURL.getText().toString().trim() : "null";
                                                     NewsModel newsModel = new NewsModel(
                                                             newsId, title, currentTime,
-                                                            desc, imageLink, pdfLink,
+                                                            desc, imageLink, currentTime, pdfLink, currentTime,
                                                             link, (category.equals("general") ? category : collageId));
                                                     mRef.child(newsId).setValue(newsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override
@@ -635,7 +635,8 @@ public class CreateNewsActivity extends AppCompatActivity implements View.OnClic
 
     public void sendNotificationForAllUsers(){
         for(String userToken : usersToken){
-            sendNotifications(userToken, "BAU News", category);
+            //todo: uncomment this
+            //sendNotifications(userToken, "BAU News", category);
         }
     }
 

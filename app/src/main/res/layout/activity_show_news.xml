@@ -260,6 +260,121 @@
                             app:tint="@color/colorDelete" />
                     </RelativeLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/layoutPdf">
+
+                            <RelativeLayout
+                                android:id="@+id/layoutResourceName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/_5sdp"
+                                android:background="@drawable/item_background"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_marginEnd="@dimen/_80sdp"
+                                android:layout_marginBottom="@dimen/_2sdp"
+                                android:visibility="visible">
+
+                                <TextView
+                                    android:id="@+id/txt_res"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/regular"
+                                    android:text="@string/resource"
+                                    android:textSize="@dimen/_10ssp" />
+
+
+
+                                <EditText
+                                    android:id="@+id/resourceName"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginStart="@dimen/_5sdp"
+                                    android:layout_toEndOf="@id/txt_res"
+                                    android:background="@null"
+                                    android:enabled="false"
+                                    android:textSize="@dimen/_8sdp"
+                                    android:fontFamily="@font/regular"
+                                    android:hint="@string/type_resource_name_here"
+                                    android:minWidth="@dimen/_150sdp"
+                                    android:paddingTop="@dimen/_5sdp"
+                                    android:paddingBottom="@dimen/_5sdp"
+                                    android:textAlignment="viewStart"
+                                    android:textColor="?attr/text_color" />
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/layoutResourceTxt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_marginEnd="@dimen/_80sdp"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                android:background="@drawable/item_background"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:padding="@dimen/_5sdp"
+                                android:visibility="visible"
+                                tools:ignore="UseCompoundDrawables">
+
+                                <TextView
+                                    android:id="@+id/txtResourceHint"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/regular"
+                                    android:includeFontPadding="false"
+                                    android:text="@string/resource_link"
+                                    android:textSize="@dimen/_10ssp" />
+
+                                <TextView
+                                    android:id="@+id/txtResource"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginStart="@dimen/_2sdp"
+                                    android:layout_toEndOf="@+id/txtResourceHint"
+                                    android:autoLink="web"
+                                    android:fontFamily="@font/regular"
+                                    android:includeFontPadding="false"
+                                    android:textSize="@dimen/_10ssp" />
+
+                                <ImageView
+                                    android:id="@+id/removeTxtResource"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"
+                                    android:layout_alignParentEnd="true"
+                                    android:background="@drawable/background_delete_white"
+                                    android:contentDescription="@string/app_name"
+                                    android:src="@drawable/ic_delete"
+                                    android:visibility="gone"
+                                    app:tint="@color/colorDelete" />
+
+                                <ImageView
+                                    android:id="@+id/btn_add_resource_link"
+                                    android:layout_width="@dimen/_24sdp"
+                                    android:layout_height="@dimen/_24sdp"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:contentDescription="@string/app_name"
+                                    android:src="@drawable/ic_add"
+                                    android:visibility="gone"
+                                    app:tint="@color/mainColor" />
+
+                            </RelativeLayout>
+
+                    </LinearLayout>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout

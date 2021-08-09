@@ -53,6 +53,11 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class ShowPressKitActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -805,15 +810,16 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
         Log.d("category_check", "shareToCategory: " + category);
         NewsModel newsModel = new NewsModel();
         newsModel.setTitle(pressKitModel.getTitle());
-        newsModel.setDate(pressKitModel.getDate());
-        newsModel.setDescription(
-                pressKitModel.getDescription()
-                        + getString(R.string.res_name_string) + pressKitModel.getResourceName()
-                        + getString(R.string.res_link_string)  + pressKitModel.getResourceLink());
+        newsModel.setDate(getCurrentTime());
+        newsModel.setDescription(pressKitModel.getDescription());
         newsModel.setUrl(pressKitModel.getUrl());
         newsModel.setImage(pressKitModel.getImage());
+        newsModel.setImageName(pressKitModel.getDate());
         newsModel.setPdf(pressKitModel.getPdf());
+        newsModel.setPdfName(pressKitModel.getDate());
         newsModel.setCategory(category);
+        newsModel.setResourceName(pressKitModel.getResourceName());
+        newsModel.setResourceLink(pressKitModel.getResourceLink());
         mRef = database.getReference("news").child(category);
         DatabaseReference newsRef = mRef.push();
         String newsKey = newsRef.getKey();
@@ -842,5 +848,12 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
             }
         });
 
+    }
+
+    public static String getCurrentTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+3"));
+        Date today = Calendar.getInstance().getTime();
+        return dateFormat.format(today);
     }
 }

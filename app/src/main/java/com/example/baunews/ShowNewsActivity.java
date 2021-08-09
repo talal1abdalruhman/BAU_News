@@ -66,9 +66,9 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
     String newsKey, newsCategory, PdfUrl, adminType;
     LinearLayout layout;
     NewsModel newsModel;
-    AlertDialog dialogAddURL;
+    AlertDialog dialogAddURL, dialogAddResource;
     Uri ImgUri = null, PdfUri = null;
-    boolean isImgEdited = false, isPdfEdited = false, isUrlEdited = false;
+    boolean isImgEdited = false, isPdfEdited = false, isUrlEdited = false, isResLinkEdited = false;
     ProgressDialog progressDialog;
     Animation rotate_froward, rotate_backward, fab_image_open, fab_image_close, fab_url_open, fab_url_close, fab_pdf_open, fab_pdf_close;
     boolean clicked;
@@ -98,6 +98,8 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
         binding.removeImage.setOnClickListener(this);
         binding.removePdf.setOnClickListener(this);
         binding.removeWebURL.setOnClickListener(this);
+        binding.removeTxtResource.setOnClickListener(this);
+        binding.btnAddResourceLink.setOnClickListener(this);
 
         String locale = ShowNewsActivity.this.getResources().getConfiguration().locale.getDisplayName();
         if ( locale.equals("Arabic") || locale.equals("العربية") ) {
@@ -184,6 +186,18 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
                 binding.layoutWebURL.setVisibility(View.GONE);
             }
             break;
+            case R.id.btn_add_resource_link : {
+                isResLinkEdited = true;
+                showAddResourceDialog();
+            }
+            break;
+            case R.id.removeTxtResource : {
+                isResLinkEdited = true;
+                binding.txtResource.setText(null);
+                binding.btnAddResourceLink.setVisibility(View.VISIBLE);
+                binding.removeTxtResource.setVisibility(View.GONE);
+            }
+            break;
         }
     }
     //------------------------------------------------------------methods to set fabs animations----
@@ -266,6 +280,18 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
                     } else {
                         binding.textWebURL.setVisibility(View.GONE);
                     }
+                    if(snapshot.hasChild("resourceName")){
+                        binding.layoutResourceName.setVisibility(View.VISIBLE);
+                        binding.resourceName.setText(newsModel.getResourceName());
+                    }else {
+                        binding.layoutResourceName.setVisibility(View.GONE);
+                    }
+                    if(snapshot.hasChild("resourceLink")){
+                        binding.layoutResourceTxt.setVisibility(View.VISIBLE);
+                        binding.txtResource.setText(newsModel.getResourceLink());
+                    }else {
+                        binding.layoutResourceTxt.setVisibility(View.GONE);
+                    }
                 }
             }
 
@@ -289,6 +315,12 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
         if (!newsModel.getUrl().equals("")) {
             binding.removeWebURL.setVisibility(View.VISIBLE);
         }
+        binding.resourceName.setEnabled(true);
+        if(binding.txtResource.getText() == null){
+            binding.btnAddResourceLink.setVisibility(View.VISIBLE);
+        } else {
+            binding.removeTxtResource.setVisibility(View.VISIBLE);
+        }
         binding.txtTitle.setEnabled(true);
         binding.txtDescription.setEnabled(true);
         binding.updateBtn.setVisibility(View.GONE);
@@ -296,13 +328,17 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void CancelEdit(View view) {
+        isResLinkEdited = isImgEdited = isPdfEdited = isUrlEdited = false;
         binding.relative.setVisibility(View.GONE);
         binding.addFab.setVisibility(View.GONE);
         binding.removeImage.setVisibility(View.GONE);
         binding.removePdf.setVisibility(View.GONE);
         binding.removeWebURL.setVisibility(View.GONE);
+        binding.btnAddResourceLink.setVisibility(View.GONE);
+        binding.removeTxtResource.setVisibility(View.GONE);
         binding.txtTitle.setEnabled(false);
         binding.txtDescription.setEnabled(false);
+        binding.resourceName.setEnabled(false);
         binding.updateBtn.setVisibility(View.VISIBLE);
         binding.deleteBtn.setVisibility(View.VISIBLE);
     }
@@ -437,7 +473,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
         mRef = database.getReference("news").child(newsCategory).child(newsKey);
 
         if (isPdfEdited && PdfUri != null) {
-            mStorageRef = storage.getInstance().getReference().child("pdfs").child(newsModel.getDate() + ".pdf");
+            mStorageRef = storage.getInstance().getReference().child("pdfs").child(newsModel.getPdfName() + ".pdf");
             if (!newsModel.getPdf().equals("null")) {
                 mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -492,7 +528,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
             }
         } else if (isPdfEdited && PdfUri == null) {
             if (!newsModel.getPdf().equals("null")) {
-                mStorageRef = storage.getInstance().getReference().child("pdfs").child(newsModel.getDate() + ".pdf");
+                mStorageRef = storage.getInstance().getReference().child("pdfs").child(newsModel.getPdfName() + ".pdf");
                 mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -514,7 +550,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
 
     public void CheckImageStatus() {
         if (isImgEdited && ImgUri != null) {
-            mStorageRef = storage.getInstance().getReference().child("images").child(newsModel.getDate() + ".jpg");
+            mStorageRef = storage.getInstance().getReference().child("images").child(newsModel.getImageName() + ".jpg");
             if (!newsModel.getImage().equals("null")) {
                 mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -569,7 +605,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
             }
         } else if (isImgEdited && ImgUri == null) {
             if (!newsModel.getImage().equals("null")) {
-                mStorageRef = storage.getInstance().getReference().child("images").child(newsModel.getDate() + ".jpg");
+                mStorageRef = storage.getInstance().getReference().child("images").child(newsModel.getImageName() + ".jpg");
                 mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -598,6 +634,13 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
             String newUrl = binding.textWebURL.getText().toString().trim();
             newsModel.setUrl(newUrl);
         }
+        if (isResLinkEdited && binding.layoutResourceTxt.getVisibility() == View.VISIBLE) {
+            String newLink = binding.txtResource.getText().toString().trim();
+            newsModel.setResourceLink(newLink);
+        }
+        if(binding.layoutResourceName.getVisibility() == View.VISIBLE){
+            newsModel.setResourceName(binding.resourceName.getText().toString().trim());
+        }
         newsModel.setTitle(binding.txtTitle.getText().toString().trim());
         newsModel.setDescription(binding.txtDescription.getText().toString().trim());
         mRef.setValue(newsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -621,13 +664,13 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
         progressDialog.show();
         mRef = database.getReference("news").child(newsCategory).child(newsKey);
         if (!newsModel.getPdf().equals("null")) {
-            mStorageRef = storage.getInstance().getReference().child("pdfs").child(newsModel.getDate() + ".pdf");
+            mStorageRef = storage.getInstance().getReference().child("pdfs").child(newsModel.getPdfName() + ".pdf");
             mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         Log.d("DATA_DELETE", "pdf deleted");
-                        mStorageRef = storage.getInstance().getReference().child("images").child(newsModel.getDate() + ".jpg");
+                        mStorageRef = storage.getInstance().getReference().child("images").child(newsModel.getImageName() + ".jpg");
                         if (!newsModel.getImage().equals("null")) {
                             mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -676,7 +719,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
                 }
             });
         } else {
-            mStorageRef = storage.getInstance().getReference().child("images").child(newsModel.getDate() + ".jpg");
+            mStorageRef = storage.getInstance().getReference().child("images").child(newsModel.getImageName() + ".jpg");
             if (!newsModel.getImage().equals("null")) {
                 mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -718,5 +761,47 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
                 });
             }
         }
+    }
+
+    private void showAddResourceDialog() {
+        if (dialogAddResource == null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(ShowNewsActivity.this);
+            View view = LayoutInflater.from(this).inflate(
+                    R.layout.layout_add_url, findViewById(R.id.layoutAddUrlContainer)
+            );
+            builder.setView(view);
+            dialogAddResource = builder.create();
+
+            if (dialogAddResource.getWindow() != null) {
+                dialogAddResource.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            }
+            final EditText inputURL = view.findViewById(R.id.inputUrl);
+            //inputURL.requestFocus();
+
+            view.findViewById(R.id.textAdd).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (inputURL.getText().toString().trim().isEmpty()) {
+                        Toast.makeText(ShowNewsActivity.this, "Enter URL", Toast.LENGTH_SHORT).show();
+                    } else if (!Patterns.WEB_URL.matcher(inputURL.getText().toString()).matches()) {
+                        Toast.makeText(ShowNewsActivity.this, "Enter Valid URL", Toast.LENGTH_SHORT).show();
+                    } else {
+                        binding.txtResource.setText(inputURL.getText().toString());
+                        binding.removeTxtResource.setVisibility(View.VISIBLE);
+                        binding.btnAddResourceLink.setVisibility(View.GONE);
+                        dialogAddResource.dismiss();
+                    }
+                }
+            });
+
+            view.findViewById(R.id.textCancel).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialogAddResource.dismiss();
+                }
+            });
+        }
+
+        dialogAddResource.show();
     }
 }
