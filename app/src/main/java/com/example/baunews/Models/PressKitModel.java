@@ -3,8 +3,9 @@ package com.example.baunews.Models;
 public class PressKitModel {
     private String id;
     private String title;
-    private String resource;
     private String date;
+    private String resourceName;
+    private String resourceLink;
     private String description;
     private String image;
     private String pdf;
@@ -14,11 +15,12 @@ public class PressKitModel {
     public PressKitModel() {
     }
 
-    public PressKitModel(String id, String title, String resource, String date, String description, String image, String pdf, String url, String category) {
+    public PressKitModel(String id, String title, String date, String resourceName, String resourceLink, String description, String image, String pdf, String url, String category) {
         this.id = id;
         this.title = title;
-        this.resource = resource;
         this.date = date;
+        this.resourceName = resourceName;
+        this.resourceLink = resourceLink;
         this.description = description;
         this.image = image;
         this.pdf = pdf;
@@ -42,20 +44,28 @@ public class PressKitModel {
         this.title = title;
     }
 
-    public String getResource() {
-        return resource;
-    }
-
-    public void setResource(String resource) {
-        this.resource = resource;
-    }
-
     public String getDate() {
         return date;
     }
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getResourceName() {
+        return resourceName;
+    }
+
+    public void setResourceName(String resourceName) {
+        this.resourceName = resourceName;
+    }
+
+    public String getResourceLink() {
+        return resourceLink;
+    }
+
+    public void setResourceLink(String resourceLink) {
+        this.resourceLink = resourceLink;
     }
 
     public String getDescription() {

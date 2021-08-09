@@ -35,7 +35,7 @@ public class PressKitAdapter extends RecyclerView.Adapter<PressKitAdapter.MyView
     private ArrayList<PressKitModel> kitModelList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        public TextView title,date,description;
+        public TextView title,date;
         public ImageView image;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -78,7 +78,6 @@ public class PressKitAdapter extends RecyclerView.Adapter<PressKitAdapter.MyView
                 Toast.makeText(context,"You clicked: "+ pressKitModel.getTitle(),Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(v.getContext(), ShowPressKitActivity.class);
                 intent.putExtra("news_id", pressKitModel.getId());
-                intent.putExtra("category", pressKitModel.getCategory());
                 v.getContext().startActivity(intent);
             }
         });

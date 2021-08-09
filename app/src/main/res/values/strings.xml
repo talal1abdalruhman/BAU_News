@@ -278,7 +278,9 @@ The introduction of the Faculty of Law to the BAU family in 2019 comes in respon
     <string name="delete_event">delete Event</string>
     <string name="update_event">update Event</string>
     <string name="press_kit">Press Kit</string>
-    <string name="resource">Resource</string>
+    <string name="resource">Resource:</string>
+    <string name="type_resource_name_here">type resource name here</string>
+    <string name="resource_link">Resource Link:</string>
     <string-array name="colleges_names">
         <item>Medicine</item>
         <item>Engineering</item>

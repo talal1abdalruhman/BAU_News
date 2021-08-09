@@ -32,6 +32,7 @@ import com.example.baunews.HelperClasses.PressKitAdapter;
 import com.example.baunews.Models.NewsModel;
 import com.example.baunews.Models.PressKitModel;
 import com.example.baunews.ViewModels.NewsViewModel;
+import com.example.baunews.ViewModels.PressKitViewModel;
 import com.example.baunews.databinding.FragmentPressKitBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -47,7 +48,8 @@ import java.util.ArrayList;
  */
 public class PressKitFragment extends Fragment {
 
-    public PressKitAdapter adapter;
+    PressKitViewModel pressKitViewModel;
+    PressKitAdapter adapter;
     FragmentPressKitBinding binding;
     Context mContext;
 
@@ -63,6 +65,24 @@ public class PressKitFragment extends Fragment {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_press_kit, container, false);
         View view = binding.getRoot();
+
+        pressKitViewModel = new ViewModelProvider(this).get(PressKitViewModel.class);
+        pressKitViewModel.init();
+        adapter = new PressKitAdapter(getContext(), pressKitViewModel.getData().getValue());
+
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
+        binding.recyclerView.setLayoutManager(layoutManager);
+        binding.recyclerView.addItemDecoration(new GridSpacingItemDecoration(1, dpToPx(10), true));
+        binding.recyclerView.setItemAnimator(new DefaultItemAnimator());
+        binding.recyclerView.setAdapter(adapter);
+
+        pressKitViewModel.getData().observe(getViewLifecycleOwner(), new Observer<ArrayList<PressKitModel>>() {
+            @Override
+            public void onChanged(ArrayList<PressKitModel> pressKitModels) {
+                adapter.notifyDataSetChanged();
+            }
+        });
+
         isAdmin();
 
         return view;
@@ -78,7 +98,6 @@ public class PressKitFragment extends Fragment {
                 Pair pair = Pair.create(binding.floatingActionButton, "layout");
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), pair);
                 Intent intent = new Intent(getContext(), CreatePressKitActivity.class);
-                intent.putExtra("news_category", "general");
                 startActivity(intent, options.toBundle());
             }
         });
@@ -91,6 +110,7 @@ public class PressKitFragment extends Fragment {
                 }
             }, 2500);
         }
+
     }
 
     private int dpToPx(int dp) {

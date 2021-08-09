@@ -38,6 +38,7 @@ import android.widget.Toast;
 
 import com.example.baunews.HelperClasses.Validation;
 import com.example.baunews.Models.NewsModel;
+import com.example.baunews.Models.PressKitModel;
 import com.example.baunews.Models.UserModel;
 import com.example.baunews.NotificationPackage.APIService;
 import com.example.baunews.NotificationPackage.Client;
@@ -87,7 +88,6 @@ public class CreatePressKitActivity extends AppCompatActivity implements View.On
 
     private static final int IMAGE_REQUEST_CODE = 100;
     private static final int FILE_REQUEST_CODE = 101;
-    private String category, collageId;
     ArrayList<String> usersToken;
 
     Animation rotate_froward,rotate_backward,fab_image_open,fab_image_close,fab_url_open,fab_url_close,fab_pdf_open,fab_pdf_close;
@@ -230,6 +230,7 @@ public class CreatePressKitActivity extends AppCompatActivity implements View.On
         setAnimation(clicked);
         clicked=!clicked;
     }
+
     private void setAnimation(boolean b) {
         if(!b){
             binding.imageFab.startAnimation(fab_image_open);
@@ -245,6 +246,7 @@ public class CreatePressKitActivity extends AppCompatActivity implements View.On
             binding.addFab.startAnimation(rotate_backward);
         }
     }
+
     private void setVisibility(boolean b) {
         if(!b){
             binding.imageFab.setVisibility(View.VISIBLE);
@@ -325,7 +327,8 @@ public class CreatePressKitActivity extends AppCompatActivity implements View.On
             }
             break;
             case R.id.btnSave : {
-
+                if(!isConnect()) return;
+                UploadPressKitData();
             }
             break;
         }
@@ -371,5 +374,281 @@ public class CreatePressKitActivity extends AppCompatActivity implements View.On
             binding.layoutPdf.setVisibility(View.VISIBLE);
             binding.removePdf.setVisibility(View.VISIBLE);
         }
+    }
+
+    public void UploadPressKitData() {
+        String currentTime = getCurrentTime();
+        mRef = database.getReference("press_kit");
+        DatabaseReference newsRef = mRef.push();
+        String newsId = newsRef.getKey();
+        mStorageRef = FirebaseStorage.getInstance().getReference();
+
+        if (ImgUri == null && PdfUri == null) {
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Data Upload");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+            String title = binding.txtTitle.getText().toString().trim();
+            String desc = binding.txtDescription.getText().toString().trim();
+            String link = (!binding.textWebURL.getText().equals(null)) ? binding.textWebURL.getText().toString().trim() : "null";
+            String resName = binding.resourceName.getText().toString().trim();
+            String resLink = binding.txtResource.getText().toString();
+            PressKitModel pressKitModel = new PressKitModel(
+                    newsId, title, currentTime,
+                    resName, resLink, desc,
+                    "null", "null", link,
+                    "G");
+            mRef.child(newsId).setValue(pressKitModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "data uploaded");
+                        progressDialog.dismiss();
+                        //sendNotificationForAllUsers();
+                        showDoneAnim();
+                    } else {
+                        Log.d(TAG, "data NOT uploaded");
+                        progressDialog.dismiss();
+                    }
+                }
+            });
+        } else if (ImgUri != null && PdfUri == null) {
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Data Upload");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+            StorageReference imgRef = mStorageRef.child("images").child(currentTime + ".jpg");
+            imgRef.putFile(ImgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                Log.d(TAG, "image uploaded");
+                                String imageLink = task.getResult().toString();
+                                String title = binding.txtTitle.getText().toString().trim();
+                                String desc = binding.txtDescription.getText().toString().trim();
+                                String link = (!binding.textWebURL.getText().equals(null)) ? binding.textWebURL.getText().toString().trim() : "null";
+                                String resName = binding.resourceName.getText().toString().trim();
+                                String resLink = binding.txtResource.getText().toString();
+                                PressKitModel pressKitModel = new PressKitModel(
+                                        newsId, title, currentTime,
+                                        resName, resLink, desc,
+                                        imageLink, "null", link,
+                                        "G");
+                                mRef.child(newsId).setValue(pressKitModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Log.d(TAG, "data uploaded");
+                                            progressDialog.dismiss();
+                                            //sendNotificationForAllUsers();
+                                            showDoneAnim();
+                                        } else {
+                                            Log.d(TAG, "data NOT uploaded");
+                                            progressDialog.dismiss();
+                                        }
+                                    }
+                                });
+                            } else {
+                                Log.d(TAG, "image NOT uploaded");
+                                progressDialog.dismiss();
+                            }
+                        }
+                    });
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                    double progress = (100.0 * snapshot.getBytesTransferred()) / snapshot.getTotalByteCount();
+                    progressDialog.setMessage((int) progress + "% of data uploaded.");
+                }
+            });
+
+        } else if (ImgUri == null && PdfUri != null) {
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Data Upload");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+            StorageReference pdfRef = mStorageRef.child("pdfs").child(currentTime + ".pdf");
+            pdfRef.putFile(PdfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                Log.d(TAG, "pdf uploaded");
+                                String pdfLink = task.getResult().toString();
+                                String title = binding.txtTitle.getText().toString().trim();
+                                String desc = binding.txtDescription.getText().toString().trim();
+                                String link = (!binding.textWebURL.getText().equals(null)) ? binding.textWebURL.getText().toString().trim() : "null";
+                                String resName = binding.resourceName.getText().toString().trim();
+                                String resLink = binding.txtResource.getText().toString();
+                                PressKitModel pressKitModel = new PressKitModel(
+                                        newsId, title, currentTime,
+                                        resName, resLink, desc,
+                                        "null", pdfLink, link,
+                                        "G");
+                                mRef.child(newsId).setValue(pressKitModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Log.d(TAG, "data uploaded");
+                                            progressDialog.dismiss();
+                                            //sendNotificationForAllUsers();
+                                            showDoneAnim();
+                                        } else {
+                                            Log.d(TAG, "data NOT uploaded");
+                                            progressDialog.dismiss();
+                                        }
+                                    }
+                                });
+                            } else {
+                                Log.d(TAG, "pdf NOT uploaded");
+                                progressDialog.dismiss();
+                            }
+                        }
+                    });
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                    double progress = (100.0 * snapshot.getBytesTransferred()) / snapshot.getTotalByteCount();
+                    progressDialog.setMessage((int) progress + "% of data uploaded.");
+                }
+            });
+        } else {
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Data Upload");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+            StorageReference imgRef = mStorageRef.child("images").child(currentTime + ".jpg");
+            imgRef.putFile(ImgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                Log.d(TAG, "image uploaded");
+                                String imageLink = task.getResult().toString();
+                                StorageReference pdfRef = mStorageRef.child("pdfs").child(currentTime + ".pdf");
+                                pdfRef.putFile(PdfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Uri> task) {
+                                                if (task.isSuccessful()) {
+                                                    Log.d(TAG, "pdf uploaded");
+                                                    String pdfLink = task.getResult().toString();
+                                                    String title = binding.txtTitle.getText().toString().trim();
+                                                    String desc = binding.txtDescription.getText().toString().trim();
+                                                    String link = (!binding.textWebURL.getText().equals(null)) ? binding.textWebURL.getText().toString().trim() : "null";
+                                                    String resName = binding.resourceName.getText().toString().trim();
+                                                    String resLink = binding.txtResource.getText().toString();
+                                                    PressKitModel pressKitModel = new PressKitModel(
+                                                            newsId, title, currentTime,
+                                                            resName, resLink, desc,
+                                                            imageLink, pdfLink, link,
+                                                            "G");
+                                                    mRef.child(newsId).setValue(pressKitModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            if (task.isSuccessful()) {
+                                                                Log.d(TAG, "data uploaded");
+                                                                progressDialog.dismiss();
+                                                                //sendNotificationForAllUsers();
+                                                                showDoneAnim();
+                                                            } else {
+                                                                Log.d(TAG, "data NOT uploaded");
+                                                                progressDialog.dismiss();
+                                                            }
+                                                        }
+                                                    });
+                                                } else {
+                                                    Log.d(TAG, "pdf NOT uploaded");
+                                                    progressDialog.dismiss();
+                                                }
+                                            }
+                                        });
+                                    }
+                                });
+
+                            } else {
+                                Log.d(TAG, "image NOT uploaded");
+                                progressDialog.dismiss();
+                            }
+                        }
+                    });
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                    double progress = (100.0 * snapshot.getBytesTransferred()) / snapshot.getTotalByteCount();
+                    progressDialog.setMessage((int) progress + "% of data uploaded.");
+                }
+            });
+        }
+    }
+
+    public static String getCurrentTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+3"));
+        Date today = Calendar.getInstance().getTime();
+        return dateFormat.format(today);
+    }
+
+    public boolean isConnect() {
+        ConnectivityManager conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
+
+        if (netInfo == null || !netInfo.isConnected() || !netInfo.isAvailable()) {
+            Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
+    }
+
+    public void showDoneAnim(){
+        hideKeyboard(binding.btnSave);
+        binding.rootLayout.animate().scaleX(0).scaleY(0).setDuration(250);
+        binding.doneAnim.setVisibility(View.VISIBLE);
+        binding.doneAnim.playAnimation();
+        binding.doneAnim.addAnimatorListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                }, 150 + binding.doneAnim.getDuration());
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+    }
+
+    public  void hideKeyboard(View v) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        //imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+        imm.hideSoftInputFromWindow(v.getWindowToken(),0);
     }
 }

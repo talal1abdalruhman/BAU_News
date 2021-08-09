@@ -442,7 +442,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             progressDialog.setTitle("Data Upload");
             progressDialog.setCancelable(false);
             progressDialog.show();
-            StorageReference imgRef = mStorageRef.child("events_images").child(currentTime + ".jpg");
+            StorageReference imgRef = mStorageRef.child("images").child(currentTime + ".jpg");
             imgRef.putFile(ImgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -493,7 +493,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             progressDialog.setTitle("Data Upload");
             progressDialog.setCancelable(false);
             progressDialog.show();
-            StorageReference pdfRef = mStorageRef.child("events_pdfs").child(currentTime + ".pdf");
+            StorageReference pdfRef = mStorageRef.child("pdfs").child(currentTime + ".pdf");
             pdfRef.putFile(PdfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -543,7 +543,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             progressDialog.setTitle("Data Upload");
             progressDialog.setCancelable(false);
             progressDialog.show();
-            StorageReference imgRef = mStorageRef.child("events_images").child(currentTime + ".jpg");
+            StorageReference imgRef = mStorageRef.child("images").child(currentTime + ".jpg");
             imgRef.putFile(ImgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -553,7 +553,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                             if (task.isSuccessful()) {
                                 Log.d(TAG, "image uploaded");
                                 String imageLink = task.getResult().toString();
-                                StorageReference pdfRef = mStorageRef.child("events_pdfs").child(currentTime + ".pdf");
+                                StorageReference pdfRef = mStorageRef.child("pdfs").child(currentTime + ".pdf");
                                 pdfRef.putFile(PdfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                     @Override
                                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

@@ -367,8 +367,8 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
                     } else if (!Patterns.WEB_URL.matcher(inputURL.getText().toString()).matches()) {
                         Toast.makeText(ShowNewsActivity.this, "Enter Valid URL", Toast.LENGTH_SHORT).show();
                     } else {
-                        binding.textWebURL.setText(inputURL.getText().toString());
                         binding.layoutWebURL.setVisibility(View.VISIBLE);
+                        binding.textWebURL.setText(inputURL.getText().toString());
                         dialogAddURL.dismiss();
                     }
                 }
@@ -436,7 +436,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
         mRef = database.getReference("news").child(newsCategory).child(newsKey);
 
         if (isPdfEdited && PdfUri != null) {
-            mStorageRef = storage.getInstance().getReference().child("news_pdfs").child(newsModel.getDate() + ".pdf");
+            mStorageRef = storage.getInstance().getReference().child("pdfs").child(newsModel.getDate() + ".pdf");
             if (!newsModel.getPdf().equals("null")) {
                 mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -491,7 +491,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
             }
         } else if (isPdfEdited && PdfUri == null) {
             if (!newsModel.getPdf().equals("null")) {
-                mStorageRef = storage.getInstance().getReference().child("news_pdfs").child(newsModel.getDate() + ".pdf");
+                mStorageRef = storage.getInstance().getReference().child("pdfs").child(newsModel.getDate() + ".pdf");
                 mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -513,7 +513,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
 
     public void CheckImageStatus() {
         if (isImgEdited && ImgUri != null) {
-            mStorageRef = storage.getInstance().getReference().child("news_images").child(newsModel.getDate() + ".jpg");
+            mStorageRef = storage.getInstance().getReference().child("images").child(newsModel.getDate() + ".jpg");
             if (!newsModel.getImage().equals("null")) {
                 mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -568,7 +568,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
             }
         } else if (isImgEdited && ImgUri == null) {
             if (!newsModel.getImage().equals("null")) {
-                mStorageRef = storage.getInstance().getReference().child("news_images").child(newsModel.getDate() + ".jpg");
+                mStorageRef = storage.getInstance().getReference().child("images").child(newsModel.getDate() + ".jpg");
                 mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -620,13 +620,13 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
         progressDialog.show();
         mRef = database.getReference("news").child(newsCategory).child(newsKey);
         if (!newsModel.getPdf().equals("null")) {
-            mStorageRef = storage.getInstance().getReference().child("news_pdfs").child(newsModel.getDate() + ".pdf");
+            mStorageRef = storage.getInstance().getReference().child("pdfs").child(newsModel.getDate() + ".pdf");
             mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         Log.d("DATA_DELETE", "pdf deleted");
-                        mStorageRef = storage.getInstance().getReference().child("news_images").child(newsModel.getDate() + ".jpg");
+                        mStorageRef = storage.getInstance().getReference().child("images").child(newsModel.getDate() + ".jpg");
                         if (!newsModel.getImage().equals("null")) {
                             mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -675,7 +675,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
                 }
             });
         } else {
-            mStorageRef = storage.getInstance().getReference().child("news_images").child(newsModel.getDate() + ".jpg");
+            mStorageRef = storage.getInstance().getReference().child("images").child(newsModel.getDate() + ".jpg");
             if (!newsModel.getImage().equals("null")) {
                 mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

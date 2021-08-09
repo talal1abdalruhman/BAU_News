@@ -541,7 +541,7 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
         mRef = database.getReference("events").child(eventKey);
 
         if (isPdfEdited && PdfUri != null) {
-            mStorageRef = storage.getInstance().getReference().child("events_pdfs").child(eventsModel.getDate() + ".pdf");
+            mStorageRef = storage.getInstance().getReference().child("pdfs").child(eventsModel.getDate() + ".pdf");
             if (!eventsModel.getPdf().equals("null")) {
                 mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -596,7 +596,7 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
             }
         } else if (isPdfEdited && PdfUri == null) {
             if (!eventsModel.getPdf().equals("null")) {
-                mStorageRef = storage.getInstance().getReference().child("events_pdfs").child(eventsModel.getDate() + ".pdf");
+                mStorageRef = storage.getInstance().getReference().child("pdfs").child(eventsModel.getDate() + ".pdf");
                 mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -618,7 +618,7 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
 
     public void CheckImageStatus() {
         if (isImgEdited && ImgUri != null) {
-            mStorageRef = storage.getInstance().getReference().child("events_images").child(eventsModel.getDate() + ".jpg");
+            mStorageRef = storage.getInstance().getReference().child("images").child(eventsModel.getDate() + ".jpg");
             if (!eventsModel.getImage().equals("null")) {
                 mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -673,7 +673,7 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
             }
         } else if (isImgEdited && ImgUri == null) {
             if (!eventsModel.getImage().equals("null")) {
-                mStorageRef = storage.getInstance().getReference().child("events_images").child(eventsModel.getDate() + ".jpg");
+                mStorageRef = storage.getInstance().getReference().child("images").child(eventsModel.getDate() + ".jpg");
                 mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -734,13 +734,13 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
         progressDialog.show();
         mRef = database.getReference("events").child(eventKey);
         if (!eventsModel.getPdf().equals("null")) {
-            mStorageRef = storage.getInstance().getReference().child("events_pdfs").child(eventsModel.getDate() + ".pdf");
+            mStorageRef = storage.getInstance().getReference().child("pdfs").child(eventsModel.getDate() + ".pdf");
             mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         Log.d("DATA_DELETE", "event pdf deleted");
-                        mStorageRef = storage.getInstance().getReference().child("events_images").child(eventsModel.getDate() + ".jpg");
+                        mStorageRef = storage.getInstance().getReference().child("images").child(eventsModel.getDate() + ".jpg");
                         if (!eventsModel.getImage().equals("null")) {
                             mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -789,7 +789,7 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
                 }
             });
         } else {
-            mStorageRef = storage.getInstance().getReference().child("events_images").child(eventsModel.getDate() + ".jpg");
+            mStorageRef = storage.getInstance().getReference().child("images").child(eventsModel.getDate() + ".jpg");
             if (!eventsModel.getImage().equals("null")) {
                 mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

@@ -1,22 +1,32 @@
 package com.example.baunews;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 
 import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +35,21 @@ import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.baunews.Models.NewsModel;
+import com.example.baunews.Models.PressKitModel;
 import com.example.baunews.databinding.ActivityShowPressKitBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 
@@ -39,10 +63,17 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
 
     private static final int IMAGE_REQUEST_CODE = 100;
     private static final int FILE_REQUEST_CODE = 101;
-
+    String newsKey, PdfUrl;
+    PressKitModel pressKitModel;
     Uri ImgUri = null, PdfUri = null;
-
+    boolean isImgEdited = false, isPdfEdited = false, isUrlEdited = false;
+    ProgressDialog progressDialog;
     private AlertDialog dialogAddURL,dialogAddResource;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private StorageReference mStorageRef;
+    private FirebaseStorage storage;
+    private DatabaseReference mRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +81,11 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
         binding= DataBindingUtil.setContentView(this,R.layout.activity_show_press_kit);
 
         initialization();
+        ShowThePressKit();
     }
 
     private void initialization() {
-
+        progressDialog = new ProgressDialog(this);
         binding.addFab.setOnClickListener(this);
         binding.imageFab.setOnClickListener(this);
         binding.pdfFab.setOnClickListener(this);
@@ -63,6 +95,7 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
         binding.removeWebURL.setOnClickListener(this);
         binding.btnAddResource.setOnClickListener(this);
         binding.removeTxtResource.setOnClickListener(this);
+        binding.btnSave.setOnClickListener(this);
 
         String locale = ShowPressKitActivity.this.getResources().getConfiguration().locale.getDisplayName();
         if (locale.equals("Arabic") || locale.equals("العربية")) {
@@ -83,44 +116,44 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
         rotate_froward = AnimationUtils.loadAnimation(this, R.anim.rotate_forward);
         rotate_backward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
         clicked=false;
+        binding.addFab.setVisibility(View.GONE);
     }
-    //------------------------------------------------------------methods to set fabs animations----
 
+    //------------------------------------------------------------methods to set fabs animations----
     private void onAddBtnClick() {
         setVisibility(clicked);
         setAnimation(clicked);
         clicked=!clicked;
     }
+
     private void setAnimation(boolean b) {
         if(!b){
             binding.imageFab.startAnimation(fab_image_open);
             binding.pdfFab.startAnimation(fab_pdf_open);
             binding.urlFab.startAnimation(fab_url_open);
             binding.addFab.startAnimation(rotate_froward);
-            binding.shareFab.startAnimation(fab_share_open);
             binding.addFab.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.colorDelete)));
         }else {
             binding.imageFab.startAnimation(fab_image_close);
             binding.pdfFab.startAnimation(fab_pdf_close);
             binding.urlFab.startAnimation(fab_url_close);
-            binding.shareFab.startAnimation(fab_share_close);
             binding.addFab.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.mainColor)));
             binding.addFab.startAnimation(rotate_backward);
         }
     }
+
     private void setVisibility(boolean b) {
         if(!b){
             binding.imageFab.setVisibility(View.VISIBLE);
             binding.pdfFab.setVisibility(View.VISIBLE);
             binding.urlFab.setVisibility(View.VISIBLE);
-            binding.shareFab.setVisibility(View.INVISIBLE);
         }else {
             binding.imageFab.setVisibility(View.INVISIBLE);
             binding.pdfFab.setVisibility(View.INVISIBLE);
             binding.urlFab.setVisibility(View.INVISIBLE);
-            binding.shareFab.setVisibility(View.VISIBLE);
         }
     }
+
     //---------------------------------------------------------------------URL Dialog--------------
     private void showAddURLDialog() {
         if (dialogAddURL == null) {
@@ -162,6 +195,7 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
 
         dialogAddURL.show();
     }
+
     //---------------------------------------------------------------------Resource Dialog--------------
     private void showAddResourceDialog() {
         if (dialogAddResource == null) {
@@ -240,6 +274,7 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
             break;
             case R.id.removeImage : {
                 ImgUri = null;
+                isImgEdited = true;
                 binding.imagePress.setImageURI(null);
                 binding.imagePress.setVisibility(View.GONE);
                 binding.removeImage.setVisibility(View.GONE);
@@ -247,11 +282,13 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
             break;
             case R.id.removePdf : {
                 PdfUri = null;
+                isPdfEdited = true;
                 binding.textPdf.setText(null);
                 binding.layoutPdf.setVisibility(View.GONE);
             }
             break;
             case R.id.removeWebURL :{
+                isUrlEdited = true;
                 binding.textWebURL.setText(null);
                 binding.layoutWebURL.setVisibility(View.GONE);
             }
@@ -265,8 +302,14 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
                 binding.layoutResourceTxt.setVisibility(view.GONE);
             }
             break;
+            case R.id.btnSave:{
+                if(!isConnect()) return;
+                SavePressKitUpdates();
+            }
+            break;
         }
     }
+
     //--------------------------------------------------------------------result ------------------
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -308,5 +351,419 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
             binding.layoutPdf.setVisibility(View.VISIBLE);
             binding.removePdf.setVisibility(View.VISIBLE);
         }
+    }
+
+    public boolean isConnect() {
+        ConnectivityManager conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
+
+        if (netInfo == null || !netInfo.isConnected() || !netInfo.isAvailable()) {
+            Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
+    }
+
+    public void ShowThePressKit() {
+        newsKey = getIntent().getStringExtra("news_id");
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        database.getReference("press_kit").child(newsKey)
+                .addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    pressKitModel = snapshot.getValue(PressKitModel.class);
+                    binding.txtTitle.setText(pressKitModel.getTitle());
+                    binding.txtDateAndTime.setText(pressKitModel.getDate());
+                    binding.txtDescription.setText(pressKitModel.getDescription());
+                    if (!pressKitModel.getImage().equals("null")) {
+                        binding.imagePress.setVisibility(View.VISIBLE);
+                        Glide.with(getApplicationContext())
+                                .load(pressKitModel.getImage())
+                                .into(binding.imagePress);
+                    } else {
+                        binding.imagePress.setVisibility(View.GONE);
+                    }
+                    if (!pressKitModel.getPdf().equals("null")) {
+                        PdfUrl = pressKitModel.getPdf();
+                        binding.layoutPdf.setVisibility(View.VISIBLE);
+                    } else {
+                        binding.layoutPdf.setVisibility(View.GONE);
+                    }
+                    if (!pressKitModel.getUrl().equals("")) {
+                        binding.layoutWebURL.setVisibility(View.VISIBLE);
+                        binding.textWebURL.setText(pressKitModel.getUrl());
+                    } else {
+                        binding.textWebURL.setVisibility(View.GONE);
+                    }
+                    binding.resourceName.setText(pressKitModel.getResourceName());
+                    if(!pressKitModel.getResourceLink().equals("")){
+                        binding.layoutResourceTxt.setVisibility(View.VISIBLE);
+                        binding.txtResource.setText(pressKitModel.getResourceLink());
+                    } else {
+                        binding.layoutResourceTxt.setVisibility(View.GONE);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void UpdatePressKit(View view) {
+        binding.relative.setVisibility(View.VISIBLE);
+        //    binding.includeOthers.setVisibility(View.VISIBLE);
+        binding.addFab.setVisibility(View.VISIBLE);
+        if (!pressKitModel.getImage().equals("null")) {
+            binding.removeImage.setVisibility(View.VISIBLE);
+        }
+        if (!pressKitModel.getPdf().equals("null")) {
+            binding.removePdf.setVisibility(View.VISIBLE);
+        }
+        if (!pressKitModel.getUrl().equals("")) {
+            binding.removeWebURL.setVisibility(View.VISIBLE);
+        }
+        binding.removeTxtResource.setVisibility(View.VISIBLE);
+        binding.resourceName.setEnabled(true);
+        binding.txtTitle.setEnabled(true);
+        binding.txtDescription.setEnabled(true);
+        binding.btnAddResource.setVisibility(View.VISIBLE);
+        binding.updateBtn.setVisibility(View.GONE);
+        binding.deleteBtn.setVisibility(View.GONE);
+        binding.shareBtn.setVisibility(View.GONE);
+    }
+
+    public void CancelEdit(View view) {
+        isUrlEdited = isImgEdited = isPdfEdited = false;
+        binding.relative.setVisibility(View.GONE);
+        binding.addFab.setVisibility(View.GONE);
+        binding.removeImage.setVisibility(View.GONE);
+        binding.removePdf.setVisibility(View.GONE);
+        binding.removeWebURL.setVisibility(View.GONE);
+        binding.removeTxtResource.setVisibility(View.GONE);
+        binding.btnAddResource.setVisibility(View.GONE);
+        binding.txtTitle.setEnabled(false);
+        binding.txtDescription.setEnabled(false);
+        binding.resourceName.setEnabled(false);
+        binding.updateBtn.setVisibility(View.VISIBLE);
+        binding.deleteBtn.setVisibility(View.VISIBLE);
+        binding.shareBtn.setVisibility(View.VISIBLE);
+    }
+
+    public void OpenPdfFile(View view) {
+        Intent intent = new Intent(this, PdfViewerActivity.class);
+        intent.putExtra("pdf_link", PdfUrl);
+        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                this,
+                binding.layoutPdf,
+                ViewCompat.getTransitionName(binding.layoutPdf));
+        startActivity(intent, optionsCompat.toBundle());
+    }
+
+    private void SavePressKitUpdates() {
+        progressDialog.setTitle("News Update..");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        mRef = database.getReference("press_kit").child(newsKey);
+
+        if (isPdfEdited && PdfUri != null) {
+            mStorageRef = storage.getInstance().getReference().child("pdfs").child(pressKitModel.getDate() + ".pdf");
+            if (!pressKitModel.getPdf().equals("null")) {
+                mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("DATA_UPDATE", "pdf deleted");
+                            mStorageRef.putFile(PdfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Uri> task) {
+                                            if (task.isSuccessful()) {
+                                                Log.d("DATA_UPDATE", "pdf uploaded");
+                                                String pdfLink = task.getResult().toString();
+                                                pressKitModel.setPdf(pdfLink);
+                                                CheckImageStatus();
+                                            } else {
+                                                Log.d("DATA_UPDATE", "pdf NOT uploaded");
+                                                progressDialog.dismiss();
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        } else {
+                            Log.d("DATA_UPDATE", "pdf NOT deleted");
+                            progressDialog.dismiss();
+                        }
+                    }
+                });
+            } else {
+                mStorageRef.putFile(PdfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d("DATA_UPDATE", "pdf uploaded");
+                                    String pdfLink = task.getResult().toString();
+                                    pressKitModel.setPdf(pdfLink);
+                                    CheckImageStatus();
+                                } else {
+                                    progressDialog.dismiss();
+                                    Log.d("DATA_UPDATE", "pdf NOT uploaded");
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        } else if (isPdfEdited && PdfUri == null) {
+            if (!pressKitModel.getPdf().equals("null")) {
+                mStorageRef = storage.getInstance().getReference().child("pdfs").child(pressKitModel.getDate() + ".pdf");
+                mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("DATA_UPDATE", "pdf deleted");
+                            pressKitModel.setPdf("null");
+                            CheckImageStatus();
+                        } else {
+                            Log.d("DATA_UPDATE", "pdf NOT deleted");
+                            progressDialog.dismiss();
+                        }
+                    }
+                });
+            }
+        } else {
+            CheckImageStatus();
+        }
+    }
+
+    public void CheckImageStatus() {
+        if (isImgEdited && ImgUri != null) {
+            mStorageRef = storage.getInstance().getReference().child("images").child(pressKitModel.getDate() + ".jpg");
+            if (!pressKitModel.getImage().equals("null")) {
+                mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("DATA_UPDATE", "img deleted");
+                            mStorageRef.putFile(ImgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Uri> task) {
+                                            if (task.isSuccessful()) {
+                                                Log.d("DATA_UPDATE", "image uploaded");
+                                                String imageLink = task.getResult().toString();
+                                                pressKitModel.setImage(imageLink);
+                                                CheckTextStatus();
+                                            } else {
+                                                Log.d("DATA_UPDATE", "image NOT uploaded");
+                                                progressDialog.dismiss();
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        } else {
+                            Log.d("DATA_UPDATE", "img NOT deleted");
+                            progressDialog.dismiss();
+                        }
+                    }
+                });
+            } else {
+                mStorageRef.putFile(ImgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d("DATA_UPDATE", "image uploaded");
+                                    String imageLink = task.getResult().toString();
+                                    pressKitModel.setImage(imageLink);
+                                    CheckTextStatus();
+                                } else {
+                                    Log.d("DATA_UPDATE", "image NOT uploaded");
+                                    progressDialog.dismiss();
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        } else if (isImgEdited && ImgUri == null) {
+            if (!pressKitModel.getImage().equals("null")) {
+                mStorageRef = storage.getInstance().getReference().child("images").child(pressKitModel.getDate() + ".jpg");
+                mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("DATA_UPDATE", "img deleted");
+                            pressKitModel.setImage("null");
+                            CheckTextStatus();
+                        } else {
+                            Log.d("DATA_UPDATE", "img NOT deleted");
+                            progressDialog.dismiss();
+                        }
+                    }
+                });
+            } else {
+                pressKitModel.setImage("null");
+                CheckTextStatus();
+            }
+
+        } else {
+            CheckTextStatus();
+        }
+    }
+
+    public void CheckTextStatus() {
+        if (isUrlEdited) {
+            String newUrl = binding.textWebURL.getText().toString().trim();
+            pressKitModel.setUrl(newUrl);
+        }
+        pressKitModel.setResourceName(binding.resourceName.getText().toString());
+        pressKitModel.setResourceLink(binding.txtResource.getText().toString());
+        pressKitModel.setTitle(binding.txtTitle.getText().toString().trim());
+        pressKitModel.setDescription(binding.txtDescription.getText().toString().trim());
+        mRef.setValue(pressKitModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Log.d("DATA_UPDATE", "news updated");
+                    progressDialog.dismiss();
+                    CancelEdit(new View(ShowPressKitActivity.this));
+                } else {
+                    Log.d("DATA_UPDATE", "news NOT updated");
+                    progressDialog.dismiss();
+                }
+            }
+        });
+    }
+
+    public void DeletePressKit(View view) {
+        progressDialog.setTitle("News Delete..");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        mRef = database.getReference("press_kit").child(newsKey);
+        if (!pressKitModel.getPdf().equals("null")) {
+            mStorageRef = storage.getInstance().getReference().child("pdfs").child(pressKitModel.getDate() + ".pdf");
+            mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Log.d("DATA_DELETE", "pdf deleted");
+                        mStorageRef = storage.getInstance().getReference().child("images").child(pressKitModel.getDate() + ".jpg");
+                        if (!pressKitModel.getImage().equals("null")) {
+                            mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.d("DATA_DELETE", "img deleted");
+                                        mRef.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Log.d("DATA_DELETE", "data deleted");
+                                                    progressDialog.dismiss();
+                                                    finish();
+                                                } else {
+                                                    Log.d("DATA_DELETE", "data Not deleted");
+                                                    progressDialog.dismiss();
+                                                }
+                                            }
+                                        });
+                                    } else {
+                                        Log.d("DATA_DELETE", "img NOT deleted");
+                                        progressDialog.dismiss();
+                                    }
+                                }
+                            });
+                        } else {
+                            mRef.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.d("DATA_DELETE", "data deleted");
+                                        progressDialog.dismiss();
+                                        finish();
+                                    } else {
+                                        Log.d("DATA_DELETE", "data Not deleted");
+                                        progressDialog.dismiss();
+                                    }
+                                }
+                            });
+                        }
+
+                    } else {
+                        Log.d("DATA_DELETE", "pdf Not deleted");
+                        progressDialog.dismiss();
+                    }
+                }
+            });
+        } else {
+            mStorageRef = storage.getInstance().getReference().child("images").child(pressKitModel.getDate() + ".jpg");
+            if (!pressKitModel.getImage().equals("null")) {
+                mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("DATA_DELETE", "img deleted");
+                            mRef.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.d("DATA_DELETE", "data deleted");
+                                        progressDialog.dismiss();
+                                        finish();
+                                    } else {
+                                        Log.d("DATA_DELETE", "data Not deleted");
+                                        progressDialog.dismiss();
+                                    }
+                                }
+                            });
+                        } else {
+                            Log.d("DATA_DELETE", "img NOT deleted");
+                            progressDialog.dismiss();
+                        }
+                    }
+                });
+            } else {
+                mRef.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("DATA_DELETE", "data deleted");
+                            progressDialog.dismiss();
+                            finish();
+                        } else {
+                            Log.d("DATA_DELETE", "data Not deleted");
+                            progressDialog.dismiss();
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        finish();
+    }
+
+    public void ShareNews(View view) {
+
     }
 }
