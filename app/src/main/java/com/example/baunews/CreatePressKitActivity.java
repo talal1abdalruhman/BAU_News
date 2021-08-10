@@ -85,7 +85,7 @@ public class CreatePressKitActivity extends AppCompatActivity implements View.On
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private StorageReference mStorageRef;
     private DatabaseReference mRef;
-
+    Validation validation;
     private static final int IMAGE_REQUEST_CODE = 100;
     private static final int FILE_REQUEST_CODE = 101;
     ArrayList<String> usersToken;
@@ -106,7 +106,7 @@ public class CreatePressKitActivity extends AppCompatActivity implements View.On
     //--------------------------------------------------------------------initialization-----------
 
     private void initialization() {
-
+        validation = new Validation(getResources());
         binding.addFab.setOnClickListener(this);
         binding.imageFab.setOnClickListener(this);
         binding.pdfFab.setOnClickListener(this);
@@ -327,8 +327,11 @@ public class CreatePressKitActivity extends AppCompatActivity implements View.On
             }
             break;
             case R.id.btnSave : {
-                //todo: validation
-                if(!isConnect()) return;
+                if(!isConnect()
+                        | !validation.validateNewsText(binding.txtTitle)
+                        | validation.validateNewsText(binding.txtDescription)
+                        | !validation.validateNewsText(binding.resourceName))
+                    return;
                 UploadPressKitData();
             }
             break;

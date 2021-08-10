@@ -83,7 +83,7 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
     EventsModel eventsModel;
     AlertDialog dialogAddURL;
     Uri ImgUri = null, PdfUri = null;
-    boolean isImgEdited = false, isPdfEdited = false, isUrlEdited = false, isTimeEdited = false, isDateEdited = false;
+    boolean isImgEdited = false, isPdfEdited = false, isUrlEdited = false, isTimeEdited = false, isDateEdited = false, isOnEdit = false;
     ProgressDialog progressDialog;
     Animation rotate_froward, rotate_backward, fab_image_open, fab_image_close, fab_url_open, fab_url_close, fab_pdf_open, fab_pdf_close;
     boolean clicked;
@@ -98,13 +98,12 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
     }
 
 
-
     //--------------------------------------------------------------------initialization---------
 
     private void initialization() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_show_events);
-        binding.addFab.setVisibility(View.GONE);
+        binding.addFab.hide();
         progressDialog = new ProgressDialog(this);
 
         ShowTheEvent();
@@ -147,12 +146,12 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
     //---------------------------------------------------------------------Buttons OnClick--------
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.add_fab : {
+        switch (view.getId()) {
+            case R.id.add_fab: {
                 onAddBtnClick();
             }
             break;
-            case R.id.image_fab : {
+            case R.id.image_fab: {
                 if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(ShowEventsActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, IMAGE_REQUEST_CODE);
                 } else {
@@ -162,7 +161,7 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
                 onAddBtnClick();
             }
             break;
-            case R.id.pdf_fab : {
+            case R.id.pdf_fab: {
                 if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(ShowEventsActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, FILE_REQUEST_CODE);
                 } else {
@@ -174,12 +173,12 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
                 onAddBtnClick();
             }
             break;
-            case R.id.url_fab : {
+            case R.id.url_fab: {
                 showAddURLDialog();
                 onAddBtnClick();
             }
             break;
-            case R.id.removeImage : {
+            case R.id.removeImage: {
                 ImgUri = null;
                 isImgEdited = true;
                 binding.imageNews.setImageURI(null);
@@ -187,27 +186,27 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
                 binding.removeImage.setVisibility(View.GONE);
             }
             break;
-            case R.id.removePdf : {
+            case R.id.removePdf: {
                 isPdfEdited = true;
                 PdfUri = null;
                 binding.layoutPdf.setVisibility(View.GONE);
             }
             break;
-            case R.id.removeWebURL : {
+            case R.id.removeWebURL: {
                 isUrlEdited = true;
                 binding.textWebURL.setText(null);
                 binding.layoutWebURL.setVisibility(View.GONE);
             }
             break;
-            case R.id.btn_time : {
+            case R.id.btn_time: {
                 showTimePicker();
             }
             break;
-            case R.id.btn_date : {
+            case R.id.btn_date: {
                 showDatePicker();
             }
             break;
-            case R.id.btnSave : {
+            case R.id.btnSave: {
                 Validation validation = new Validation(getResources());
                 if (!isConnect()
                         | !validation.validateNewsText(binding.txtTitle)
@@ -243,13 +242,13 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
 
     private void setVisibility(boolean b) {
         if (!b) {
-            binding.imageFab.setVisibility(View.VISIBLE);
-            binding.pdfFab.setVisibility(View.VISIBLE);
-            binding.urlFab.setVisibility(View.VISIBLE);
+            binding.imageFab.show();
+            binding.pdfFab.show();
+            binding.urlFab.show();
         } else {
-            binding.imageFab.setVisibility(View.INVISIBLE);
-            binding.pdfFab.setVisibility(View.INVISIBLE);
-            binding.urlFab.setVisibility(View.INVISIBLE);
+            binding.imageFab.hide();
+            binding.pdfFab.hide();
+            binding.urlFab.hide();
         }
     }
 
@@ -326,7 +325,7 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
                             binding.txtDateAndTime.setText(eventsModel.getDate());
                             binding.txtDescription.setText(eventsModel.getDescription());
                             if (!eventsModel.getImage().equals("null")) {
-                                Glide.with(ShowEventsActivity.this)
+                                Glide.with(getApplicationContext())
                                         .load(eventsModel.getImage())
                                         .into(binding.imageNews);
                             } else {
@@ -342,7 +341,7 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
                                 binding.layoutWebURL.setVisibility(View.VISIBLE);
                                 binding.textWebURL.setText(eventsModel.getUrl());
                             } else {
-                                binding.textWebURL.setVisibility(View.GONE);
+                                binding.layoutWebURL.setVisibility(View.GONE);
                             }
                             String dateAndTime = eventsModel.getStart_date();
 
@@ -374,9 +373,10 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
     }
 
     public void UpdateEvent(View view) {
+        isOnEdit = true;
         binding.relative.setVisibility(View.VISIBLE);
         //    binding.includeOthers.setVisibility(View.VISIBLE);
-        binding.addFab.setVisibility(View.VISIBLE);
+        binding.addFab.show();
         if (!eventsModel.getImage().equals("null")) {
             binding.removeImage.setVisibility(View.VISIBLE);
         }
@@ -397,8 +397,12 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
     }
 
     public void CancelEdit(View view) {
+        isOnEdit = false;
         binding.relative.setVisibility(View.GONE);
-        binding.addFab.setVisibility(View.GONE);
+        if (clicked) {
+            onAddBtnClick();
+        }
+        binding.addFab.hide();
         binding.removeImage.setVisibility(View.GONE);
         binding.removePdf.setVisibility(View.GONE);
         binding.removeWebURL.setVisibility(View.GONE);
@@ -410,6 +414,7 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
 
         binding.updateBtn.setVisibility(View.VISIBLE);
         binding.deleteBtn.setVisibility(View.VISIBLE);
+        ShowTheEvent();
     }
 
     public void OpenPdfFile(View view) {
@@ -472,8 +477,10 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
                     } else if (!Patterns.WEB_URL.matcher(inputURL.getText().toString()).matches()) {
                         Toast.makeText(ShowEventsActivity.this, "Enter Valid URL", Toast.LENGTH_SHORT).show();
                     } else {
-                        binding.textWebURL.setText(inputURL.getText().toString());
+                        isUrlEdited = true;
                         binding.layoutWebURL.setVisibility(View.VISIBLE);
+                        binding.textWebURL.setText(inputURL.getText().toString());
+                        binding.removeWebURL.setVisibility(View.VISIBLE);
                         dialogAddURL.dismiss();
                     }
                 }
@@ -698,9 +705,9 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
     }
 
     public void CheckTextStatus() {
-        if(isTimeEdited || isDateEdited){
+        if (isTimeEdited || isDateEdited) {
             String newTimeDate = getEventDateAndTime();
-            if(!eventsModel.getStart_date().equals(newTimeDate)){
+            if (!eventsModel.getStart_date().equals(newTimeDate)) {
                 eventsModel.setStart_date(newTimeDate);
             }
             isDateEdited = isTimeEdited = false;
@@ -830,6 +837,15 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
                     }
                 });
             }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isOnEdit) {
+            CancelEdit(new View(ShowEventsActivity.this));
+        } else {
+            super.onBackPressed();
         }
     }
 }

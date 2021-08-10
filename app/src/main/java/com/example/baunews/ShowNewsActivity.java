@@ -68,7 +68,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
     NewsModel newsModel;
     AlertDialog dialogAddURL, dialogAddResource;
     Uri ImgUri = null, PdfUri = null;
-    boolean isImgEdited = false, isPdfEdited = false, isUrlEdited = false, isResLinkEdited = false;
+    boolean isImgEdited = false, isPdfEdited = false, isUrlEdited = false, isResLinkEdited = false, isOnEdit = false;
     ProgressDialog progressDialog;
     Animation rotate_froward, rotate_backward, fab_image_open, fab_image_close, fab_url_open, fab_url_close, fab_pdf_open, fab_pdf_close;
     boolean clicked;
@@ -76,6 +76,8 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setExitTransition(null);
+        getWindow().setEnterTransition(null);
         initialization();
     }
 
@@ -83,7 +85,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
     private void initialization() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_show_news);
-        binding.addFab.setVisibility(View.GONE);
+        binding.addFab.hide();
         Log.d("NewsKey", getIntent().getStringExtra("news_id"));
         Log.d("NewsKey", getIntent().getStringExtra("category"));
         progressDialog = new ProgressDialog(this);
@@ -226,13 +228,13 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
 
     private void setVisibility(boolean b) {
         if (!b) {
-            binding.imageFab.setVisibility(View.VISIBLE);
-            binding.pdfFab.setVisibility(View.VISIBLE);
-            binding.urlFab.setVisibility(View.VISIBLE);
+            binding.imageFab.show();
+            binding.pdfFab.show();
+            binding.urlFab.show();
         } else {
-            binding.imageFab.setVisibility(View.INVISIBLE);
-            binding.pdfFab.setVisibility(View.INVISIBLE);
-            binding.urlFab.setVisibility(View.INVISIBLE);
+            binding.imageFab.hide();
+            binding.pdfFab.hide();
+            binding.urlFab.hide();
         }
     }
 
@@ -262,7 +264,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
                     binding.txtDateAndTime.setText(newsModel.getDate());
                     binding.txtDescription.setText(newsModel.getDescription());
                     if (!newsModel.getImage().equals("null")) {
-                        Glide.with(ShowNewsActivity.this)
+                        Glide.with(getApplicationContext())
                                 .load(newsModel.getImage())
                                 .into(binding.imageNews);
                     } else {
@@ -278,7 +280,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
                         binding.layoutWebURL.setVisibility(View.VISIBLE);
                         binding.textWebURL.setText(newsModel.getUrl());
                     } else {
-                        binding.textWebURL.setVisibility(View.GONE);
+                        binding.layoutWebURL.setVisibility(View.GONE);
                     }
                     if(snapshot.hasChild("resourceName")){
                         binding.layoutResourceName.setVisibility(View.VISIBLE);
@@ -303,9 +305,10 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void UpdateNews(View view) {
+        isOnEdit = true;
         binding.relative.setVisibility(View.VISIBLE);
         //    binding.includeOthers.setVisibility(View.VISIBLE);
-        binding.addFab.setVisibility(View.VISIBLE);
+        binding.addFab.show();
         if (!newsModel.getImage().equals("null")) {
             binding.removeImage.setVisibility(View.VISIBLE);
         }
@@ -328,9 +331,12 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void CancelEdit(View view) {
-        isResLinkEdited = isImgEdited = isPdfEdited = isUrlEdited = false;
+        isResLinkEdited = isImgEdited = isPdfEdited = isUrlEdited = isOnEdit = false;
         binding.relative.setVisibility(View.GONE);
-        binding.addFab.setVisibility(View.GONE);
+        if(clicked){
+            onAddBtnClick();
+        }
+        binding.addFab.hide();
         binding.removeImage.setVisibility(View.GONE);
         binding.removePdf.setVisibility(View.GONE);
         binding.removeWebURL.setVisibility(View.GONE);
@@ -341,6 +347,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
         binding.resourceName.setEnabled(false);
         binding.updateBtn.setVisibility(View.VISIBLE);
         binding.deleteBtn.setVisibility(View.VISIBLE);
+        ShowTheNews();
     }
 
     public void OpenPdfFile(View view) {
@@ -394,7 +401,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
                 dialogAddURL.getWindow().setBackgroundDrawable(new ColorDrawable(0));
             }
             final EditText inputURL = view.findViewById(R.id.inputUrl);
-            inputURL.requestFocus();
+            //inputURL.requestFocus();
 
             view.findViewById(R.id.textAdd).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -404,7 +411,9 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
                     } else if (!Patterns.WEB_URL.matcher(inputURL.getText().toString()).matches()) {
                         Toast.makeText(ShowNewsActivity.this, "Enter Valid URL", Toast.LENGTH_SHORT).show();
                     } else {
+                        isUrlEdited = true;
                         binding.layoutWebURL.setVisibility(View.VISIBLE);
+                        binding.removeWebURL.setVisibility(View.VISIBLE);
                         binding.textWebURL.setText(inputURL.getText().toString());
                         dialogAddURL.dismiss();
                     }
@@ -630,7 +639,6 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void CheckTextStatus() {
-        //todo: check what happened with fucken' url when it edited
         if (isUrlEdited) {
             String newUrl = binding.textWebURL.getText().toString().trim();
             newsModel.setUrl(newUrl);
@@ -804,5 +812,14 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
         }
 
         dialogAddResource.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isOnEdit) {
+            CancelEdit(new View(ShowNewsActivity.this));
+        } else {
+            super.onBackPressed();
+        }
     }
 }

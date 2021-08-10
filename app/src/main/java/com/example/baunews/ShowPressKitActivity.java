@@ -72,7 +72,7 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
     String newsKey, PdfUrl;
     PressKitModel pressKitModel;
     Uri ImgUri = null, PdfUri = null;
-    boolean isImgEdited = false, isPdfEdited = false, isUrlEdited = false;
+    boolean isImgEdited = false, isPdfEdited = false, isUrlEdited = false, isOnEdit = false;
     ProgressDialog progressDialog;
     private AlertDialog dialogAddURL, dialogAddResource, dialogShare;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -92,7 +92,7 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
 
     private void initialization() {
         progressDialog = new ProgressDialog(this);
-        binding.addFab.setOnClickListener(this);
+        binding.addFab.hide();
         binding.imageFab.setOnClickListener(this);
         binding.pdfFab.setOnClickListener(this);
         binding.urlFab.setOnClickListener(this);
@@ -150,13 +150,13 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
 
     private void setVisibility(boolean b) {
         if (!b) {
-            binding.imageFab.setVisibility(View.VISIBLE);
-            binding.pdfFab.setVisibility(View.VISIBLE);
-            binding.urlFab.setVisibility(View.VISIBLE);
+            binding.imageFab.show();
+            binding.pdfFab.show();
+            binding.urlFab.show();
         } else {
-            binding.imageFab.setVisibility(View.INVISIBLE);
-            binding.pdfFab.setVisibility(View.INVISIBLE);
-            binding.urlFab.setVisibility(View.INVISIBLE);
+            binding.imageFab.hide();
+            binding.pdfFab.hide();
+            binding.urlFab.hide();
         }
     }
 
@@ -184,6 +184,7 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
                     } else if (!Patterns.WEB_URL.matcher(inputURL.getText().toString()).matches()) {
                         Toast.makeText(ShowPressKitActivity.this, "Enter Valid URL", Toast.LENGTH_SHORT).show();
                     } else {
+                        isUrlEdited = true;
                         binding.textWebURL.setText(inputURL.getText().toString());
                         binding.layoutWebURL.setVisibility(View.VISIBLE);
                         dialogAddURL.dismiss();
@@ -401,7 +402,7 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
                                 binding.layoutWebURL.setVisibility(View.VISIBLE);
                                 binding.textWebURL.setText(pressKitModel.getUrl());
                             } else {
-                                binding.textWebURL.setVisibility(View.GONE);
+                                binding.layoutWebURL.setVisibility(View.GONE);
                             }
                             binding.resourceName.setText(pressKitModel.getResourceName());
                             if (!pressKitModel.getResourceLink().equals("")) {
@@ -421,9 +422,10 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void UpdatePressKit(View view) {
+        isOnEdit = true;
         binding.relative.setVisibility(View.VISIBLE);
         //    binding.includeOthers.setVisibility(View.VISIBLE);
-        binding.addFab.setVisibility(View.VISIBLE);
+        binding.addFab.show();
         if (!pressKitModel.getImage().equals("null")) {
             binding.removeImage.setVisibility(View.VISIBLE);
         }
@@ -444,9 +446,10 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void CancelEdit(View view) {
+        isOnEdit = false;
         isUrlEdited = isImgEdited = isPdfEdited = false;
         binding.relative.setVisibility(View.GONE);
-        binding.addFab.setVisibility(View.GONE);
+        binding.addFab.hide();
         binding.removeImage.setVisibility(View.GONE);
         binding.removePdf.setVisibility(View.GONE);
         binding.removeWebURL.setVisibility(View.GONE);
@@ -765,8 +768,11 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
-        finish();
+        if (isOnEdit) {
+            CancelEdit(new View(ShowPressKitActivity.this));
+        } else {
+            super.onBackPressed();
+        }
     }
 
     public void ShareNews(View view) {
@@ -827,23 +833,23 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
         mRef.child(newsKey).setValue(newsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Log.d("SHARE_NEWS", "onComplete: SUCCESS" );
+                if (task.isSuccessful()) {
+                    Log.d("SHARE_NEWS", "onComplete: SUCCESS");
                     database.getReference("press_kit").child(pressKitModel.getId())
                             .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        Log.d("SHARE_NEWS", "onComplete: value removed" );
-                                        finish();
-                                    }else {
-                                        Log.d("SHARE_NEWS", "onComplete: value NOT removed" );
-                                    }
-                                    dialog.dismiss();
-                                }
-                            });
-                } else{
-                    Log.d("SHARE_NEWS", "onComplete: NOT SUCCESS" );
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d("SHARE_NEWS", "onComplete: value removed");
+                                finish();
+                            } else {
+                                Log.d("SHARE_NEWS", "onComplete: value NOT removed");
+                            }
+                            dialog.dismiss();
+                        }
+                    });
+                } else {
+                    Log.d("SHARE_NEWS", "onComplete: NOT SUCCESS");
                 }
             }
         });
