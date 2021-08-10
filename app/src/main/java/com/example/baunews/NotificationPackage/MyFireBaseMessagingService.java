@@ -44,48 +44,48 @@ public class MyFireBaseMessagingService extends FirebaseMessagingService {
         String lng = lang.getString("language", "null");
         Log.d("sharedPreferences lang", lng);
         boolean isAR = lng.equals("ar");
-        if (title.equals("BAU News")) {
-            if (message.equals("general")) {
+        if (title.equals("GN") || title.equals("CN")) {
+            if (title.equals("GN")) {
                 if (!isAR) {
                     Log.d("lang_tracker", "here " + isAR + " " + lng);
-                    message = "New feeds are added in general.";
-                    title = "BAU News";
+                    //message = "New feeds are added in general.";
+                    title = "General News";
                 } else {
                     Log.d("lang_tracker", "here " + isAR);
-                    message = "خبر جديد تمت اضافته في الاخبار العامة.";
-                    title = "أخبار جامعة البلقاء";
+                    //message = "خبر جديد تمت اضافته في الاخبار العامة.";
+                    title = "الاخبار العامة";
                 }
             } else {
                 if (!isAR) {
                     Log.d("lang_tracker", "here " + isAR + " " + lng);
-                    message = "New feeds are added in collage.";
-                    title = "BAU News";
+                    //message = "New feeds are added in collage.";
+                    title = "Collage News";
                 } else {
                     Log.d("lang_tracker", "here " + isAR);
-                    message = "خبر جديد تمت اضافته في اخبار الكلية.";
-                    title = "أخبار جامعة البلقاء";
+                    //message = "خبر جديد تمت اضافته في اخبار الكلية.";
+                    title = "أخبار الكلية";
                 }
             }
         }else {
-            if (message.equals("G")) {
+            if (title.equals("GE")) {
                 if (!isAR) {
                     Log.d("lang_tracker", "here " + isAR + " " + lng);
-                    message = "New event is added in general.";
-                    title = "BAU Events";
+                    //message = "New event is added in general.";
+                    title = "General Event";
                 } else {
                     Log.d("lang_tracker", "here " + isAR);
-                    message = "حدث جديد تمت اضافته في الجامعة.";
-                    title = "أحداث جامعة البلقاء";
+                    //message = "حدث جديد تمت اضافته في الجامعة.";
+                    title = "الأحداث العامة";
                 }
             } else {
                 if (!isAR) {
                     Log.d("lang_tracker", "here " + isAR + " " + lng);
-                    message = "New event is added in collage.";
-                    title = "BAU Events";
+                    //message = "New event is added in collage.";
+                    title = "Collage Event";
                 } else {
                     Log.d("lang_tracker", "here " + isAR);
-                    message = "حدث جديد تمت اضافته في الكلية.";
-                    title = "أحداث جامعة البلقاء";
+                    //message = "حدث جديد تمت اضافته في الكلية.";
+                    title = "أحداث الكلية";
                 }
             }
         }

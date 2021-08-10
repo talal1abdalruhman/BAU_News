@@ -93,7 +93,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     Animation rotate_froward, rotate_backward, fab_image_open, fab_image_close, fab_url_open, fab_url_close, fab_pdf_open, fab_pdf_close;
     boolean clicked;
     private AlertDialog dialogAddURL;
-    String category;
+    String category, notificationTitle, notificationCategory;
     Validation validation;
     ArrayList<String> usersToken;
     private APIService apiService;
@@ -108,6 +108,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_event);
         category = getIntent().getStringExtra("category");
+        notificationCategory = (category.equals("G"))? "GE" : "CE";
         Log.d("CATEGORY", "Category: " + category);
         validation = new Validation(getResources());
 
@@ -403,6 +404,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     }
 
     public void UploadNewsData() {
+        notificationTitle = binding.txtTitle.getText().toString().trim();
         String currentTime = getCurrentTime();
         String eventTime = getEventDateAndTime();
         mRef = database.getReference("events");
@@ -701,7 +703,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 
     public void sendNotificationForAllUsers() {
         for (String userToken : usersToken) {
-            sendNotifications(userToken, "BAU Events", category);
+            sendNotifications(userToken, notificationCategory, notificationTitle);
         }
     }
 

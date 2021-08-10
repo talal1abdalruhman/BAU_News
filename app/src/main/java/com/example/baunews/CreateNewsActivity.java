@@ -86,7 +86,7 @@ public class CreateNewsActivity extends AppCompatActivity implements View.OnClic
 
     private static final int IMAGE_REQUEST_CODE = 100;
     private static final int FILE_REQUEST_CODE = 101;
-    private String category, collageId;
+    private String category, collageId, notificationTitle, notificationCategory;
     ArrayList<String> usersToken;
 
     Animation rotate_froward,rotate_backward,fab_image_open,fab_image_close,fab_url_open,fab_url_close,fab_pdf_open,fab_pdf_close;
@@ -335,10 +335,13 @@ public class CreateNewsActivity extends AppCompatActivity implements View.OnClic
     }
 
     public void UploadNewsData() {
+        notificationTitle = binding.txtTitle.getText().toString().trim();
         String currentTime = getCurrentTime();
         if (category.equals("general")) {
+            notificationCategory = "GN";
             mRef = database.getReference("news").child("general");
         } else {
+            notificationCategory = "CN";
             mRef = database.getReference("news").child(collageId);
         }
         DatabaseReference newsRef = mRef.push();
@@ -635,7 +638,7 @@ public class CreateNewsActivity extends AppCompatActivity implements View.OnClic
 
     public void sendNotificationForAllUsers(){
         for(String userToken : usersToken){
-            sendNotifications(userToken, "BAU News", category);
+            sendNotifications(userToken, notificationCategory, notificationTitle);
         }
     }
 

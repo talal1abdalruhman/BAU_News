@@ -34,6 +34,11 @@ import com.example.baunews.NotificationPackage.NotificationSender;
 import com.example.baunews.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Locale;
 
@@ -67,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         SetupTheNav();
         ItemSelectListener();
+        isAdmin();
         apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
     }
 
@@ -84,7 +90,9 @@ public class MainActivity extends AppCompatActivity {
         binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navController = Navigation.findNavController(this, R.id.fragment);
-        binding.navigationView.setCheckedItem(R.id.general_news);
+        if(binding.navigationView.getCheckedItem() == null) {
+            binding.navigationView.setCheckedItem(R.id.general_news);
+        }
         binding.toolbar.setTitle(binding.navigationView.getCheckedItem().getTitle());
     }
 
@@ -149,5 +157,28 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void isAdmin() {
+        FirebaseUser currUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = currUser.getUid();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        database.getReference("users").child(userId).child("admin")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String admin = snapshot.getValue(String.class);
+                        if (snapshot.exists()) {
+                            if (!(admin.equals("G") || admin.equals("C"))) {
+                                binding.navigationView.getMenu().findItem(R.id.press_kit_news).setVisible(false);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 }
