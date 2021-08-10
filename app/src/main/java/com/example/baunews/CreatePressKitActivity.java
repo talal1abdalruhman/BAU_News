@@ -329,7 +329,7 @@ public class CreatePressKitActivity extends AppCompatActivity implements View.On
             case R.id.btnSave : {
                 if(!isConnect()
                         | !validation.validateNewsText(binding.txtTitle)
-                        | validation.validateNewsText(binding.txtDescription)
+                        | !validation.validateNewsText(binding.txtDescription)
                         | !validation.validateNewsText(binding.resourceName))
                     return;
                 UploadPressKitData();
