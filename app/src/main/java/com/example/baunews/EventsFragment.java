@@ -38,9 +38,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class EventsFragment extends Fragment {
 
     private FragmentEventsBinding binding;
@@ -59,7 +56,7 @@ public class EventsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        isAdmin();
         eventViewModel = new ViewModelProvider(this).get(EventViewModel.class);
         eventViewModel.init();
         adapter = new EventsAdapter(getContext(), eventViewModel.getData().getValue());
@@ -108,8 +105,34 @@ public class EventsFragment extends Fragment {
         });
 
     }
+
     private int dpToPx(int dp) {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
+    }
+
+    public void isAdmin() {
+        FirebaseUser currUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = currUser.getUid();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        database.getReference("users").child(userId).child("admin")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            String admin = snapshot.getValue(String.class);
+                            if (admin.equals("G") || admin.equals("C")) {
+                                binding.floatingActionButton.show();
+                            } else {
+                                binding.floatingActionButton.hide();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 }
