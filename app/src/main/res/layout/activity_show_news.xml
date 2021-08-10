@@ -423,7 +423,7 @@
             android:clickable="true"
             android:contentDescription="@string/app_name"
             android:focusable="true"
-            app:backgroundTint="@color/mainColor"
+            app:backgroundTint="?attr/FAB_color"
             app:fabCustomSize="@dimen/_40sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

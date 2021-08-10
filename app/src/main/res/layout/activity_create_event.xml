@@ -140,7 +140,7 @@
                                 android:fontFamily="@font/bold"
                                 android:gravity="center"
                                 android:text="@string/event_date"
-                                android:textColor="@color/blackColor"
+                                android:textColor="?attr/text_color_hint"
                                 android:textSize="@dimen/_15ssp" />
 
                             <Button
@@ -150,7 +150,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text=""
-                                android:textColor="@color/black"
+                                android:textColor="?attr/text_color_hint"
                                 android:textSize="@dimen/_12ssp" />
                         </LinearLayout>
 
@@ -179,7 +179,7 @@
                                 android:fontFamily="@font/bold"
                                 android:gravity="center"
                                 android:text="@string/event_time"
-                                android:textColor="@color/blackColor"
+                                android:textColor="?attr/text_color_hint"
                                 android:textSize="@dimen/_15ssp" />
 
                             <Button
@@ -189,7 +189,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text=""
-                                android:textColor="@color/black"
+                                android:textColor="?attr/text_color_hint"
                                 android:textSize="@dimen/_12ssp" />
 
                         </LinearLayout>
@@ -344,7 +344,7 @@
                 android:clickable="true"
                 android:contentDescription="@string/app_name"
                 android:focusable="true"
-                app:backgroundTint="@color/mainColor"
+                app:backgroundTint="?attr/FAB_color"
                 app:fabCustomSize="@dimen/_40sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
