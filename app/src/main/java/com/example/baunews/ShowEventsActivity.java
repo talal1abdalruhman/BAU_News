@@ -378,16 +378,17 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
                             }
                             String dateAndTime = eventsModel.getStart_date();
 
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd h:mm a", Locale.ENGLISH);
+/*                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm a", Locale.ENGLISH);
                             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
                             try {
                                 Date date = dateFormat.parse(dateAndTime);
                                 dateAndTime = sdf.format(date);
                             } catch (ParseException e) {
                                 e.printStackTrace();
-                            }
+                            }*/
                             LocalDateTime dateTime = LocalDateTime.parse(dateAndTime,
-                                    DateTimeFormatter.ofPattern("yyyy/MM/dd h:mm a"));
+                                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+
                             String formattedDate
                                     = dateTime.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));
                             String formattedTime
@@ -885,8 +886,9 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
 
     public long getDifferenceDateTime(String date1, String date2) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         Duration diff = Duration.between(LocalDateTime.parse(date1, formatter),
-                LocalDateTime.parse(date2, formatter));
+                LocalDateTime.parse(date2, formatter2));
         return diff.toMillis();
     }
 

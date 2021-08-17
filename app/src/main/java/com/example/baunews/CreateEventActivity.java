@@ -192,7 +192,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     //--------------------------------------------------------------method to set date format----------
 
     private String getEventDateAndTime() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH);
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+3"));
         Date eventDate = calendar.getTime();
         startEventDateAndTime = simpleDateFormat.format(eventDate);

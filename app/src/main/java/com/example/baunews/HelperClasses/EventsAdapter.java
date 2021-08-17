@@ -89,7 +89,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
         String startEvent = eventsModel.getStart_date();
         holder.date.setText(getDifferenceDateTime(eventsTime, currTime));
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy h:mm a", Locale.ENGLISH);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH);
         try {
             Date date = dateFormat.parse(startEvent);
             startEvent = sdf.format(date);
@@ -149,7 +149,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
     }
 
     public static String getCurrentTime() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH);
         dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+3"));
         Date today = Calendar.getInstance().getTime();
         return dateFormat.format(today);
@@ -157,8 +157,9 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
 
     public String getDifferenceDateTime(String date1, String date2) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         Duration diff = Duration.between(LocalDateTime.parse(date1, formatter),
-                LocalDateTime.parse(date2, formatter));
+                LocalDateTime.parse(date2, formatter2));
 
         String difference;
         if (diff.isZero()) {
@@ -216,7 +217,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
     }
 
     public long getDifferenceDT(String date1, String date2) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         Duration diff = Duration.between(LocalDateTime.parse(date1, formatter),
                 LocalDateTime.parse(date2, formatter));
         return diff.toMillis();
