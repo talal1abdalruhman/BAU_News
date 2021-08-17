@@ -1,7 +1,19 @@
 package com.example.baunews.HelperClasses;
 
+import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +23,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.baunews.MainActivity;
 import com.example.baunews.Models.EventsModel;
 import com.example.baunews.R;
 import com.example.baunews.ShowEventsActivity;
@@ -28,21 +42,24 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
 import java.util.TimeZone;
 
-public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHolder>{
+import static android.content.Intent.FLAG_INCLUDE_STOPPED_PACKAGES;
+
+public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHolder> {
     private static final String TAG = "DATE_TIME";
     private Context context;
     private ArrayList<EventsModel> eventsModelList;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
-        public TextView title,date,startDate;
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView title, date, startDate;
         public ImageView image;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            title=itemView.findViewById(R.id.event_title);
+            title = itemView.findViewById(R.id.event_title);
             date = itemView.findViewById(R.id.event_date);
             image = itemView.findViewById(R.id.event_img);
             startDate = itemView.findViewById(R.id.event_start_date);
@@ -58,7 +75,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.events_card,parent,false);
+                .inflate(R.layout.events_card, parent, false);
         return new EventsAdapter.MyViewHolder(itemView);
     }
 
@@ -79,18 +96,48 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        holder.startDate.setText("Start at: "+startEvent);
+        holder.startDate.setText("Start at: " + startEvent);
         Glide.with(context)
-                .load((eventsModel.getImage().equals("null"))? R.drawable.bau : eventsModel.getImage())
+                .load((eventsModel.getImage().equals("null")) ? R.drawable.bau : eventsModel.getImage())
                 .into(holder.image);
+
+        long diffInMillis = getDifferenceDT(getCurrentTime(), eventsModel.getStart_date());
+
+        CountDownTimer countDownTimer = new CountDownTimer(diffInMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                long d, h, m, s, r;
+                d = millisUntilFinished / 86400000;
+                r = millisUntilFinished % 86400000;
+                h = r / 3600000;
+                r = r % 3600000;
+                m = r / 60000;
+                r = r % 60000;
+                s = r / 1000;
+                String time = "";
+                if (d > 0) time += d + "d ";
+                if (h > 0) time += h + "h ";
+                if (m > 0) time += m + "m ";
+                if (s > 0) time += s + "s";
+                Log.d("TIME_TRACKING", "onTick: " + time);
+                holder.startDate.setText("Start within: " + time);
+            }
+
+            @Override
+            public void onFinish() {
+                Log.d("TIME_TRACKING", "onTick: finished");
+                holder.startDate.setText("Finished");
+            }
+        };
+        countDownTimer.start();
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(context,"You clicked: "+ eventsModel.getTitle(),Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(v.getContext(), ShowEventsActivity.class);
                 intent.putExtra("event_id", eventsModel.getId());
                 intent.putExtra("category", eventsModel.getCategory());
+                intent.putExtra("start_date", eventsModel.getStart_date());
                 v.getContext().startActivity(intent);
             }
         });
@@ -108,7 +155,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
         return dateFormat.format(today);
     }
 
-    public String getDifferenceDateTime(String date1, String date2){
+    public String getDifferenceDateTime(String date1, String date2) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         Duration diff = Duration.between(LocalDateTime.parse(date1, formatter),
                 LocalDateTime.parse(date2, formatter));
@@ -122,22 +169,22 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
             long days = diff.toDays();
             if (days != 0) {
                 Log.d(TAG, "" + days + "d ");
-                if(days < 30) {
-                    if(days == 1) {
+                if (days < 30) {
+                    if (days == 1) {
                         difference = days + " day ago";
                     } else {
                         difference = days + " days ago";
                     }
-                } else if(days >= 30 && days < 365){
-                    if(days < 60) {
+                } else if (days >= 30 && days < 365) {
+                    if (days < 60) {
                         difference = days / 30 + " month ago";
                     } else {
                         difference = days / 30 + " month ago";
                     }
-                }else{
-                    if(days < 730){
+                } else {
+                    if (days < 730) {
                         difference = days / 365 + " year ago";
-                    }else {
+                    } else {
                         difference = days / 365 + " years ago";
                     }
                 }
@@ -166,5 +213,12 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
             }
         }
         return "-1";
+    }
+
+    public long getDifferenceDT(String date1, String date2) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        Duration diff = Duration.between(LocalDateTime.parse(date1, formatter),
+                LocalDateTime.parse(date2, formatter));
+        return diff.toMillis();
     }
 }

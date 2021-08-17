@@ -135,9 +135,14 @@ public class LoginActivity extends AppCompatActivity {
                     if(task.getException() instanceof FirebaseAuthInvalidCredentialsException){
                         binding.password.setError(getString(R.string.incorrect_password));
                         binding.password.requestFocus();
+                        binding.login.animate().scaleX(1).scaleY(1).setDuration(300);
+                        binding.loadingAnim.setVisibility(View.GONE);
+
                     }else if (task.getException() instanceof FirebaseAuthInvalidUserException){
                         binding.email.setError(getString(R.string.email_address_not_register));
                         binding.email.requestFocus();
+                        binding.login.animate().scaleX(1).scaleY(1).setDuration(300);
+                        binding.loadingAnim.setVisibility(View.GONE);
                     }
                 }
             }

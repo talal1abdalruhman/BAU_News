@@ -24,6 +24,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.text.format.DateFormat;
@@ -62,6 +63,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -90,7 +92,7 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
     Calendar calendar;
     int hour = 0, minute = 0, year = 0, month = 0, day = 0;
     String startEventDateAndTime, timeToCheck, dateToCheck;
-
+    CountDownTimer countDownTimer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,6 +142,37 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
         rotate_froward = AnimationUtils.loadAnimation(this, R.anim.rotate_forward);
         rotate_backward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
         clicked = false;
+
+       countDownTimer = new CountDownTimer(
+                getDifferenceDateTime(getCurrentTime(), getIntent().getStringExtra("start_date")),
+                1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                long d, h, m, s, r;
+                d = millisUntilFinished / 86400000;
+                r = millisUntilFinished % 86400000;
+                h = r / 3600000;
+                r = r % 3600000;
+                m = r / 60000;
+                r = r % 60000;
+                s = r / 1000;
+                String time = "";
+                if (d > 0) time += d + "d ";
+                if (h > 0) time += h + "h ";
+                if (m > 0) time += m + "m ";
+                if (s > 0) time += s + "s";
+                Log.d("TIME_TRACKING", "onTick: " + time);
+                binding.txtDateAndTime.setText(getString(R.string.time_remaining)+ " " +time);
+            }
+
+            @Override
+            public void onFinish() {
+                Log.d("TIME_TRACKING", "onTick: finished");
+                binding.txtDateAndTime.setText(getString(R.string.time_remaining)+ " " +getString(R.string.finished));
+            }
+        };
+        countDownTimer.start();
     }
 
 
@@ -345,7 +378,7 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
                             }
                             String dateAndTime = eventsModel.getStart_date();
 
-                            SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy h:mm a", Locale.ENGLISH);
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd h:mm a", Locale.ENGLISH);
                             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
                             try {
                                 Date date = dateFormat.parse(dateAndTime);
@@ -354,7 +387,7 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
                                 e.printStackTrace();
                             }
                             LocalDateTime dateTime = LocalDateTime.parse(dateAndTime,
-                                    DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy h:mm a"));
+                                    DateTimeFormatter.ofPattern("yyyy/MM/dd h:mm a"));
                             String formattedDate
                                     = dateTime.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));
                             String formattedTime
@@ -845,7 +878,22 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
         if (isOnEdit) {
             CancelEdit(new View(ShowEventsActivity.this));
         } else {
+            countDownTimer.cancel();
             super.onBackPressed();
         }
+    }
+
+    public long getDifferenceDateTime(String date1, String date2) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        Duration diff = Duration.between(LocalDateTime.parse(date1, formatter),
+                LocalDateTime.parse(date2, formatter));
+        return diff.toMillis();
+    }
+
+    public static String getCurrentTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+3"));
+        Date today = Calendar.getInstance().getTime();
+        return dateFormat.format(today);
     }
 }

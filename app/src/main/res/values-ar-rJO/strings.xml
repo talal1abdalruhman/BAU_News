@@ -372,5 +372,7 @@
     <string name="share_news">نشر الخبر</string>
     <string name="res_name_string">\n\nالمصدر:  </string>
     <string name="res_link_string">\nرابط المصدر: </string>
+    <string name="time_remaining">الوقت المتبقي لبدء الحدث:</string>
+    <string name="finished">انتهى</string>
 
 </resources>
