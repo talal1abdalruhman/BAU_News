@@ -327,6 +327,7 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
             }
         };
         DatePickerDialog dateDialog = new DatePickerDialog(ShowEventsActivity.this, listener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        dateDialog.getDatePicker().setMinDate( System.currentTimeMillis() - 1000 );
         //dateDialog.getWindow().setBackgroundDrawableResource(R.color.mainColor);
         dateDialog.show();
         isDateEdited = true;

@@ -190,7 +190,6 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     }
 
     //--------------------------------------------------------------method to set date format----------
-
     private String getEventDateAndTime() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH);
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+3"));
@@ -230,6 +229,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             }
         };
         DatePickerDialog dateDialog = new DatePickerDialog(CreateEventActivity.this, listener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        dateDialog.getDatePicker().setMinDate( System.currentTimeMillis() - 1000 );
         //dateDialog.getWindow().setBackgroundDrawableResource(R.color.mainColor);
         dateDialog.show();
     }
