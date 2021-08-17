@@ -75,7 +75,6 @@ public class PressKitAdapter extends RecyclerView.Adapter<PressKitAdapter.MyView
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"You clicked: "+ pressKitModel.getTitle(),Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(v.getContext(), ShowPressKitActivity.class);
                 intent.putExtra("news_id", pressKitModel.getId());
                 v.getContext().startActivity(intent);

@@ -75,7 +75,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder>{
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"You clicked: "+ newsModel.getTitle(),Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(v.getContext(), ShowNewsActivity.class);
                 intent.putExtra("news_id", newsModel.getId());
                 intent.putExtra("category", newsModel.getCategory());
