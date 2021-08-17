@@ -9,9 +9,9 @@
     <string name="register">Register</string>
     <string name="college">Collage News</string>
     <string name="don_t_have_an_account">Don’t have an account?</string>
-    <string name="sing_up">sing up</string>
+    <string name="sing_up">sign up</string>
     <string name="already_have_an_account">already have an account?</string>
-    <string name="sing_in">sing in</string>
+    <string name="sing_in">sign in</string>
     <string name="field_cannot_be_empty">Field can\'t be empty</string>
     <string name="invalid_email_address">Invalid email address</string>
     <string name="password_is_too_weak">Password is too weak</string>
