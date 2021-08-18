@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
@@ -55,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     NavController navController;
     private APIService apiService;
+    SharedPreferences settingsChanged;
+    SharedPreferences.Editor settingsEditor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences screenMode = getSharedPreferences("DARK_MODE_PREFERENCE", Context.MODE_PRIVATE);
@@ -72,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+        settingsChanged = getSharedPreferences("CHANGE_STATE", Context.MODE_PRIVATE);
+        settingsEditor = settingsChanged.edit();
 
         SetupTheNav();
         ItemSelectListener();
@@ -93,7 +100,10 @@ public class MainActivity extends AppCompatActivity {
         binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navController = Navigation.findNavController(this, R.id.fragment);
-        if(binding.navigationView.getCheckedItem() == null) {
+        if (settingsChanged.getBoolean("IS_CHANGED", false)) {
+            binding.navigationView.setCheckedItem(R.id.settings_news);
+            settingsEditor.putBoolean("IS_CHANGED", false).commit();
+        } else {
             binding.navigationView.setCheckedItem(R.id.general_news);
         }
         binding.toolbar.setTitle(binding.navigationView.getCheckedItem().getTitle());
@@ -149,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                     if (response.body().success != 1) {
                         Log.d("notification_tracker", "Field");
-                    }else if(response.body().success == 1) {
+                    } else if (response.body().success == 1) {
                         Log.d("notification_tracker", "Success");
                     }
                 }

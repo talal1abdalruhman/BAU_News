@@ -32,7 +32,7 @@ import java.util.Locale;
 
 public class SettingsFragment extends Fragment {
     private FragmentSettingsBinding binding;
-    SharedPreferences DarkModePreference, langPreference;
+    SharedPreferences DarkModePreference, langPreference, settingsChanged;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,6 +42,9 @@ public class SettingsFragment extends Fragment {
         View view = binding.getRoot();
 
         SetupLangSpinner();
+
+        settingsChanged = getActivity().getSharedPreferences("CHANGE_STATE", Context.MODE_PRIVATE);
+        SharedPreferences.Editor settingsEditor = settingsChanged.edit();
 
 
         DarkModePreference = getActivity().getSharedPreferences("DARK_MODE_PREFERENCE", Context.MODE_PRIVATE);
@@ -55,9 +58,11 @@ public class SettingsFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     editor.putBoolean("DARK_MODE", true).commit();
+                    settingsEditor.putBoolean("IS_CHANGED", true).commit();
                     getActivity().recreate();
                 } else {
                     editor.putBoolean("DARK_MODE", false).commit();
+                    settingsEditor.putBoolean("IS_CHANGED", true).commit();
                     getActivity().recreate();
                 }
             }
@@ -83,6 +88,7 @@ public class SettingsFragment extends Fragment {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            settingsEditor.putBoolean("IS_CHANGED", true).commit();
                             getActivity().recreate();
                             progressDialog.dismiss();
                         }
