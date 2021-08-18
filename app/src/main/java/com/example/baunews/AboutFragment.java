@@ -11,13 +11,13 @@ import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Toast;
 
 import com.example.baunews.databinding.FragmentAboutBinding;
 
@@ -26,7 +26,7 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
 
     Animation text_down,text_up;
     Intent intent;
-    boolean[] isclick ;
+    boolean[] isClick;
     private FragmentAboutBinding binding;
     ActivityOptionsCompat optionsCompat;
 
@@ -49,7 +49,7 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_about, container, false);
         View view = binding.getRoot();
-        isclick = new boolean[]{false, false, false, false};
+        isClick = new boolean[]{false, false, false, false};
         intent = new Intent(getActivity(), ShowCollegesActivity.class);
         // Inflate the layout for this fragment
         return view;
@@ -108,11 +108,16 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
             txt.setLayoutParams(params);
         } else {
             rotateDown(arrow);
-            text_up.setDuration(0);
-            txt.setVisibility(View.INVISIBLE);
             layout.setBackground(getActivity().getDrawable(R.drawable.item_background));
-            params.height = 0;
-            txt.setLayoutParams(params);
+            txt.startAnimation(text_up);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    params.height = 0;
+                    txt.setLayoutParams(params);
+                }
+            },500);
+            txt.setVisibility(View.INVISIBLE);
         }
     }
     //------------------------------------------------------------------------mathod--------------
@@ -130,20 +135,20 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             //--------------------------------------------------------------layouts onclick--------
             case R.id.about_bau:
-                showOrHideText(isclick[0],binding.aboutBauArrow,binding.aboutBau,binding.aboutBauTxt);
-                isclick[0]=!isclick[0];
+                showOrHideText(isClick[0],binding.aboutBauArrow,binding.aboutBau,binding.aboutBauTxt);
+                isClick[0]=!isClick[0];
                 break;
             case R.id.royal_letter:
-                showOrHideText(isclick[1],binding.royalArrow,binding.royalLetter,binding.txtRoyalLetter);
-                isclick[1] = !isclick[1];
+                showOrHideText(isClick[1],binding.royalArrow,binding.royalLetter,binding.txtRoyalLetter);
+                isClick[1] = !isClick[1];
                 break;
             case R.id.prepresident_letter:
-                showOrHideText(isclick[2],binding.prepresidentArrow,binding.prepresidentLetter,binding.txtPrepresidentLetter);
-                isclick[2] = !isclick[2];
+                showOrHideText(isClick[2],binding.prepresidentArrow,binding.prepresidentLetter,binding.txtPrepresidentLetter);
+                isClick[2] = !isClick[2];
                 break;
             case R.id.vision:
-                showOrHideText(isclick[3],binding.visionArrow,binding.vision,binding.txtVision);
-                isclick[3] = !isclick[3];
+                showOrHideText(isClick[3],binding.visionArrow,binding.vision,binding.txtVision);
+                isClick[3] = !isClick[3];
                 break;
 
             //--------------------------------------------------------------cards onClick----------
