@@ -30,6 +30,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.installations.FirebaseInstallations;
 import com.google.firebase.installations.InstallationTokenResult;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -126,6 +127,7 @@ public class LoginActivity extends AppCompatActivity {
                     });
 
                     if (emailVerified) {
+                        UpdateToken();
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     } else {
                         dialog.show();
@@ -172,5 +174,12 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private void UpdateToken(){
+        String refreshToken= FirebaseInstanceId.getInstance().getToken();
+        FirebaseDatabase.getInstance().getReference("users")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("device_token").setValue(refreshToken);
+        Log.d("TOKEN_UPDATE", "UpdateToken: TRUE");
     }
 }

@@ -43,6 +43,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.Locale;
 
@@ -114,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.logout) {
+                    clearToken();
                     FirebaseAuth.getInstance().signOut();
                     binding.drawerLayout.closeDrawers();
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
@@ -193,5 +195,11 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+    }
+
+    private void clearToken(){
+        FirebaseDatabase.getInstance().getReference("users")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("device_token").setValue("");
+        Log.d("TOKEN_UPDATE", "UpdateToken: TRUE");
     }
 }
