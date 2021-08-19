@@ -589,6 +589,7 @@ public class CreateNewsActivity extends AppCompatActivity implements View.OnClic
 
     public void getAllUser() {
         usersToken = new ArrayList<>();
+        usersToken.clear();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         if (category.equals("general")) {
