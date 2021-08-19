@@ -129,6 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (emailVerified) {
                         UpdateToken();
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        finish();
                     } else {
                         dialog.show();
                     }
