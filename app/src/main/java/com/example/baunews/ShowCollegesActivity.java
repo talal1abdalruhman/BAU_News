@@ -3,24 +3,39 @@ package com.example.baunews;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Layout;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.example.baunews.databinding.ActivityShowCollegesBinding;
 
+import java.util.Locale;
+
 public class ShowCollegesActivity extends AppCompatActivity {
 
     ActivityShowCollegesBinding binding;
 
+    @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_show_colleges);
         binding.txt.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD);
+
+        SharedPreferences langPreference = getSharedPreferences("LANGUAGE_PREFERENCE", Context.MODE_PRIVATE);
+        String currLng = langPreference.getString("language", null);
+        if(currLng != null){
+            setAppLocale(currLng);
+        }
 
         Intent intent=getIntent();
         Bundle b=intent.getExtras();
@@ -78,6 +93,16 @@ public class ShowCollegesActivity extends AppCompatActivity {
                 binding.imageCollege.setImageResource(R.drawable.law_college);
                 binding.txt.setText(R.string.Law_Collage_description);
         }
+
+    }
+
+    public void setAppLocale(String language) {
+        Resources resources = getBaseContext().getResources();
+        Configuration configuration = resources.getConfiguration();
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        configuration.locale = new Locale(language);
+        configuration.setLayoutDirection(new Locale(language));
+        resources.updateConfiguration(configuration, displayMetrics);
 
     }
 }
