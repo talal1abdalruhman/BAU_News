@@ -1,6 +1,8 @@
 package com.example.baunews;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 
 import android.annotation.SuppressLint;
@@ -11,12 +13,15 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Layout;
+import android.util.Pair;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.example.baunews.databinding.ActivityShowCollegesBinding;
+import com.example.baunews.databinding.FragmentAboutBinding;
 
 import java.util.Locale;
 
@@ -41,58 +46,50 @@ public class ShowCollegesActivity extends AppCompatActivity {
         Bundle b=intent.getExtras();
 
         int x=b.getInt("college");
+        GetResult(x);
 
+        OnBackBtnClicked(binding.imageCollege);
+    }
+
+    private void GetResult(int x) {
         switch (x){
             case 1 :
-                binding.collapsing.setTitle(getString(R.string.engineering));
-                binding.imageCollege.setImageResource(R.drawable.engineering);
-                binding.txt.setText(R.string.engineering_description);
+                GetInfoToShow(R.string.engineering,R.drawable.engineering,R.string.engineering_description);
                 break;
             case 2:
-                binding.collapsing.setTitle(getString(R.string.medicine));
-                binding.imageCollege.setImageResource(R.drawable.medicine);
-                binding.txt.setText(R.string.midicine_descripton);
+                GetInfoToShow(R.string.medicine,R.drawable.medicine,R.string.midicine_descripton);
                 break;
             case 3:
-                binding.collapsing.setTitle(getString(R.string.it));
-                binding.imageCollege.setImageResource(R.drawable.it);
-                binding.txt.setText(R.string.it_descripton);
+                GetInfoToShow(R.string.it,R.drawable.it,R.string.it_descripton);
                 break;
             case 4:
-                binding.collapsing.setTitle(getString(R.string.science));
-                binding.imageCollege.setImageResource(R.drawable.science);
-                binding.txt.setText(R.string.Science_descripton);
+                GetInfoToShow(R.string.science,R.drawable.science,R.string.Science_descripton);
                 break;
             case 5:
-                binding.collapsing.setTitle(getString(R.string.agricultural));
-                binding.imageCollege.setImageResource(R.drawable.agricultural);
-                binding.txt.setText(R.string.Agricultural_descripton);
+                GetInfoToShow(R.string.agricultural,R.drawable.agricultural,R.string.Agricultural_descripton);
                 break;
             case 6:
-                binding.collapsing.setTitle(getString(R.string.business));
-                binding.imageCollege.setImageResource(R.drawable.business);
-                binding.txt.setText(R.string.Business_description);
+                GetInfoToShow(R.string.business,R.drawable.business,R.string.Business_description);
                 break;
             case 7:
-                binding.collapsing.setTitle(getString(R.string.human_sciences));
-                binding.imageCollege.setImageResource(R.drawable.human_sciences);
-                binding.txt.setText(R.string.Human_Sciences_description);
+                GetInfoToShow(R.string.human_sciences,R.drawable.human_sciences,R.string.Human_Sciences_description);
                 break;
             case 8:
-                binding.collapsing.setTitle(getString(R.string.technical_collage));
-                binding.imageCollege.setImageResource(R.drawable.technical_collage);
-                binding.txt.setText(R.string.Technical_Collage_description);
+                GetInfoToShow(R.string.technical_collage,R.drawable.technical_collage,R.string.Technical_Collage_description);
                 break;
             case 9:
-                binding.collapsing.setTitle(getString(R.string.artifical_intelligence));
-                binding.imageCollege.setImageResource(R.drawable.artifical_intelligence);
-                binding.txt.setText(R.string.Artifical_Intelligence_description);
+                GetInfoToShow(R.string.artifical_intelligence,R.drawable.artifical_intelligence,R.string.Artifical_Intelligence_description);
                 break;
             case 10:
-                binding.collapsing.setTitle(getString(R.string.law_collage));
-                binding.imageCollege.setImageResource(R.drawable.law_college);
-                binding.txt.setText(R.string.Law_Collage_description);
+                GetInfoToShow(R.string.law_collage,R.drawable.law_college,R.string.Law_Collage_description);
         }
+    }
+
+    private void GetInfoToShow(int title, int img ,int description){
+        binding.collapsing.setTitle(getString(title));
+        binding.imageCollege.setImageResource(img);
+        binding.txt.setText(description);
+    }
 
     }
 
@@ -104,5 +101,15 @@ public class ShowCollegesActivity extends AppCompatActivity {
         configuration.setLayoutDirection(new Locale(language));
         resources.updateConfiguration(configuration, displayMetrics);
 
+    private void OnBackBtnClicked(ImageView img) {
+        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent back =new Intent(ShowCollegesActivity.this,MainActivity.class);
+                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(ShowCollegesActivity.this, img ,ViewCompat.getTransitionName(img));
+                startActivity(back,compat.toBundle());
+                finish();
+            }
+        });
     }
 }
