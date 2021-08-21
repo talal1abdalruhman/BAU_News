@@ -1,6 +1,7 @@
 package com.example.baunews;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -9,12 +10,14 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.util.Pair;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -200,9 +203,28 @@ public class RegisterActivity extends AppCompatActivity {
         NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
 
         if(netInfo == null || !netInfo.isConnected() || !netInfo.isAvailable()){
-            Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_LONG).show();
+            ShowConnectionDialog();
             return false;
         }
         return true;
+    }
+
+    public void ShowConnectionDialog(){
+        AlertDialog dialog;
+        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+        View view = LayoutInflater.from(this).inflate(
+                R.layout.no_connection_dialog,
+                findViewById(R.id.container));
+        builder.setView(view);
+        dialog = builder.create();
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        }
+        view.findViewById(R.id.txt_close).setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+
+        dialog.show();
     }
 }

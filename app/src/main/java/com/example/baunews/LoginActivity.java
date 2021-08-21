@@ -1,6 +1,7 @@
 package com.example.baunews;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -8,11 +9,13 @@ import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -87,17 +90,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void LoginUser(View view) {
-        if(!isConnect()) return;
-        binding.login.animate().scaleX(0).scaleY(0).setDuration(300);
-        binding.loadingAnim.setVisibility(View.VISIBLE);
         binding.email.setError(null);
         binding.email.setErrorEnabled(false);
         binding.password.setError(null);
         binding.password.setErrorEnabled(false);
         String loginEmail = binding.email.getEditText().getText().toString();
         String loginPassword = binding.password.getEditText().getText().toString();
-
+        if(!isConnect()) return;
         if(!validation.validateLoginEmail(binding.email) | !validation.validateLoginPassword(binding.password)) return;
+
+        binding.login.animate().scaleX(0).scaleY(0).setDuration(300);
+        binding.loadingAnim.setVisibility(View.VISIBLE);
 
         mAuth.signInWithEmailAndPassword(loginEmail, loginPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -158,7 +161,7 @@ public class LoginActivity extends AppCompatActivity {
         NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
 
         if(netInfo == null || !netInfo.isConnected() || !netInfo.isAvailable()){
-            Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_LONG).show();
+            ShowConnectionDialog();
             return false;
         }
         return true;
@@ -182,5 +185,24 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference("users")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("device_token").setValue(refreshToken);
         Log.d("TOKEN_UPDATE", "UpdateToken: TRUE");
+    }
+
+    public void ShowConnectionDialog(){
+        AlertDialog dialog;
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+        View view = LayoutInflater.from(this).inflate(
+                R.layout.no_connection_dialog,
+                findViewById(R.id.container));
+        builder.setView(view);
+        dialog = builder.create();
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        }
+        view.findViewById(R.id.txt_close).setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+
+        dialog.show();
     }
 }

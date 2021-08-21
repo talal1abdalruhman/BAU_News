@@ -374,5 +374,7 @@
     <string name="res_link_string">\nرابط المصدر: </string>
     <string name="time_remaining">الوقت المتبقي لبدء الحدث:</string>
     <string name="finished">انتهى</string>
+    <string name="no_internet_connection">لا يوجد اتصال بالانترنت!</string>
+    <string name="close">اغلاق</string>
 
 </resources>

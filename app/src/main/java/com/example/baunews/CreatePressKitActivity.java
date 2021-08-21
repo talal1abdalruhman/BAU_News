@@ -610,7 +610,7 @@ public class CreatePressKitActivity extends AppCompatActivity implements View.On
         NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
 
         if (netInfo == null || !netInfo.isConnected() || !netInfo.isAvailable()) {
-            Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_LONG).show();
+            ShowConnectionDialog();
             return false;
         }
         return true;
@@ -655,4 +655,25 @@ public class CreatePressKitActivity extends AppCompatActivity implements View.On
         //imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
         imm.hideSoftInputFromWindow(v.getWindowToken(),0);
     }
+
+
+    public void ShowConnectionDialog(){
+        AlertDialog dialog;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = LayoutInflater.from(this).inflate(
+                R.layout.no_connection_dialog,
+                findViewById(R.id.container));
+        builder.setView(view);
+        dialog = builder.create();
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        }
+        view.findViewById(R.id.txt_close).setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+
+        dialog.show();
+    }
+
 }

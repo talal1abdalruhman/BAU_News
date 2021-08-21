@@ -7,13 +7,13 @@
     android:layout_gravity="center"
     android:id="@+id/layout_share_container"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="?attr/dialog_bg">
+    android:background="@drawable/no_connection_bg">
     <ImageView
         android:id="@+id/share_img"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
+        android:layout_margin="@dimen/_15sdp"
         android:src="@drawable/ic_share"
-        android:layout_marginTop="@dimen/_5sdp"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/white" />
     <TextView
@@ -36,6 +36,7 @@
         android:layout_marginRight="@dimen/_10sdp"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_5sdp"
+        android:textAlignment="viewStart"
         app:layout_constraintTop_toBottomOf="@id/txt"
         android:entries="@array/share_names"/>
 

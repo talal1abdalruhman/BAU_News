@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/dialog">
+    android:background="@drawable/no_connection_bg">
 
 
     <ImageView
@@ -27,6 +27,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:gravity="start"
+        android:fontFamily="@font/regular"
+        android:textAlignment="viewStart"
         android:text="@string/verify_dialog_msg"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
@@ -44,6 +46,8 @@
         android:onClick="SendVerification"
         android:text="@string/send_verification_link"
         android:textAllCaps="false"
+        android:fontFamily="@font/regular"
+        android:textSize="@dimen/_10sdp"
         android:textColor="@color/black"
         app:cornerRadius="16dp"
         app:layout_constraintEnd_toEndOf="parent"
