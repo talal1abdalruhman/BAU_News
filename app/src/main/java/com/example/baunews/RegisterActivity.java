@@ -10,11 +10,14 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -36,6 +39,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Locale;
+
 
 public class RegisterActivity extends AppCompatActivity {
     private static final String AUTH_COMPLETE = "AUTH_COMPLETE";
@@ -53,6 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_register);
         getWindow().setExitTransition(null);
         getWindow().setEnterTransition(null);
+
 
         langPref = getSharedPreferences("LANGUAGE_PREFERENCE", Context.MODE_PRIVATE);
         if(langPref.getString("language", "").equals("ar")) {

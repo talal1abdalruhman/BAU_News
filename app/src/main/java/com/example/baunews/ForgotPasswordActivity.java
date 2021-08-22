@@ -9,11 +9,14 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +29,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 
+import java.util.Locale;
+
 public class ForgotPasswordActivity extends AppCompatActivity {
     ActivityForgotPasswordBinding binding;
     Validation validation;
@@ -37,6 +42,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         validation = new Validation(getResources());
         mAuth = FirebaseAuth.getInstance();
 
+        setAppLocale();
         SharedPreferences langPref = getSharedPreferences("LANGUAGE_PREFERENCE", Context.MODE_PRIVATE);
         if(langPref.getString("language", "").equals("ar")) {
             binding.backBtn.setRotationY(180);
@@ -114,5 +120,17 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    public void setAppLocale() {
+        SharedPreferences langPreference = getSharedPreferences("LANGUAGE_PREFERENCE", Context.MODE_PRIVATE);
+        String language = langPreference.getString("language", "en");
+
+        Resources resources = getResources();
+        Configuration configuration = resources.getConfiguration();
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        configuration.locale = new Locale(language);
+        configuration.setLayoutDirection(new Locale(language));
+        resources.updateConfiguration(configuration, displayMetrics);
     }
 }

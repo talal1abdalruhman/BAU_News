@@ -14,8 +14,11 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
@@ -25,6 +28,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.text.method.LinkMovementMethod;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -54,6 +58,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.util.Locale;
 
 public class ShowNewsActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int IMAGE_REQUEST_CODE = 100;
@@ -78,6 +83,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         getWindow().setExitTransition(null);
         getWindow().setEnterTransition(null);
+        setAppLocale();
         initialization();
     }
 
@@ -821,5 +827,16 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
         } else {
             super.onBackPressed();
         }
+    }
+    public void setAppLocale() {
+        SharedPreferences langPreference = getSharedPreferences("LANGUAGE_PREFERENCE", Context.MODE_PRIVATE);
+        String language = langPreference.getString("language", "en");
+
+        Resources resources = getResources();
+        Configuration configuration = resources.getConfiguration();
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        configuration.locale = new Locale(language);
+        configuration.setLayoutDirection(new Locale(language));
+        resources.updateConfiguration(configuration, displayMetrics);
     }
 }

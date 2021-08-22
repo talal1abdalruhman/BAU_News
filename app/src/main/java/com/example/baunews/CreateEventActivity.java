@@ -16,8 +16,11 @@ import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
@@ -28,6 +31,7 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.text.format.DateFormat;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -101,6 +105,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setAppLocale();
         initialization();
     }
     //-----------------------------------------------------------------------initialization--------
@@ -764,6 +769,18 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         });
 
         dialog.show();
+    }
+
+    public void setAppLocale() {
+        SharedPreferences langPreference = getSharedPreferences("LANGUAGE_PREFERENCE", Context.MODE_PRIVATE);
+        String language = langPreference.getString("language", "en");
+
+        Resources resources = getResources();
+        Configuration configuration = resources.getConfiguration();
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        configuration.locale = new Locale(language);
+        configuration.setLayoutDirection(new Locale(language));
+        resources.updateConfiguration(configuration, displayMetrics);
     }
 
 }
