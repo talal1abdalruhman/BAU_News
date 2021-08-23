@@ -294,10 +294,9 @@ public class ShowEventsActivity extends AppCompatActivity implements View.OnClic
 
     private String getEventDateAndTime() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH);
-        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+3"));
         Date eventDate = calendar.getTime();
         startEventDateAndTime = simpleDateFormat.format(eventDate);
-        //Toast.makeText(CreateEventActivity.this,startEventDateAndTime,Toast.LENGTH_LONG).show();
+        Log.d("TIME_TRACING", "getEventDateAndTime: " + startEventDateAndTime);
         return startEventDateAndTime;
     }
 

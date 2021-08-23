@@ -257,8 +257,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
             }
             long seconds = diff.getSeconds();
             if (seconds != 0) {
-                Log.d(TAG, "" + (seconds+22) + "s ");
-                difference = seconds + "s ago";
+                Log.d(TAG, "" + seconds + "s ");
+                difference = "Just Now";
                 return difference;
             }
         }
