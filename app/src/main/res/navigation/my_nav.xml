@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_general_news_to_pressKitFragment"
             app:destination="@id/press_kit_news" />
+        <action
+            android:id="@+id/action_general_news_to_admins_management"
+            app:destination="@id/admins_management" />
     </fragment>
     <fragment
         android:id="@+id/college_news"
@@ -43,6 +46,9 @@
         <action
             android:id="@+id/action_college_news_to_pressKitFragment"
             app:destination="@id/press_kit_news" />
+        <action
+            android:id="@+id/action_college_news_to_admins_management"
+            app:destination="@id/admins_management" />
     </fragment>
     <fragment
         android:id="@+id/settings_news"
@@ -64,6 +70,9 @@
         <action
             android:id="@+id/action_settings_news_to_pressKitFragment"
             app:destination="@id/press_kit_news" />
+        <action
+            android:id="@+id/action_settings_news_to_admins_management"
+            app:destination="@id/admins_management" />
     </fragment>
     <fragment
         android:id="@+id/about_news"
@@ -82,6 +91,9 @@
         <action
             android:id="@+id/action_about_news_to_pressKitFragment"
             app:destination="@id/press_kit_news" />
+        <action
+            android:id="@+id/action_about_news_to_admins_management"
+            app:destination="@id/admins_management" />
     </fragment>
     <fragment
         android:id="@+id/events_news"
@@ -103,6 +115,9 @@
         <action
             android:id="@+id/action_events_news_to_pressKitFragment"
             app:destination="@id/press_kit_news" />
+        <action
+            android:id="@+id/action_events_news_to_admins_management"
+            app:destination="@id/admins_management" />
     </fragment>
     <fragment
         android:id="@+id/press_kit_news"
@@ -124,5 +139,31 @@
         <action
             android:id="@+id/action_pressKitFragment_to_settings_news"
             app:destination="@id/settings_news" />
+        <action
+            android:id="@+id/action_press_kit_news_to_admins_management"
+            app:destination="@id/admins_management" />
+    </fragment>
+    <fragment
+        android:id="@+id/admins_management"
+        android:name="com.example.baunews.AdminsManagementFragment"
+        android:label="AdminsManagementFragment" >
+        <action
+            android:id="@+id/action_admins_management_to_general_news"
+            app:destination="@id/general_news" />
+        <action
+            android:id="@+id/action_admins_management_to_settings_news"
+            app:destination="@id/settings_news" />
+        <action
+            android:id="@+id/action_admins_management_to_press_kit_news"
+            app:destination="@id/press_kit_news" />
+        <action
+            android:id="@+id/action_admins_management_to_college_news"
+            app:destination="@id/college_news" />
+        <action
+            android:id="@+id/action_admins_management_to_events_news"
+            app:destination="@id/events_news" />
+        <action
+            android:id="@+id/action_admins_management_to_about_news"
+            app:destination="@id/about_news" />
     </fragment>
 </navigation>

@@ -27,6 +27,11 @@
     </item>
     <group android:checkableBehavior="single">
         <item
+            android:title="@string/admins_management"
+            android:id="@+id/admins_management"
+            android:checkable="true"
+            android:icon="@drawable/ic_admin_manage"/>
+        <item
             android:title="@string/bau_about"
             android:id="@+id/about_news"
             android:checkable="true"

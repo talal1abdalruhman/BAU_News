@@ -52,9 +52,16 @@ public class EventsRepo {
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                                             if (snapshot.exists()) {
                                                 eventsModels.clear();
-                                                for (DataSnapshot eventSnapshot : snapshot.getChildren()) {
-                                                    String eventCategory = eventSnapshot.child("category").getValue(String.class);
-                                                    if (eventCategory.equals("G") || eventCategory.equals(collageId)) {
+                                                if (!collageId.equals("-1")) {
+                                                    for (DataSnapshot eventSnapshot : snapshot.getChildren()) {
+                                                        String eventCategory = eventSnapshot.child("category").getValue(String.class);
+                                                        if (eventCategory.equals("G") || eventCategory.equals(collageId)) {
+                                                            eventsModels.add(0, eventSnapshot.getValue(EventsModel.class));
+                                                        }
+                                                    }
+                                                } else {
+                                                    for (DataSnapshot eventSnapshot : snapshot.getChildren()) {
+                                                        String eventCategory = eventSnapshot.child("category").getValue(String.class);
                                                         eventsModels.add(0, eventSnapshot.getValue(EventsModel.class));
                                                     }
                                                 }

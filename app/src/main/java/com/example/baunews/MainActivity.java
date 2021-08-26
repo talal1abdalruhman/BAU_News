@@ -186,6 +186,9 @@ public class MainActivity extends AppCompatActivity {
                         if (snapshot.exists()) {
                             if (!(admin.equals("G") || admin.equals("C"))) {
                                 binding.navigationView.getMenu().findItem(R.id.press_kit_news).setVisible(false);
+                                binding.navigationView.getMenu().findItem(R.id.admins_management).setVisible(false);
+                            } else if (!admin.equals("G")) {
+                                binding.navigationView.getMenu().findItem(R.id.admins_management).setVisible(false);
                             }
                         }
                     }
@@ -197,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    private void clearToken(){
+    private void clearToken() {
         FirebaseDatabase.getInstance().getReference("users")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("device_token").setValue("");
         Log.d("TOKEN_UPDATE", "UpdateToken: TRUE");

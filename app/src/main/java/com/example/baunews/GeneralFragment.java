@@ -72,7 +72,7 @@ public class GeneralFragment extends Fragment {
 
         newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
         newsViewModel.init();
-        adapter = new NewsAdapter(getContext(), newsViewModel.getData().getValue());
+        adapter = new NewsAdapter(getContext(), newsViewModel.getData().getValue(), "N");
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
         binding.recyclerView.setLayoutManager(layoutManager);
@@ -85,7 +85,7 @@ public class GeneralFragment extends Fragment {
             @Override
             public void onChanged(ArrayList<NewsModel> newsModels) {
                 Log.d("DataTracing", "GeneralFragment: ");
-                adapter = new NewsAdapter(getContext(), newsModels);
+                adapter = new NewsAdapter(getContext(), newsModels, "N");
                 binding.recyclerView.setAdapter(adapter);
 
             }

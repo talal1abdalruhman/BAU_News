@@ -8,5 +8,6 @@
         <attr name="FAB_color" format="color"/>
         <attr name="dialog_bg" format="color"/>
         <attr name="item_background" format="color"/>
+        <attr name="btn_txt_color" format="color"/>
     </declare-styleable>
 </resources>

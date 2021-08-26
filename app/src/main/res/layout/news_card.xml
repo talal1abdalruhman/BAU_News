@@ -49,6 +49,20 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"/>
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/news_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_alignLeft="@id/news_img"
+                android:paddingStart="@dimen/_4sdp"
+                android:paddingEnd="@dimen/_4sdp"
+                android:background="@drawable/time_bg"
+                android:fontFamily="@font/medium"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_8ssp"/>
+
         </RelativeLayout>
 
         <View

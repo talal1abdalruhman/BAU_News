@@ -291,6 +291,17 @@ The introduction of the Faculty of Law to the BAU family in 2019 comes in respon
     <string name="finished">finished</string>
     <string name="no_internet_connection">No Internet Connection!</string>
     <string name="close">Close</string>
+    <string name="admins_management">Admins Management</string>
+    <string name="add_admin">Add Admin</string>
+    <string name="manage_admins">Manage Admins</string>
+    <string name="admin_email">Email</string>
+    <string name="choose">Choose..</string>
+    <string name="gene">General</string>
+    <string name="send_via_email">Send Via Email</string>
+    <string name="admin_password">Password: </string>
+    <string name="admin_category">Category: </string>
+    <string name="email_already_used">Email already used</string>
+    <string name="send_via_sms">Send Via SMS</string>
     <string-array name="colleges_names">
         <item>Medicine</item>
         <item>Engineering</item>

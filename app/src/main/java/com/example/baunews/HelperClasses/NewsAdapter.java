@@ -18,6 +18,12 @@ import com.bumptech.glide.Glide;
 import com.example.baunews.Models.NewsModel;
 import com.example.baunews.R;
 import com.example.baunews.ShowNewsActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -29,34 +35,41 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder>{
+public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> {
     private static final String TAG = "DATE_TIME";
     private Context context;
     private ArrayList<NewsModel> newsModelList;
+    private String[] collages;
+    String admin="N";
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
-        public TextView title,date,description;
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView title, date, category;
         public ImageView image;
+
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            title=itemView.findViewById(R.id.news_title);
+            title = itemView.findViewById(R.id.news_title);
             date = itemView.findViewById(R.id.news_date);
             image = itemView.findViewById(R.id.news_img);
+            category = itemView.findViewById(R.id.news_category);
         }
     }
 
-    public NewsAdapter(Context context, ArrayList<NewsModel> newsModelList) {
+    public NewsAdapter(Context context, ArrayList<NewsModel> newsModelList, String admin) {
         this.context = context;
         this.newsModelList = newsModelList;
+        this.admin = admin;
+        collages = context.getResources().getStringArray(R.array.colleges_names);
     }
+
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.news_card,parent,false);
+                .inflate(R.layout.news_card, parent, false);
         return new MyViewHolder(itemView);
     }
 
@@ -69,8 +82,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder>{
         String newsTime = newsModel.getDate();
         holder.date.setText(getDifferenceDateTime(newsTime, currTime));
         Glide.with(context)
-                .load((newsModel.getImage().equals("null"))? R.drawable.bau : newsModel.getImage())
+                .load((newsModel.getImage().equals("null")) ? R.drawable.bau : newsModel.getImage())
                 .into(holder.image);
+
+        if(admin.equals("G") && !newsModel.getCategory().equals("general")){
+            int id = Integer.parseInt(newsModel.getCategory());
+            holder.category.setText(collages[id]);
+        }else {
+            holder.category.setVisibility(View.GONE);
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +115,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder>{
         return dateFormat.format(today);
     }
 
-    public String getDifferenceDateTime(String date1, String date2){
+    public String getDifferenceDateTime(String date1, String date2) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         Duration diff = Duration.between(LocalDateTime.parse(date1, formatter),
                 LocalDateTime.parse(date2, formatter));
@@ -109,22 +129,22 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder>{
             long days = diff.toDays();
             if (days != 0) {
                 Log.d(TAG, "" + days + "d ");
-                if(days < 30) {
-                    if(days == 1) {
+                if (days < 30) {
+                    if (days == 1) {
                         difference = days + " day ago";
                     } else {
                         difference = days + " days ago";
                     }
-                } else if(days >= 30 && days < 365){
-                    if(days < 60) {
+                } else if (days >= 30 && days < 365) {
+                    if (days < 60) {
                         difference = days / 30 + " month ago";
                     } else {
                         difference = days / 30 + " month ago";
                     }
-                }else{
-                    if(days < 730){
+                } else {
+                    if (days < 730) {
                         difference = days / 365 + " year ago";
-                    }else {
+                    } else {
                         difference = days / 365 + " years ago";
                     }
                 }

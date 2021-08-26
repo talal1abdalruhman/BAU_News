@@ -44,13 +44,16 @@ public class NewsRepo {
     private void RetrieveAllData() {
         Log.d(TAG, "before RetrieveAllData: " + newsModels.size());
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        database.getReference("news").child("general").orderByChild("date").addValueEventListener(new ValueEventListener() {
+        database.getReference("news").orderByChild("date").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     newsModels.clear();
                     for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                        newsModels.add(0, postSnapshot.getValue(NewsModel.class));
+                        String category = postSnapshot.child("category").getValue(String.class);
+                        if (category.equals("general")) {
+                            newsModels.add(0, postSnapshot.getValue(NewsModel.class));
+                        }
                     }
                     newsModel.setValue(newsModels);
                     Log.d(TAG, "after RetrieveAllData: " + newsModels.size());
@@ -83,24 +86,51 @@ public class NewsRepo {
                         if (snapshot.exists()) {
                             String collageId = snapshot.getValue(String.class);
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            database.getReference("news").child(collageId).orderByChild("date").addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.exists()) {
-                                        newsModels2.clear();
-                                        for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                                            newsModels2.add(0, postSnapshot.getValue(NewsModel.class));
+                            if (!collageId.equals("-1")) {
+                                database.getReference("news").orderByChild("date").addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists()) {
+                                            newsModels2.clear();
+                                            for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                                                String category = postSnapshot.child("category").getValue(String.class);
+                                                if (collageId.equals(category)) {
+                                                    newsModels2.add(0, postSnapshot.getValue(NewsModel.class));
+                                                }
+                                            }
+                                            newsModel2.setValue(newsModels2);
+                                            Log.d(TAG, "after RetrieveAllData: " + newsModels2.size());
                                         }
-                                        newsModel2.setValue(newsModels2);
-                                        Log.d(TAG, "after RetrieveAllData: " + newsModels2.size());
                                     }
-                                }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
 
-                                }
-                            });
+                                    }
+                                });
+                            } else {
+                                database.getReference("news").orderByChild("date").addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists()) {
+                                            newsModels2.clear();
+                                            for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                                                String category = postSnapshot.child("category").getValue(String.class);
+                                                if (!category.equals("general")) {
+                                                    newsModels2.add(0, postSnapshot.getValue(NewsModel.class));
+                                                }
+                                            }
+                                            newsModel2.setValue(newsModels2);
+                                            Log.d(TAG, "after RetrieveAllData: " + newsModels2.size());
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                            }
                         }
                     }
 

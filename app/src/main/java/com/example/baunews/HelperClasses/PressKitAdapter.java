@@ -35,7 +35,7 @@ public class PressKitAdapter extends RecyclerView.Adapter<PressKitAdapter.MyView
     private ArrayList<PressKitModel> kitModelList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        public TextView title,date;
+        public TextView title, date, category;
         public ImageView image;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -44,6 +44,7 @@ public class PressKitAdapter extends RecyclerView.Adapter<PressKitAdapter.MyView
             title=itemView.findViewById(R.id.news_title);
             date = itemView.findViewById(R.id.news_date);
             image = itemView.findViewById(R.id.news_img);
+            category = itemView.findViewById(R.id.news_category);
         }
     }
 
@@ -71,7 +72,7 @@ public class PressKitAdapter extends RecyclerView.Adapter<PressKitAdapter.MyView
         Glide.with(context)
                 .load((pressKitModel.getImage().equals("null"))? R.drawable.bau : pressKitModel.getImage())
                 .into(holder.image);
-
+        holder.category.setVisibility(View.GONE);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -344,11 +344,11 @@ public class CreateNewsActivity extends AppCompatActivity implements View.OnClic
         String currentTime = getCurrentTime();
         if (category.equals("general")) {
             notificationCategory = "GN";
-            mRef = database.getReference("news").child("general");
         } else {
             notificationCategory = "CN";
-            mRef = database.getReference("news").child(collageId);
         }
+        mRef = database.getReference("news");
+
         DatabaseReference newsRef = mRef.push();
         String newsId = newsRef.getKey();
         mStorageRef = FirebaseStorage.getInstance().getReference();

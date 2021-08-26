@@ -59,9 +59,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
     private Context context;
     private ArrayList<EventsModel> eventsModelList;
     SharedPreferences lang, eventNS;
+    String[] collages;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, date, startDate;
+        public TextView title, date, startDate, category;
         public ImageView image;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -71,6 +72,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
             date = itemView.findViewById(R.id.event_date);
             image = itemView.findViewById(R.id.event_img);
             startDate = itemView.findViewById(R.id.event_start_date);
+            category = itemView.findViewById(R.id.event_category);
         }
     }
 
@@ -79,6 +81,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
         this.eventsModelList = eventsModelList;
         this.lang = context.getSharedPreferences("LANGUAGE_PREFERENCE", Context.MODE_PRIVATE);
         this.eventNS = context.getSharedPreferences("NOTIFICATION_SCHEDULE", Context.MODE_PRIVATE);
+        collages = context.getResources().getStringArray(R.array.colleges_names);
     }
 
     @NonNull
@@ -98,6 +101,13 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
         String eventsTime = eventsModel.getDate();
         String startEvent = eventsModel.getStart_date();
         holder.date.setText(getDifferenceDateTime(eventsTime, currTime));
+        String cat = eventsModel.getCategory();
+        if(!cat.equals("G")) {
+            int id = Integer.parseInt(cat);
+            holder.category.setText(collages[id]);
+        } else {
+            holder.category.setText(R.string.gene);
+        }
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy h:mm a", Locale.ENGLISH);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH);
         try {

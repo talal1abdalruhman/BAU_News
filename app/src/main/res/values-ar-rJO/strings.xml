@@ -376,5 +376,16 @@
     <string name="finished">انتهى</string>
     <string name="no_internet_connection">لا يوجد اتصال بالانترنت!</string>
     <string name="close">اغلاق</string>
+    <string name="admins_management">إدارة المسؤولين</string>
+    <string name="add_admin">إضافة مسؤول</string>
+    <string name="manage_admins">إدارة المسؤولين</string>
+    <string name="admin_email">البريد الالكتروني</string>
+    <string name="choose">اختر..</string>
+    <string name="gene">عام</string>
+    <string name="send_via_email">ارسال بواسطة البريد الالكتروني</string>
+    <string name="admin_password">كلمة المرور: </string>
+    <string name="admin_category">القسم: </string>
+    <string name="email_already_used">البريد الالكتروني مستخدم.</string>
+    <string name="send_via_sms">ارسال بواسطة SMS</string>
 
 </resources>

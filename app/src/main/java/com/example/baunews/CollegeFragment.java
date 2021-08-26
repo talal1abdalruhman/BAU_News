@@ -46,7 +46,7 @@ public class CollegeFragment extends Fragment {
     private NewsAdapter adapter;
     private FragmentCollegeBinding binding;
     public NewsViewModel newsViewModel;
-
+    String admin;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -63,7 +63,7 @@ public class CollegeFragment extends Fragment {
 
         newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
         newsViewModel.init2();
-        adapter = new NewsAdapter(getContext(), newsViewModel.getData2().getValue());
+        adapter = new NewsAdapter(getContext(), newsViewModel.getData2().getValue(), admin);
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
         binding.recyclerView.setLayoutManager(layoutManager);
@@ -76,7 +76,7 @@ public class CollegeFragment extends Fragment {
             @Override
             public void onChanged(ArrayList<NewsModel> newsModels) {
                 Log.d("DataTracing", "GeneralFragment: ");
-                adapter = new NewsAdapter(getContext(), newsModels);
+                adapter = new NewsAdapter(getContext(), newsModels, admin);
                 binding.recyclerView.setAdapter(adapter);
 
             }
@@ -129,6 +129,11 @@ public class CollegeFragment extends Fragment {
                         if (snapshot.exists()) {
                             if (snapshot.getValue(String.class).equals("C")) {
                                 binding.floatingActionButton.setVisibility(View.VISIBLE);
+                                admin = "C";
+                            }else if(snapshot.getValue(String.class).equals("G")){
+                                admin = "G";
+                            }else {
+                                admin = "N";
                             }
                         }
                     }
