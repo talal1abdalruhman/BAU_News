@@ -387,5 +387,7 @@
     <string name="admin_category">القسم: </string>
     <string name="email_already_used">البريد الالكتروني مستخدم.</string>
     <string name="send_via_sms">ارسال بواسطة SMS</string>
+    <string name="remove">إزالة</string>
+    <string name="you_are_going_to_remove_this_email_from_admin_list_are_you_sure">أنت على وشك إزالة هذا البريد الإلكتروني من قائمة المسؤولين، هل انت متأكد ؟</string>
 
 </resources>

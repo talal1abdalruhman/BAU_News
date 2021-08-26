@@ -1,13 +1,14 @@
 package com.example.baunews.Models;
 
 public class UserModel {
-    String email, password, collage, collageId, admin;
+    String id, email, password, collage, collageId, admin;
     String device_token;
 
     public UserModel() {
     }
 
-    public UserModel(String email, String password, String collage, String collageId, String admin) {
+    public UserModel(String id, String email, String password, String collage, String collageId, String admin) {
+        this.id = id;
         this.email = email;
         this.password = password;
         this.collage = collage;
@@ -15,13 +16,22 @@ public class UserModel {
         this.admin = admin;
     }
 
-    public UserModel(String email, String password, String collage, String collageId, String device_token, String admin) {
+    public UserModel(String id, String email, String password, String collage, String collageId, String device_token, String admin) {
+        this.id = id;
         this.email = email;
         this.password = password;
         this.collage = collage;
         this.collageId = collageId;
         this.device_token = device_token;
         this.admin = admin;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getAdmin() {

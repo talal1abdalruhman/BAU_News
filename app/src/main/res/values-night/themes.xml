@@ -16,7 +16,7 @@
         <item name="fragment_background">#32363d</item>
         <item name="toolbar_background">#191a1c</item>
         <item name="FAB_color">#052b07</item>
-        <item name="text_color">@color/offWhite</item>
+        <item name="text_color">@color/white</item>
         <item name="text_color_hint">@color/offWhite</item>
         <item name="dialog_bg">#32363d</item>
         <item name="item_background">@color/black</item>

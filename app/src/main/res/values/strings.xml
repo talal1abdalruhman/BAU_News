@@ -302,6 +302,8 @@ The introduction of the Faculty of Law to the BAU family in 2019 comes in respon
     <string name="admin_category">Category: </string>
     <string name="email_already_used">Email already used</string>
     <string name="send_via_sms">Send Via SMS</string>
+    <string name="remove">Remove</string>
+    <string name="you_are_going_to_remove_this_email_from_admin_list_are_you_sure">You are going to remove this email from admin list, are you sure ?</string>
     <string-array name="colleges_names">
         <item>Medicine</item>
         <item>Engineering</item>

@@ -13,6 +13,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.transition.Transition;
+import android.transition.TransitionValues;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
