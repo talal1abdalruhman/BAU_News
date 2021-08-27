@@ -136,6 +136,8 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
                     } else {
+                        binding.loadingAnim.setVisibility(View.GONE);
+                        binding.login.animate().scaleX(1).scaleY(1).setDuration(300);
                         dialog.show();
                     }
                 } else {

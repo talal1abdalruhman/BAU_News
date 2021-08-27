@@ -272,8 +272,6 @@ public class AddAdminFragment extends Fragment {
             dialog.dismiss();
         });
 
-        dialog.setCancelable(false);
-
         dialog.show();
     }
 

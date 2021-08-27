@@ -304,6 +304,13 @@ The introduction of the Faculty of Law to the BAU family in 2019 comes in respon
     <string name="send_via_sms">Send Via SMS</string>
     <string name="remove">Remove</string>
     <string name="you_are_going_to_remove_this_email_from_admin_list_are_you_sure">You are going to remove this email from admin list, are you sure ?</string>
+    <string name="change_password">Change Password</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="current_password">Current Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="delete_my_account">Delete My Account</string>
+    <string name="confirm">Confirm</string>
     <string-array name="colleges_names">
         <item>Medicine</item>
         <item>Engineering</item>

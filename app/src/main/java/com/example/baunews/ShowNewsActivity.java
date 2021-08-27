@@ -259,8 +259,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
         newsKey = getIntent().getStringExtra("news_id");
         newsCategory = getIntent().getStringExtra("category");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        database.getReference("news").child(newsCategory)
-                .child(newsKey).addValueEventListener(new ValueEventListener() {
+        database.getReference("news").child(newsKey).addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -485,7 +484,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        mRef = database.getReference("news").child(newsCategory).child(newsKey);
+        mRef = database.getReference("news").child(newsKey);
 
         if (isPdfEdited && PdfUri != null) {
             mStorageRef = storage.getInstance().getReference().child("pdfs").child(newsModel.getPdfName() + ".pdf");
@@ -677,7 +676,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
         progressDialog.setTitle("News Delete..");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        mRef = database.getReference("news").child(newsCategory).child(newsKey);
+        mRef = database.getReference("news").child(newsKey);
         if (!newsModel.getPdf().equals("null")) {
             mStorageRef = storage.getInstance().getReference().child("pdfs").child(newsModel.getPdfName() + ".pdf");
             mStorageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {

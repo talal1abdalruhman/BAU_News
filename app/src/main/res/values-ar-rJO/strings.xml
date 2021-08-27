@@ -389,5 +389,12 @@
     <string name="send_via_sms">ارسال بواسطة SMS</string>
     <string name="remove">إزالة</string>
     <string name="you_are_going_to_remove_this_email_from_admin_list_are_you_sure">أنت على وشك إزالة هذا البريد الإلكتروني من قائمة المسؤولين، هل انت متأكد ؟</string>
+    <string name="change_password">إعادة تعيين كلمة المرور</string>
+    <string name="save_changes">حفظ التغييرات</string>
+    <string name="current_password">كلمة المرور الحالية</string>
+    <string name="new_password">كلمة المرور الجديدة</string>
+    <string name="confirm_new_password">تأكيد كلمة المرور الجديدة</string>
+    <string name="delete_my_account">حذف الحساب</string>
+    <string name="confirm">تأكيد</string>
 
 </resources>

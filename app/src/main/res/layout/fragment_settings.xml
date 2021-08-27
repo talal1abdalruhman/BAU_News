@@ -31,6 +31,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/language"
                 android:textSize="@dimen/_16ssp"
+                android:fontFamily="@font/medium"
                 android:layout_centerVertical="true"
                 android:textColor="?attr/colorOnPrimary"
                 android:layout_marginStart="@dimen/_10sdp"
@@ -91,6 +92,7 @@
                 android:textSize="@dimen/_16ssp"
                 android:textColor="?attr/colorOnPrimary"
                 android:layout_centerVertical="true"
+                android:fontFamily="@font/medium"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_alignParentStart="true"/>
@@ -104,6 +106,84 @@
                 android:layout_alignParentEnd="true"
                 />
         </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/change_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginLeft="@dimen/_4sdp"
+            android:layout_marginRight="@dimen/_4sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:clickable="true"
+            android:paddingBottom="@dimen/_10sdp"
+            android:background="@drawable/settings_bg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/theme"
+            android:layout_marginTop="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/change_password"
+                android:textSize="@dimen/_16ssp"
+                android:fontFamily="@font/medium"
+                android:textColor="?attr/colorOnPrimary"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_alignParentStart="true"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_forward"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/delete_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginLeft="@dimen/_4sdp"
+            android:layout_marginRight="@dimen/_4sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:clickable="true"
+            android:paddingBottom="@dimen/_10sdp"
+            android:background="@drawable/settings_bg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/change_pass"
+            android:layout_marginTop="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_my_account"
+                android:textSize="@dimen/_16ssp"
+                android:fontFamily="@font/medium"
+                android:textColor="?attr/colorOnPrimary"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_alignParentStart="true"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_delete"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:padding="@dimen/_4sdp"
+                android:background="@drawable/background_delete"
+                app:tint="@color/white" />
+        </RelativeLayout>
+
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
