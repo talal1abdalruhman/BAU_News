@@ -23,7 +23,7 @@
                 android:id="@+id/collapsing"
                 android:fitsSystemWindows="true"
                 app:contentScrim="?toolbar_background"
-                app:expandedTitleMarginStart="@dimen/_2sdp"
+
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlwaysCollapsed"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 android:layout_width="match_parent"

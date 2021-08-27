@@ -40,7 +40,7 @@
         <item>الهندسة</item>
         <item>الاتصالات وتكنولوجيا المعلومات</item>
         <item>العلوم</item>
-        <item>الزراعة التكنلوجية</item>
+        <item>الزراعة التكنولوجية</item>
         <item>الأعمال</item>
         <item>السلط للعلوم الإنسانية</item>
         <item>السلط التقنية</item>
@@ -53,7 +53,7 @@
         <item>الهندسة</item>
         <item>الاتصالات وتكنولوجيا المعلومات</item>
         <item>العلوم</item>
-        <item>الزراعة التكنلوجية</item>
+        <item>الزراعة التكنولوجية</item>
         <item>الأعمال</item>
         <item>السلط للعلوم الإنسانية</item>
         <item>السلط التقنية</item>
@@ -340,6 +340,7 @@
 
 
     </string>
+    <string name="it_college">الأمير عبدالله بن غازي للاتصالات والمعلومات</string>
     <string name="about_bau_university">حول جامعة البلقاء</string>
     <string name="the_royal_decree_letter">الرسالة الملكية</string>
     <string name="the_prepresident_s_letter">رسالة رئيس الجامعة</string>
@@ -347,12 +348,12 @@
     <string name="colleges">الكليات</string>
     <string name="engineering">الهندسة</string>
     <string name="medicine">الطب</string>
-    <string name="it">تكنولوجيا المعلومات</string>
-    <string name="science">العلوم</string>
-    <string name="agricultural">الزراعة</string>
+    <string name="it">الأمير عبدالله بن غازي\nللاتصالات المعلومات</string>
+    <string name="science">العلوم\n</string>
+    <string name="agricultural">الزراعة التكنولوجية</string>
     <string name="business">الاعمال</string>
     <string name="human_sciences">العلوم الإنسانية</string>
-    <string name="technical_collage"> \ \ \ \ \السلط التقنية \ \ \ \ \</string>
+    <string name="technical_collage"> \ \ \ \ \ \ \السلط التقنية \ \ \ \ \ \ \ </string>
     <string name="artifical_intelligence">الذكاء الاصطناعي</string>
     <string name="law_collage">الحقوق</string>
     <string name="enter_your_email_address">ادخل بريدك الإلكتروني:</string>
