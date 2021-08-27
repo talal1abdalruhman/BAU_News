@@ -254,15 +254,17 @@ The introduction of the Faculty of Law to the BAU family in 2019 comes in respon
 
     <string name="the_royal_decree_letter">The Royal Decree Letter</string>
 
+    <string name="it_college">prince Abdullah bin ghazi for ICT</string>
+
     <string name="the_prepresident_s_letter">The prepresident\'s Letter</string>
     <string name="vision">Vision</string>
     <string name="colleges">Colleges</string>
     <string name="engineering">Engineering</string>
     <string name="medicine">medicine</string>
-    <string name="it">IT</string>
-    <string name="science">Science</string>
-    <string name="agricultural">Agricultural</string>
-    <string name="business">Business</string>
+    <string name="it">Prince Abdullah bin\n Ghazi Faculty of ICT</string>
+    <string name="science">Science\n</string>
+    <string name="agricultural">Technological\nAgriculture</string>
+    <string name="business">Business\n</string>
     <string name="human_sciences">Human Sciences</string>
     <string name="technical_collage">\ \ Technical Collage\ \ </string>
     <string name="artifical_intelligence">Artificial Intelligence</string>

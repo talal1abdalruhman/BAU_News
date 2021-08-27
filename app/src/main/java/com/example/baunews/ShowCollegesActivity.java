@@ -66,7 +66,7 @@ public class ShowCollegesActivity extends AppCompatActivity {
                 GetInfoToShow(R.string.medicine, R.drawable.medicine, R.string.midicine_descripton);
                 break;
             case 3:
-                GetInfoToShow(R.string.it, R.drawable.it, R.string.it_descripton);
+                GetInfoToShow(R.string.it_college, R.drawable.it, R.string.it_descripton);
                 break;
             case 4:
                 GetInfoToShow(R.string.science, R.drawable.science, R.string.Science_descripton);
