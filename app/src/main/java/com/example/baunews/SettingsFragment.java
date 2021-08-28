@@ -283,14 +283,15 @@ public class SettingsFragment extends Fragment {
         cancel.setOnClickListener(v -> {
             dialog.dismiss();
         });
-
         confirm.setOnClickListener(v -> {
             password.setErrorEnabled(false);
             password.setError(null);
             String passTxt = password.getEditText().getText().toString().trim();
-            Validation validation = new Validation(getResources());
-            if (!validation.validatePassword(password))
+            if (passTxt.isEmpty()) {
+                password.setErrorEnabled(true);
+                password.setError(getResources().getString(R.string.field_cannot_be_empty));
                 return;
+            }
             DeleteAccount(passTxt);
         });
 
@@ -307,45 +308,45 @@ public class SettingsFragment extends Fragment {
             password.getEditText().setEnabled(false);
             AuthCredential credential = EmailAuthProvider.getCredential(currentUser.getEmail(), passTxt);
             DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users");
-            userRef.child(uid).setValue(null).addOnCompleteListener(task2 -> {
-                if (task2.isSuccessful()) {
+            currentUser.reauthenticate(credential).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
                     Log.d("DELETE_ACCOUNT", "DeleteAccount: success 1");
-                    currentUser.reauthenticate(credential).addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
+                    userRef.child(uid).setValue(null).addOnCompleteListener(task2 -> {
+                        if (task2.isSuccessful()) {
                             Log.d("DELETE_ACCOUNT", "DeleteAccount: success 2");
-                            currentUser.delete()
-                                    .addOnCompleteListener(task1 -> {
-                                        if (task1.isSuccessful()) {
-                                            Log.d("DELETE_ACCOUNT", "DeleteAccount: success 3");
-                                            dialog.dismiss();
-                                            Intent intent = new Intent(getActivity(), LoginActivity.class);
-                                            startActivity(intent);
-                                            getActivity().finish();
-                                        } else {
-                                            Log.d("DELETE_ACCOUNT", "DeleteAccount: un-success 3");
-                                        }
-                                    });
-                        } else if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                            password.setError(getResources().getString(R.string.incorrect_password));
-                            password.setErrorEnabled(true);
-                            password.getEditText().setEnabled(true);
-                            password.getEditText().setEnabled(true);
-                            loadAnim.setVisibility(View.GONE);
-                            confirm.setVisibility(View.VISIBLE);
-                            cancel.setVisibility(View.VISIBLE);
+                            currentUser.delete().addOnCompleteListener(task1 -> {
+                                if (task1.isSuccessful()) {
+                                    Log.d("DELETE_ACCOUNT", "DeleteAccount: success 3");
+                                    dialog.dismiss();
+                                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                                    startActivity(intent);
+                                    getActivity().finish();
+                                } else {
+                                    Log.d("DELETE_ACCOUNT", "DeleteAccount: un-success 3");
+                                }
+                            });
                         } else {
                             Log.d("DELETE_ACCOUNT", "DeleteAccount: un-success 2");
-                            Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                            password.getEditText().setEnabled(true);
-                            loadAnim.setVisibility(View.GONE);
-                            confirm.setVisibility(View.VISIBLE);
-                            cancel.setVisibility(View.VISIBLE);
                         }
                     });
+                } else if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                    password.setError(getResources().getString(R.string.incorrect_password));
+                    password.setErrorEnabled(true);
+                    password.getEditText().setEnabled(true);
+                    password.getEditText().setEnabled(true);
+                    loadAnim.setVisibility(View.GONE);
+                    confirm.setVisibility(View.VISIBLE);
+                    cancel.setVisibility(View.VISIBLE);
                 } else {
                     Log.d("DELETE_ACCOUNT", "DeleteAccount: un-success 1");
+                    Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    password.getEditText().setEnabled(true);
+                    loadAnim.setVisibility(View.GONE);
+                    confirm.setVisibility(View.VISIBLE);
+                    cancel.setVisibility(View.VISIBLE);
                 }
             });
+
 
         }
     }

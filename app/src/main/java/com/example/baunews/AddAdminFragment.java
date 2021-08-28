@@ -75,21 +75,6 @@ public class AddAdminFragment extends Fragment {
 
         collages = getResources().getStringArray(R.array.colleges_names);
         validation = new Validation(getResources());
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance();
-        mDatabaseReference = mDatabase.getReference().child("users");
-
-        FirebaseOptions firebaseOptions = new FirebaseOptions.Builder()
-                .setDatabaseUrl("[https://bau-news-default-rtdb.firebaseio.com/]")
-                .setApiKey("AIzaSyBbsZYhI41EVkG8RCkv9rACb036t-cAZ4w")
-                .setApplicationId("bau-news").build();
-
-        try {
-            FirebaseApp myApp = FirebaseApp.initializeApp(getActivity().getApplicationContext(), firebaseOptions, "BAU News");
-            mAuth2 = FirebaseAuth.getInstance(myApp);
-        } catch (IllegalStateException e){
-            mAuth2 = FirebaseAuth.getInstance(FirebaseApp.getInstance("BAU News"));
-        }
 
         binding.addAdmin.setOnClickListener(v -> {
             RegisterAdmin();
@@ -152,6 +137,22 @@ public class AddAdminFragment extends Fragment {
                 true, true,
                 true);
         password = passwordGenerator.generatePassword();
+
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance();
+        mDatabaseReference = mDatabase.getReference().child("users");
+
+        FirebaseOptions firebaseOptions = new FirebaseOptions.Builder()
+                .setDatabaseUrl("[https://bau-news-default-rtdb.firebaseio.com/]")
+                .setApiKey("AIzaSyBbsZYhI41EVkG8RCkv9rACb036t-cAZ4w")
+                .setApplicationId("bau-news").build();
+
+        try {
+            FirebaseApp myApp = FirebaseApp.initializeApp(getActivity().getApplicationContext(), firebaseOptions, "BAU News");
+            mAuth2 = FirebaseAuth.getInstance(myApp);
+        } catch (IllegalStateException e) {
+            mAuth2 = FirebaseAuth.getInstance(FirebaseApp.getInstance("BAU News"));
+        }
 
 
         if (!validation.validateEmail(binding.email)
