@@ -830,7 +830,7 @@ public class ShowPressKitActivity extends AppCompatActivity implements View.OnCl
         newsModel.setCategory(category);
         newsModel.setResourceName(pressKitModel.getResourceName());
         newsModel.setResourceLink(pressKitModel.getResourceLink());
-        mRef = database.getReference("news").child(category);
+        mRef = database.getReference("news");
         DatabaseReference newsRef = mRef.push();
         String newsKey = newsRef.getKey();
         newsModel.setId(newsKey);

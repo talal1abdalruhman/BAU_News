@@ -91,6 +91,7 @@
                         android:enabled="false"
                         android:fontFamily="@font/bold"
                         android:hint="@string/title"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:inputType="text|textMultiLine"
                         android:textColor="?attr/text_color"
                         android:textColorHint="?attr/text_color_hint"
