@@ -21,6 +21,7 @@
             <item
                 android:title="@string/press_kit"
                 android:checkable="true"
+                android:visible="false"
                 android:id="@+id/press_kit_news"
                 android:icon="@drawable/ic_folder"/>
         </menu>
@@ -30,6 +31,7 @@
             android:title="@string/admins_management"
             android:id="@+id/admins_management"
             android:checkable="true"
+            android:visible="false"
             android:icon="@drawable/ic_admin_manage"/>
         <item
             android:title="@string/bau_about"

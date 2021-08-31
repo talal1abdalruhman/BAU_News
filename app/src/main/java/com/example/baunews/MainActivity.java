@@ -184,11 +184,11 @@ public class MainActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         String admin = snapshot.getValue(String.class);
                         if (snapshot.exists()) {
-                            if (!(admin.equals("G") || admin.equals("C"))) {
-                                binding.navigationView.getMenu().findItem(R.id.press_kit_news).setVisible(false);
-                                binding.navigationView.getMenu().findItem(R.id.admins_management).setVisible(false);
-                            } else if (!admin.equals("G")) {
-                                binding.navigationView.getMenu().findItem(R.id.admins_management).setVisible(false);
+                            if (admin.equals("G")) {
+                                binding.navigationView.getMenu().findItem(R.id.press_kit_news).setVisible(true);
+                                binding.navigationView.getMenu().findItem(R.id.admins_management).setVisible(true);
+                            } else if (admin.equals("C")) {
+                                binding.navigationView.getMenu().findItem(R.id.press_kit_news).setVisible(true);
                             }
                         }
                     }
